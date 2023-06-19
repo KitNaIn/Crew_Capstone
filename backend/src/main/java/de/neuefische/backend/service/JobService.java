@@ -1,5 +1,6 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.dto.JobDto;
 import de.neuefische.backend.model.Job;
 import de.neuefische.backend.repo.JobRepo;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,18 @@ public class JobService {
 
         jobRepo.save(newJob);
         return findAll();
+    }
+    public Job convertToJobEntity(JobDto jobDto) {
+        return Job.builder()
+                .jobFormat(jobDto.getJobFormat())
+                .issuer(jobDto.getIssuer())
+                .contactPerson(jobDto.getContactPerson())
+                .jobAddress(jobDto.getJobAddress())
+                .jobDate(jobDto.getJobDate())
+                .startTime(jobDto.getStartTime())
+                .endTime(jobDto.getEndTime())
+                .jobComment(jobDto.getJobComment())
+                .build();
     }
 
     public List<Job> getAllJobsSortedByDateTime() {

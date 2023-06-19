@@ -1,5 +1,6 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.dto.JobDto;
 import de.neuefische.backend.model.Job;
 import de.neuefische.backend.repo.JobRepo;
 import de.neuefische.backend.service.JobService;
@@ -32,12 +33,13 @@ public class JobController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Job> saveJob(@RequestBody Job job){
+    public List<Job> saveJob(@RequestBody JobDto jobDto){
+        Job job = jobService.convertToJobEntity(jobDto);
         return jobService.save(job);
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<?> updateJobStatus(@PathVariable String id, @RequestBody String status) {
+    public ResponseEntity<Void> updateJobStatus(@PathVariable String id, @RequestBody String status) {
         try {
             Job job = jobRepo.findById(id)
                     .orElseThrow(ChangeSetPersister.NotFoundException::new);
@@ -52,7 +54,7 @@ public class JobController {
         }
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteJob(@PathVariable String id) {
+    public ResponseEntity<Void> deleteJob(@PathVariable String id) {
         try {
             jobRepo.deleteById(id);
             return ResponseEntity.ok().build();
