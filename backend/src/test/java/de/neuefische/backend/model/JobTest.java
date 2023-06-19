@@ -1,12 +1,13 @@
 package de.neuefische.backend.model;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class JobTest {
 
     @Test
@@ -24,7 +25,6 @@ class JobTest {
         String jobComment = "Test Comment";
 
         Job job = new Job(uuid, jobFormat, issuer, contactPerson, jobAddress, jobDate, startTime, endTime, status, jobComment);
-
         // WHEN
         assertEquals(uuid, job.getUuid());
         assertEquals(jobFormat, job.getJobFormat());
@@ -36,7 +36,6 @@ class JobTest {
         assertEquals(endTime, job.getEndTime());
         assertEquals(status, job.getStatus());
         assertEquals(jobComment, job.getJobComment());
-
         // THEN
         String newUuid = "54321";
         job.setUuid(newUuid);
@@ -77,6 +76,22 @@ class JobTest {
         String newJobComment = "New Comment";
         job.setJobComment(newJobComment);
         assertEquals(newJobComment, job.getJobComment());
+    }
+    @Test
+    public void testNoArgsConstructor() {
+        //GIVEN
+        Job job = new Job();
+        //THEN
+        assertEquals(null, job.getJobDate());
+    }
+    @Test
+    public void testNoArgsConstructorSetter() {
+        //GIVEN
+        Job job = new Job();
+        //WHEN
+        job.setIssuer("Issuer");
+        //THEN
+        assertEquals("Issuer", job.getIssuer());
     }
 
 
