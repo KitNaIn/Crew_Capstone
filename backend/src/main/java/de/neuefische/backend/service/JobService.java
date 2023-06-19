@@ -17,6 +17,7 @@ public class JobService {
         return jobRepo.findAll();
     }
     public List<Job> save(Job job) {
+
         Job newJob = Job.builder()
                 .uuid(generateUUIDService.generateUUID())
                 .jobFormat(job.getJobFormat())
