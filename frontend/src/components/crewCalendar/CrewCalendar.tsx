@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './CrewCalendar.css';
 import getCalendarDays from "./getCalendarDays";
+import useCalendarEvent from "./useCalendar";
+
+
+interface CalendarEvent {
+    id: number;
+    title: string;
+}
 
 function CustomCalendar() {
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState<Date>(new Date());
     const today = new Date();
+    const [calendarEvent, fetchCalendarEvent] = useCalendarEvent();
     today.setHours(0, 0, 0, 0);
+
+    useEffect(() => {
+        fetchCalendarEvent();
+    }, [fetchCalendarEvent]);
 
     const handlePrevMonth = () => {
         const prevMonth = new Date(date.getFullYear(), date.getMonth() - 1);
@@ -16,14 +28,14 @@ function CustomCalendar() {
         const nextMonth = new Date(date.getFullYear(), date.getMonth() + 1);
         setDate(nextMonth);
     };
-    function isSameDay(date1: Date, date2: Date) {
+
+    const isSameDay = (date1: Date, date2: Date): boolean => {
         return (
             date1.getDate() === date2.getDate() &&
             date1.getMonth() === date2.getMonth() &&
             date1.getFullYear() === date2.getFullYear()
         );
-    }
-
+    };
 
     const handleDateClick = (day: Date | null) => {
         // Dummy function for handling date click
@@ -31,7 +43,7 @@ function CustomCalendar() {
     };
 
     // Dummy list of calendar events
-    const sortedEvents = [
+    const sortedEvents: CalendarEvent[] = [
         { id: 1, title: "Event 1" },
         { id: 2, title: "Event 2" },
         { id: 3, title: "Event 3" },
@@ -60,13 +72,13 @@ function CustomCalendar() {
                 </tr>
                 </thead>
                 <tbody>
-                {getCalendarDays(date).map((week, index) => (
-                    <tr key={index}>
-                        {week.map((day, index) => {
+                {getCalendarDays(date).map((week, weekIndex) => (
+                    <tr key={weekIndex}>
+                        {week.map((day, dayIndex) => {
                             const isCurrentDay = day && isSameDay(day, today);
                             return (
                                 <td
-                                    key={index}
+                                    key={`${weekIndex}-${dayIndex}`}
                                     className={`${isCurrentDay ? 'highlight' : ''}`}
                                     onClick={() => handleDateClick(day)}
                                 >
@@ -80,17 +92,15 @@ function CustomCalendar() {
             </table>
             <div className="EventList">
                 <h3>Termine</h3>
-                <div className="EventList">
-                    <ul>
-                        {sortedEvents.map((event, index) => (
-                            <li key={event.id}>
-                                <div>
-                                    <strong>Titel:</strong> {event.title}
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <ul>
+                    {sortedEvents.map((event) => (
+                        <li key={event.id}>
+                            <div>
+                                <strong>Titel:</strong> {event.title}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );

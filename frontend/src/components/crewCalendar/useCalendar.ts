@@ -24,4 +24,4 @@ const useCalendarEvent = () : useCalendarEventType => {
     };
     return [calendarEvent, fetchCalendarEvent]
 }
-export default useCalendarEvent();
+export default useCalendarEvent;
