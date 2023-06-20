@@ -2,6 +2,7 @@ package de.neuefische.backend.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.jayway.jsonpath.JsonPath;
 import de.neuefische.backend.model.Job;
 import de.neuefische.backend.service.GenerateUUIDService;
@@ -123,58 +124,55 @@ class JobControllerTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {
-                                    "jobFormat": "Format",
-                                    "issuer": "Issuer",
-                                    "contactPerson": "Contact Person",
-                                    "jobAddress": "Job Address",
-                                    "jobDate": "2023-06-14",
-                                    "startTime": "10:00:00",
-                                    "endTime": "12:00:00",
-                                    "status": null,
-                                    "jobComment": "Job Comment"
-                                }
-                            """))
+                            {
+                                "jobFormat": "Format",
+                                "issuer": "Issuer",
+                                "contactPerson": "Contact Person",
+                                "jobAddress": "Job Address",
+                                "jobDate": "2023-06-14",
+                                "startTime": "10:00:00",
+                                "endTime": "12:00:00",
+                                "status": null,
+                                "jobComment": "Job Comment"
+                            }
+                        """))
                 .andExpect(status().isCreated())
                 .andReturn();
         String content = result.getResponse().getContentAsString();
 
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         Job[] addedJobs = objectMapper.readValue(content, Job[].class);
         Job addedJob = addedJobs[0];
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/jobs/" + addedJob.getUuid())
+        String updatedJobJson = """
+        {
+            "jobFormat": "Updated Format",
+            "issuer": "Issuer",
+            "contactPerson": "Contact Person",
+            "jobAddress": "Job Address",
+            "jobDate": "2023-06-14",
+            "startTime": "10:00:00",
+            "endTime": "12:00:00",
+            "status": null,
+            "jobComment": "Job Comment"
+        }
+    """;
+
+        MvcResult updateResult = mockMvc.perform(MockMvcRequestBuilders.put("/api/jobs/" + addedJob.getUuid())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-            {
-                                    "jobFormat": "Updated Format",
-                                    "issuer": "Issuer",
-                                    "contactPerson": "Contact Person",
-                                    "jobAddress": "Job Address",
-                                    "jobDate": "2023-06-14",
-                                    "startTime": "10:00:00",
-                                    "endTime": "12:00:00",
-                                    "status": null,
-                                    "jobComment": "Job Comment"
-                                }
-                            """))
-                .andExpect(status().isOk());
+                        .content(updatedJobJson))
+                .andExpect(status().isOk())
+                .andReturn();
+        String updatedContent = updateResult.getResponse().getContentAsString();
+
+        Job updatedJob = objectMapper.readValue(updatedContent, Job.class);
+
         mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/" + addedJob.getUuid()))
                 .andExpect(status().isOk())
-                .andExpect(content().json("""
- {
-                                    "jobFormat": "Updated Format",
-                                    "issuer": "Issuer",
-                                    "contactPerson": "Contact Person",
-                                    "jobAddress": "Job Address",
-                                    "jobDate": "2023-06-14",
-                                    "startTime": "10:00:00",
-                                    "endTime": "12:00:00",
-                                    "status": null,
-                                    "jobComment": "Job Comment"
-                                }
-                    """));
+                .andExpect(content().json(updatedJobJson));
     }
+
 
 
 

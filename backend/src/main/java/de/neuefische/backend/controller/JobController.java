@@ -32,8 +32,13 @@ public class JobController {
     public List<Job> getAllJobsSortedByDateTime() {
         return jobService.getAllJobsSortedByDateTime();
     }
+    @GetMapping("/{id}")
+    public Job getJobById(@PathVariable String id) {
+        return jobService.findJobById(id);
+    }
 
-    @PutMapping("{id}")
+
+    @PutMapping("/{id}")
     public Job updateJob(@PathVariable String id, @RequestBody JobDto job) {
             Job updatedJob = Job.builder()
                     .jobFormat(job.getJobFormat())
