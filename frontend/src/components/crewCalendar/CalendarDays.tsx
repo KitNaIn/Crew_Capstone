@@ -22,7 +22,7 @@ function CalendarDays({ date, today, handleDateClick }: CalendarDaysProps) {
     return (
         <tr>
             {calendarDays.map((week, weekIndex) => (
-                // eslint-disable-next-line react-hooks/exhaustive-deps
+                // eslint-disable-next-line
                 <React.Fragment key={`week-${weekIndex}`}>
                     {week.map((day, dayIndex) => {
                         const isCurrentDay = day && isSameDay(day, today);
