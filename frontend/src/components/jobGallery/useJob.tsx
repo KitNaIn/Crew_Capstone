@@ -2,19 +2,22 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Jobs } from './model/Jobs';
 
-const useJobs = (): [Jobs[], () => void] => {
+type UseJobsReturnType = [Jobs[], () => void];
+
+const useJobs = (): UseJobsReturnType => {
     const [jobs, setJobs] = useState<Jobs[]>([]);
 
-    const fetchJobs = async () => {
+    const fetchJobs = () => {
         const url = '/api/jobs';
-
-        try {
-            const response = await axios.get(url);
-            setJobs(response.data);
-        } catch (error) {
-            console.error('Error fetching Jobs', error);
-            setJobs([]);
-        }
+        axios
+            .get(url)
+            .then((response) => {
+                setJobs(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching Jobs', error);
+                setJobs([]);
+            });
     };
 
     return [jobs, fetchJobs];
