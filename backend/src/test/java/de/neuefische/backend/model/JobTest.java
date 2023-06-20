@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JobTest {
 
     @Test
-    public void testJobModel() {
+    void testJobModel() {
        //GIVEN
         String uuid = "12345";
         String jobFormat = "Test Format";
@@ -78,14 +78,14 @@ class JobTest {
         assertEquals(newJobComment, job.getJobComment());
     }
     @Test
-    public void testNoArgsConstructor() {
+    void testNoArgsConstructor() {
         //GIVEN
         Job job = new Job();
         //THEN
         assertEquals(null, job.getJobDate());
     }
     @Test
-    public void testNoArgsConstructorSetter() {
+    void testNoArgsConstructorSetter() {
         //GIVEN
         Job job = new Job();
         //WHEN
@@ -93,6 +93,5 @@ class JobTest {
         //THEN
         assertEquals("Issuer", job.getIssuer());
     }
-
 
 }

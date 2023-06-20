@@ -48,16 +48,4 @@ public class JobService {
                 .build();
     }
 
-    public List<Job> getAllJobsSortedByDateTime() {
-        List<Job> allJobs = jobRepo.findAll();
-        allJobs.sort((job1, job2) -> {
-            int dateComparison = job1.getJobDate().compareTo(job2.getJobDate());
-            if (dateComparison == 0) {
-                return job1.getStartTime().compareTo(job2.getStartTime());
-            }
-            return dateComparison;
-        });
-        return allJobs;
-    }
-
 }

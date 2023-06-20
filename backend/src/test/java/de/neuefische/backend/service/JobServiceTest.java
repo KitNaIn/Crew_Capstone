@@ -59,11 +59,9 @@ class JobServiceTest {
         List<Job> sampleJobs = new ArrayList<>();
         sampleJobs.add(job1);
         sampleJobs.add(job2);
-
         // WHEN
         Mockito.when(jobRepo.findAll()).thenReturn(sampleJobs);
         List<Job> result = jobService.findAll();
-
         // THEN
         assertEquals(2, result.size());
         assertTrue(result.contains(job1));
@@ -106,7 +104,6 @@ class JobServiceTest {
 
         // WHEN
         List<Job> result = jobService.save(inputJob);
-
         // THEN
         assertEquals(1, result.size());
         assertTrue(result.contains(generatedJob));
@@ -198,45 +195,6 @@ class JobServiceTest {
         assertEquals("", result.getJobComment());
     }
 
-    @Test
-    void getAllJobsSortedByDateTimeShouldReturnSortedJobs() {
-        // GIVEN
-        Job job1 = Job.builder()
-                .uuid("1")
-                .jobDate(LocalDate.of(2023, 6, 1))
-                .startTime(LocalTime.of(10, 0))
-                .build();
-        Job job2 = Job.builder()
-                .uuid("2")
-                .jobDate(LocalDate.of(2023, 6, 1))
-                .startTime(LocalTime.of(12, 0))
-                .build();
-        Job job3 = Job.builder()
-                .uuid("3")
-                .jobDate(LocalDate.of(2023, 6, 2))
-                .startTime(LocalTime.of(9, 0))
-                .build();
-        Job job4 = Job.builder()
-                .uuid("4")
-                .jobDate(LocalDate.of(2023, 6, 2))
-                .startTime(LocalTime.of(11, 0))
-                .build();
-        List<Job> sampleJobs = new ArrayList<>();
-        sampleJobs.add(job4);
-        sampleJobs.add(job2);
-        sampleJobs.add(job3);
-        sampleJobs.add(job1);
 
-        // WHEN
-        Mockito.when(jobRepo.findAll()).thenReturn(sampleJobs);
-        List<Job> result = jobService.getAllJobsSortedByDateTime();
-
-        // THEN
-        assertEquals(4, result.size());
-        assertEquals(job1, result.get(0));
-        assertEquals(job2, result.get(1));
-        assertEquals(job3, result.get(2));
-        assertEquals(job4, result.get(3));
-    }
 
 }
