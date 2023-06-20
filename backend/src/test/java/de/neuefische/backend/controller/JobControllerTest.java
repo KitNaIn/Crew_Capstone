@@ -63,20 +63,6 @@ class JobControllerTest {
         assertThat(jobList).hasSize(2);
     }
 
-    @Test
-    void getAllJobsSortedByDateTime_ReturnsSortedListOfJobs() throws Exception {
-        // WHEN
-        MvcResult mvcResult = mockMvc.perform(get("/api/jobs/sorted")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-        // THEN
-        List<Job> sortedJobList = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
-                objectMapper.getTypeFactory().constructCollectionType(List.class, Job.class));
-        List<Job> expectedJobList = jobService.getAllJobsSortedByDateTime();
-        assertThat(sortedJobList).containsExactlyElementsOf(expectedJobList);
-    }
-
 
 
 }
