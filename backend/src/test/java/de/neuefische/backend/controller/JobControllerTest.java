@@ -1,25 +1,20 @@
 package de.neuefische.backend.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.jayway.jsonpath.JsonPath;
 import de.neuefische.backend.model.Job;
-import de.neuefische.backend.service.GenerateUUIDService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.net.http.WebSocketHandshakeException;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -38,6 +33,7 @@ class JobControllerTest {
 
 
     @Test
+    @DirtiesContext
     void saveJob_ShouldReturnJobWithId_andStatusCode200() throws Exception {
         //GIVEN
         mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
@@ -82,6 +78,7 @@ class JobControllerTest {
 
 
     @Test
+    @DirtiesContext
     void getAllJobsSortedByDateTime_ShouldReturnSortedJobs_andStatusCode200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -120,7 +117,68 @@ class JobControllerTest {
     }
 
     @Test
+    @DirtiesContext
     void updateJob_ShouldReturn_UpdatedJob() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                        {
+                            "jobFormat": "Format",
+                            "issuer": "Issuer",
+                            "contactPerson": "Contact Person",
+                            "jobAddress": "Job Address",
+                            "jobDate": "2023-06-14",
+                            "startTime": "10:00:00",
+                            "endTime": "12:00:00",
+                            "status": null,
+                            "jobComment": "Job Comment"
+                        }
+                    """))
+                .andExpect(status().isCreated())
+                .andReturn();
+        String content = result.getResponse().getContentAsString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        Job[] addedJobs = objectMapper.readValue(content, Job[].class);
+        Job addedJob = addedJobs[0];
+
+        String updatedJobJson = """
+    {
+        "jobFormat": "Updated Format",
+        "issuer": "Issuer",
+        "contactPerson": "Contact Person",
+        "jobAddress": "Job Address",
+        "jobDate": "2023-06-14",
+        "startTime": "10:00:00",
+        "endTime": "12:00:00",
+        "status": null,
+        "jobComment": "Job Comment"
+    }
+    """;
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/jobs/" + addedJob.getUuid())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updatedJobJson))
+                .andExpect(status().isOk());
+
+        String updatedContent = mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/" + addedJob.getUuid()))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/" + addedJob.getUuid()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(updatedContent));
+    }
+
+
+
+
+    @Test
+    @DirtiesContext
+    void deleteJob() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -145,35 +203,12 @@ class JobControllerTest {
         Job[] addedJobs = objectMapper.readValue(content, Job[].class);
         Job addedJob = addedJobs[0];
 
-        String updatedJobJson = """
-        {
-            "jobFormat": "Updated Format",
-            "issuer": "Issuer",
-            "contactPerson": "Contact Person",
-            "jobAddress": "Job Address",
-            "jobDate": "2023-06-14",
-            "startTime": "10:00:00",
-            "endTime": "12:00:00",
-            "status": null,
-            "jobComment": "Job Comment"
-        }
-    """;
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/jobs/" + addedJob.getUuid()))
+                .andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs" + addedJob.getUuid()))
+                .andExpect(status().isNotFound());
 
-        MvcResult updateResult = mockMvc.perform(MockMvcRequestBuilders.put("/api/jobs/" + addedJob.getUuid())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(updatedJobJson))
-                .andExpect(status().isOk())
-                .andReturn();
-        String updatedContent = updateResult.getResponse().getContentAsString();
 
-        Job updatedJob = objectMapper.readValue(updatedContent, Job.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/" + addedJob.getUuid()))
-                .andExpect(status().isOk())
-                .andExpect(content().json(updatedJobJson));
     }
-
-
-
-
 }
