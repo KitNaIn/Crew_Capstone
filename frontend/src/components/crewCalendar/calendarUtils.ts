@@ -1,4 +1,4 @@
-function getCalendarDays(date: Date): (Date | null)[][] {
+function calendarUtils(date: Date): (Date | null)[][] {
     const year = date.getFullYear();
     const month = date.getMonth();
     const firstDay = new Date(year, month, 1);
@@ -28,4 +28,4 @@ function getCalendarDays(date: Date): (Date | null)[][] {
     return calendarDays;
 }
 
-export default getCalendarDays;
+export default calendarUtils;

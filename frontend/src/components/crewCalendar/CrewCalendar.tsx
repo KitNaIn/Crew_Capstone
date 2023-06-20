@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './CrewCalendar.css';
-import getCalendarDays from "./getCalendarDays";
 import useCalendarEvent from "./useCalendar";
+import CalendarDays from "./CalendarDays";
 
 
 function CustomCalendar() {
-    const [date, setDate] = useState<Date>(new Date());
+    const [date, setDate] = useState(new Date());
     const today = new Date();
     const [calendarEvent, fetchCalendarEvent] = useCalendarEvent();
     today.setHours(0, 0, 0, 0);
@@ -24,19 +24,10 @@ function CustomCalendar() {
         setDate(nextMonth);
     };
 
-    const isSameDay = (date1: Date, date2: Date): boolean => {
-        return (
-            date1.getDate() === date2.getDate() &&
-            date1.getMonth() === date2.getMonth() &&
-            date1.getFullYear() === date2.getFullYear()
-        );
-    };
-
-    const handleDateClick = (day: Date | null) => {
+    const handleDateClick = (day : Date | null) => {
         // Dummy function for handling date click
-        console.log("Clicked date:", day);
+        console.log('Clicked date:', day);
     };
-
 
     return (
         <div className="Calendar">
@@ -44,7 +35,9 @@ function CustomCalendar() {
             <br />
             <div className="CalendarNav">
                 <button onClick={handlePrevMonth}>Prev Month</button>
-                <span>{date.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+                <span>
+          {date.toLocaleString('default', { month: 'long', year: 'numeric' })}
+        </span>
                 <button onClick={handleNextMonth}>Next Month</button>
             </div>
             <br />
@@ -61,22 +54,11 @@ function CustomCalendar() {
                 </tr>
                 </thead>
                 <tbody>
-                {getCalendarDays(date).map((week, weekIndex) => (
-                    <tr key={`week-${weekIndex}`}>
-                        {week.map((day, dayIndex) => {
-                            const isCurrentDay = day && isSameDay(day, today);
-                            return (
-                                <td
-                                    key={`day-${weekIndex}-${dayIndex}`}
-                                    className={`${isCurrentDay ? 'highlight' : ''}`}
-                                    onClick={() => handleDateClick(day)}
-                                >
-                                    {day && day.getDate()}
-                                </td>
-                            );
-                        })}
-                    </tr>
-                ))}
+                <CalendarDays
+                    date={date}
+                    today={today}
+                    handleDateClick={handleDateClick}
+                />
                 </tbody>
             </table>
             <div className="EventList">
