@@ -4,11 +4,6 @@ import getCalendarDays from "./getCalendarDays";
 import useCalendarEvent from "./useCalendar";
 
 
-interface CalendarEvent {
-    id: number;
-    title: string;
-}
-
 function CustomCalendar() {
     const [date, setDate] = useState<Date>(new Date());
     const today = new Date();
@@ -42,12 +37,6 @@ function CustomCalendar() {
         console.log("Clicked date:", day);
     };
 
-    // Dummy list of calendar events
-    const sortedEvents: CalendarEvent[] = [
-        { id: 1, title: "Event 1" },
-        { id: 2, title: "Event 2" },
-        { id: 3, title: "Event 3" },
-    ];
 
     return (
         <div className="Calendar">
@@ -73,12 +62,12 @@ function CustomCalendar() {
                 </thead>
                 <tbody>
                 {getCalendarDays(date).map((week, weekIndex) => (
-                    <tr key={weekIndex}>
+                    <tr key={`week-${weekIndex}`}>
                         {week.map((day, dayIndex) => {
                             const isCurrentDay = day && isSameDay(day, today);
                             return (
                                 <td
-                                    key={`${weekIndex}-${dayIndex}`}
+                                    key={`day-${weekIndex}-${dayIndex}`}
                                     className={`${isCurrentDay ? 'highlight' : ''}`}
                                     onClick={() => handleDateClick(day)}
                                 >
@@ -93,8 +82,8 @@ function CustomCalendar() {
             <div className="EventList">
                 <h3>Termine</h3>
                 <ul>
-                    {sortedEvents.map((event) => (
-                        <li key={event.id}>
+                    {calendarEvent?.map((event) => (
+                        <li key={event.uuid}>
                             <div>
                                 <strong>Titel:</strong> {event.title}
                             </div>
