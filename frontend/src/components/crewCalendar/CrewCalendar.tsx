@@ -15,7 +15,7 @@ function CustomCalendar() {
 
     useEffect(() => {
         fetchCalendarEvent();
-    }, [fetchCalendarEvent]);
+    }, []);
 
     const [showModal, setShowModal] = useState(false);
     const [newEvent, setNewEvent] = useState<CalendarEvent>({
@@ -75,6 +75,7 @@ function CustomCalendar() {
         }
         return false;
     };
+
 
 
     return (

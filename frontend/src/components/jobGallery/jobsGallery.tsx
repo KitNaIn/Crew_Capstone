@@ -56,6 +56,7 @@ function JobsGallery() {
                     {jobs.map((currentJob) => (
                         <div key={currentJob.id} onClick={() => handleJobClick(currentJob)}>
                             <JobsEntry
+
                                 job={currentJob}
                                 selectedJobId={selectedJobId || null}
                                 selectedJobStatus={selectedJob?.status}

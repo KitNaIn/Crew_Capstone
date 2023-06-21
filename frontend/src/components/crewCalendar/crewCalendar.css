@@ -6,11 +6,24 @@
     display: flex;
     justify-content: space-around;
 }
+.highlight-current{
+background-color: lightskyblue;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+
+}
+.highlight-event{
+background-color: red;
+border-radius: 50%;
+    width: 15px;
+    height: 25px;
+}
 .CalendarThread th {
     text-align: center;
     padding: 10px;
     background-color: #f2f2f2;
-    width: 14.28%;
+
 }
 .CalendarThread th:first-child,
 .CalendarThread td:first-child {
@@ -31,30 +44,7 @@
 .CalendarWrapper td {
     text-align: center;
     padding: 10px;
-}
-.CalendarThread td.hasEvent {
-    background-color: yellow;
-}
 
-.CalendarThread td.hasEvent:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 0, 0.3);
-}
-
-.CalendarThread td:hover {
-    background-color: lightgray;
-}
-.CalendarWrapper .highlight {
-    background-color: lightskyblue;
-
-}
-.CalendarDay .isEventDate{
-    background-color: red;
 }
 
 .Modal {

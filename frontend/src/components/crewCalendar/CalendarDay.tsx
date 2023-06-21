@@ -9,9 +9,9 @@ interface CalendarDayProps {
 }
 
 function CalendarDay({ day, isCurrentDay, handleDateClick, isEventDate }: CalendarDayProps) {
+    const eventClassName = isEventDate(day) ? "hasEvent" : "";
+    const highlightClassName = isCurrentDay ? "highlight-current" : isEventDate(day) ? "highlight-event" : "";
 
-    const eventClassName = isEventDate(day!) ? "hasEvent":"";
-    const highlightClassName = isCurrentDay === true || isEventDate(day) ? "highlight" : "";
     return (
         <td
             className={`${highlightClassName} ${eventClassName}`}
@@ -21,5 +21,4 @@ function CalendarDay({ day, isCurrentDay, handleDateClick, isEventDate }: Calend
         </td>
     );
 }
-
 export default CalendarDay;
