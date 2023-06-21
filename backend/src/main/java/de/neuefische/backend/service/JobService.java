@@ -63,28 +63,23 @@ public class JobService {
     }
 
     public Job findJobById(String id) {
-        return jobRepo.findById(id).orElseThrow(() -> new NoSuchElementException("Event with id " + id + " does not exist"));
+        return jobRepo.findById(id).orElseThrow(() -> new NoSuchElementException("Job with id " + id + " does not exist"));
     }
     public Job updateJob(String id, Job job) {
         Job jobToUpdate = findJobById(id);
-        if (jobToUpdate != null) {
-            jobToUpdate.setJobFormat(job.getJobFormat());
-            jobToUpdate.setIssuer(job.getIssuer());
-            jobToUpdate.setContactPerson(job.getContactPerson());
-            jobToUpdate.setJobAddress(job.getJobAddress());
-            jobToUpdate.setJobDate(job.getJobDate());
-            jobToUpdate.setStartTime(job.getStartTime());
-            jobToUpdate.setEndTime(job.getEndTime());
-            jobToUpdate.setJobComment(job.getJobComment());
-            return jobRepo.save(jobToUpdate);
-        } else {
-            throw new IllegalArgumentException("Job not found");
-        }
+        jobToUpdate.setJobFormat(job.getJobFormat());
+        jobToUpdate.setIssuer(job.getIssuer());
+        jobToUpdate.setContactPerson(job.getContactPerson());
+        jobToUpdate.setJobAddress(job.getJobAddress());
+        jobToUpdate.setJobDate(job.getJobDate());
+        jobToUpdate.setStartTime(job.getStartTime());
+        jobToUpdate.setEndTime(job.getEndTime());
+        jobToUpdate.setJobComment(job.getJobComment());
+        return jobRepo.save(jobToUpdate);
     }
 
-
-    public Job deleteJobById (String id) {
-        return jobRepo.findById(id).orElseThrow(() -> new NoSuchElementException("Event with id " + id + " does not exist"));
+    public void deleteJobById (String id) {
+        jobRepo.findById(id).orElseThrow(() -> new NoSuchElementException("Job with id " + id + " does not exist"));
     }
 
 }

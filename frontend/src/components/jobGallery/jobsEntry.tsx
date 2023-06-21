@@ -1,5 +1,6 @@
 import React from 'react';
-import {Jobs} from './model/Jobs';
+import {Jobs} from './model/jobs';
+import './jobsGallery.css';
 
 
 type Props = {

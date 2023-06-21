@@ -11,8 +11,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 class JobServiceTest {
 
@@ -58,7 +61,7 @@ class JobServiceTest {
         sampleJobs.add(job1);
         sampleJobs.add(job2);
         // WHEN
-        Mockito.when(jobRepo.findAll()).thenReturn(sampleJobs);
+        when(jobRepo.findAll()).thenReturn(sampleJobs);
         List<Job> result = jobService.findAll();
         // THEN
         assertEquals(2, result.size());
@@ -97,8 +100,8 @@ class JobServiceTest {
         List<Job> sampleJobs = new ArrayList<>();
         sampleJobs.add(generatedJob);
 
-        Mockito.when(generateUUIDService.generateUUID()).thenReturn("1");
-        Mockito.when(jobRepo.findAll()).thenReturn(sampleJobs);
+        when(generateUUIDService.generateUUID()).thenReturn("1");
+        when(jobRepo.findAll()).thenReturn(sampleJobs);
 
         // WHEN
         List<Job> result = jobService.save(inputJob);
@@ -193,6 +196,16 @@ class JobServiceTest {
         assertEquals("", result.getJobComment());
     }
 
+    @Test
+    void findJobById_ThrowsNoSuchElementException() {
+        // GIVEN
+        String jobId = "nonExistingId";
+        when(jobRepo.findById(jobId)).thenReturn(Optional.empty());
+        JobService jobService = new JobService(jobRepo, generateUUIDService);
+
+        // WHEN/THEN
+        assertThrows(NoSuchElementException.class, () -> jobService.findJobById(jobId));
+    }
 
 
 }

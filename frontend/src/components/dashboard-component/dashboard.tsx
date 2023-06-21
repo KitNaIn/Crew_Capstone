@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserSecret, faComment, faCalendarDays, faBarsProgress} from "@fortawesome/free-solid-svg-icons";
 import JobsGallery from "../jobGallery/jobsGallery";
+import './dashboard.css';
 
 
 function Dashboard() {

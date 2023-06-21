@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import JobsGallery from "./components/jobGallery/jobsGallery";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from './components/dashboard-component/dashboard';
+
+
 
 function App() {
   return (
