@@ -106,7 +106,6 @@ function CustomCalendar() {
                     today={today}
                     handleDateClick={handleDateClick}
                     isEventDate={isEventDate}
-
                 />
                 </tbody>
             </table>
@@ -178,6 +177,7 @@ function CustomCalendar() {
                                     name="endTime"
                                     value={newEvent.endTime}
                                     onChange={handleSelectChange}
+                                    className="smalldDropdown"
                                 >
                                     {timeOptions.map((option) => (
                                         <option key={option} value={option}>

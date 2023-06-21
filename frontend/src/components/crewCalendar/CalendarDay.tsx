@@ -10,7 +10,14 @@ interface CalendarDayProps {
 
 function CalendarDay({ day, isCurrentDay, handleDateClick, isEventDate }: CalendarDayProps) {
     const eventClassName = isEventDate(day) ? "hasEvent" : "";
-    const highlightClassName = isCurrentDay ? "highlight-current" : isEventDate(day) ? "highlight-event" : "";
+
+    let highlightClassName = "";
+    if (isCurrentDay) {
+        highlightClassName = "highlight-current";
+    } else if (isEventDate(day)) {
+        highlightClassName = "highlight-event";
+    }
+
 
     return (
         <td
