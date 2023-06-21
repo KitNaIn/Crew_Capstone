@@ -79,14 +79,10 @@ public class JobService {
     }
 
     public void deleteJobById(String id) {
-        jobRepo.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Job with id " + id + " does not exist"));
+        if (!jobRepo.existsById(id)) {
+            throw new NoSuchElementException("No order with " + id + " found.");
+        }
         jobRepo.deleteById(id);
     }
-
-
-
-
-
 
 }
