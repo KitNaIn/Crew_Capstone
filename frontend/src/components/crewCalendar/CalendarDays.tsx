@@ -4,13 +4,13 @@ import CalendarDay from "./CalendarDay";
 import './crewCalendar.css'
 
 interface CalendarDaysProps {
-    date: Date ;
-    today: Date ;
+    date: Date;
+    today: Date;
     handleDateClick: (day: Date | null) => void;
-    isEventDate: (day: Date) => boolean;
+    isEventDate: (day: Date | null) => boolean;
 }
 
-function CalendarDays({ date, today, handleDateClick } : CalendarDaysProps) {
+function CalendarDays({ date, today, handleDateClick, isEventDate }: CalendarDaysProps) {
     const isSameDay = (date1: Date | null, date2: Date) => {
         return (
             date1?.getDate() === date2?.getDate() &&
@@ -30,6 +30,7 @@ function CalendarDays({ date, today, handleDateClick } : CalendarDaysProps) {
                             key={`day-${weekIndex}-${dayIndex}`}
                             day={day}
                             isCurrentDay={isSameDay(day, today)}
+                            isEventDate={isEventDate}
                             handleDateClick={handleDateClick}
                         />
                     ))}
@@ -39,5 +40,4 @@ function CalendarDays({ date, today, handleDateClick } : CalendarDaysProps) {
     );
 }
 
-
-    export default CalendarDays;
+export default CalendarDays;

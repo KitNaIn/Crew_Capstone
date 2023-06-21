@@ -10,6 +10,7 @@
     text-align: center;
     padding: 10px;
     background-color: #f2f2f2;
+    width: 14.28%;
 }
 .CalendarThread th:first-child,
 .CalendarThread td:first-child {
@@ -49,8 +50,13 @@
     background-color: lightgray;
 }
 .CalendarWrapper .highlight {
-    background-color: #ffcc00;
+    background-color: lightskyblue;
+
 }
+.CalendarDay .isEventDate{
+    background-color: red;
+}
+
 .Modal {
     position: fixed;
     top: 0;

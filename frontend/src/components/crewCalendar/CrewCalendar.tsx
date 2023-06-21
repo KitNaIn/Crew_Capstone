@@ -68,16 +68,14 @@ function CustomCalendar() {
         saveCalendarEvent(newEvent);
         setShowModal(false);
     };
-
-    const isEventDate = (day: Date) => {
-        return (
-            calendarEvent?.some(
-                (event) =>
-                    new Date(event.eventDate).toLocaleDateString() ===
-                    day.toLocaleDateString()
-            ) || false
-        );
+    const isEventDate = (day: Date | null) => {
+        if (day !== null) {
+            const foundEvent = calendarEvent.find((event: CalendarEvent) => new Date(event.eventDate).toDateString() === day.toDateString());
+            return foundEvent !== undefined;
+        }
+        return false;
     };
+
 
     return (
         <div className="Calendar">
@@ -107,6 +105,7 @@ function CustomCalendar() {
                     today={today}
                     handleDateClick={handleDateClick}
                     isEventDate={isEventDate}
+
                 />
                 </tbody>
             </table>
@@ -118,7 +117,7 @@ function CustomCalendar() {
                             <div>
                                 <strong>Titel:</strong> {event.title}
                             </div>
-                            {/* Weitere Felder hier anzeigen */}
+                            <strong>Datum:</strong> {event.eventDate}
                             <div>
                                 <strong>Startzeit:</strong> {event.startTime}
                             </div>

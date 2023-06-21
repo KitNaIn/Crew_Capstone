@@ -5,14 +5,16 @@ interface CalendarDayProps {
     day: Date | null;
     isCurrentDay: boolean | null;
     handleDateClick: (day: Date | null) => void;
+    isEventDate: (day: Date | null) => boolean;
 }
 
-function CalendarDay({ day, isCurrentDay, handleDateClick }: CalendarDayProps) {
-    const highlightClassName = isCurrentDay === true ? "highlight" : "";
+function CalendarDay({ day, isCurrentDay, handleDateClick, isEventDate }: CalendarDayProps) {
 
+    const eventClassName = isEventDate(day!) ? "hasEvent":"";
+    const highlightClassName = isCurrentDay === true || isEventDate(day) ? "highlight" : "";
     return (
         <td
-            className={highlightClassName}
+            className={`${highlightClassName} ${eventClassName}`}
             onClick={() => handleDateClick(day)}
         >
             {day?.getDate()}
