@@ -7,10 +7,10 @@ type useCalendarEventType = [CalendarEvent[], () => void, (event: CalendarEvent)
 const useCalendarEvent = (): useCalendarEventType => {
     const [calendarEvent, setCalendarEvent] = useState<CalendarEvent[]>([]);
 
-    const fetchCalendarEvent = () => {
+    const fetchCalendarEvent = async () => {
         const url = "/api/calendarevents";
 
-        axios
+        await axios
             .get(url)
             .then((response) => {
                 setCalendarEvent(response.data);

@@ -63,13 +63,21 @@ function CustomCalendar() {
         setNewEvent({ ...newEvent, eventDate: selectedDate.toISOString() });
     };
 
-
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         saveCalendarEvent(newEvent);
         setShowModal(false);
     };
 
+    const isEventDate = (day: Date) => {
+        return (
+            calendarEvent?.some(
+                (event) =>
+                    new Date(event.eventDate).toLocaleDateString() ===
+                    day.toLocaleDateString()
+            ) || false
+        );
+    };
 
     return (
         <div className="Calendar">
@@ -98,6 +106,7 @@ function CustomCalendar() {
                     date={date}
                     today={today}
                     handleDateClick={handleDateClick}
+                    isEventDate={isEventDate}
                 />
                 </tbody>
             </table>
@@ -153,7 +162,7 @@ function CustomCalendar() {
                                     id="startTime"
                                     name="startTime"
                                     value={newEvent.startTime}
-                                    onChange={handleInputChange}
+                                    onChange={handleSelectChange}
                                 >
                                     {timeOptions.map((option) => (
                                         <option key={option} value={option}>
@@ -168,7 +177,7 @@ function CustomCalendar() {
                                     id="endTime"
                                     name="endTime"
                                     value={newEvent.endTime}
-                                    onChange={handleInputChange}
+                                    onChange={handleSelectChange}
                                 >
                                     {timeOptions.map((option) => (
                                         <option key={option} value={option}>
@@ -183,7 +192,7 @@ function CustomCalendar() {
                                     id="notes"
                                     name="notes"
                                     value={newEvent.notes}
-                                    onChange={handleInputChange}
+                                    onChange={handleTextareaChange}
                                 />
                             </div>
                             <button type="submit">Speichern</button>

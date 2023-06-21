@@ -7,6 +7,7 @@ interface CalendarDaysProps {
     date: Date ;
     today: Date ;
     handleDateClick: (day: Date | null) => void;
+    isEventDate: (day: Date) => boolean;
 }
 
 function CalendarDays({ date, today, handleDateClick } : CalendarDaysProps) {
