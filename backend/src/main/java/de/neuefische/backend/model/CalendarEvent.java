@@ -1,6 +1,7 @@
 package de.neuefische.backend.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -13,6 +14,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("CalendarEvent")
+@Builder
 public class CalendarEvent {
     @Id
     private String uuid;
