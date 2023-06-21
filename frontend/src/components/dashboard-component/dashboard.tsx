@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserSecret, faComment, faCalendarDays, faBarsProgress} from "@fortawesome/free-solid-svg-icons";
 import JobsGallery from "../jobGallery/jobsGallery";
-import './dashboard.css';
+import CrewCalendar from "../crewCalendar/CrewCalendar";
 
 
 function Dashboard() {
@@ -45,6 +45,7 @@ function Dashboard() {
             </div>
             <div className="jobs-gallery-container">
                 {activeButton === 'Aufträge' && <JobsGallery/>}
+                {activeButton === 'Kalender' && <CrewCalendar/>}
             </div>
         </div>
     );
