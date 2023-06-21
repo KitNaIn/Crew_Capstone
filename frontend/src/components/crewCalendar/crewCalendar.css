@@ -1,57 +1,20 @@
 .CalendarWrapper {
-    table-layout: fixed;
     width: 100%;
+    border-collapse: collapse;
 }
 
-.CalendarWrapper td.highlight {
-    position: relative;
+.CalendarThread th {
+    text-align: center;
+    padding: 10px;
+    background-color: #f2f2f2;
 }
 
-
-.CalendarWrapper td.highlight::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1px solid mediumseagreen;
-    background-color: transparent;
-    z-index: 1;
-}
-.CalendarWrapper td.highlight span {
-    z-index: 3;
-}
-.CalendarWrapper td{
-    position: relative;
-    z-index: 2;
-    color: black;
-}
-.CalendarWrapper td span{
-    position: relative;
-    z-index: 1;
-}
-.CalendarNav{
-    display: flex;
-    justify-content: space-around;
-}
-.CalendarWrapper td .date-number {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.EventList{
-    overflowY:auto ;
-}
-.hasEvent{
-    background-color: orange;
-
+.CalendarWrapper td {
+    text-align: center;
+    padding: 10px;
 }
 
-
-
-
+.CalendarWrapper .highlight {
+    background-color: #ffcc00;
+}
 
