@@ -1,0 +1,81 @@
+.jobCard{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width:100%;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+    backdrop-filter: blur(8px);
+    background-color: rgba(128, 128, 128, 0.3);
+}
+
+.status-icon-accept {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: mediumseagreen;
+    color: white;
+    text-align: center;
+    line-height: 16px;
+}
+.status-icon-reject {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: darkred;
+    color: white;
+    text-align: center;
+    line-height: 16px;
+    margin-right: 0.5vh;
+}
+.status-accepted{
+    display: flex;
+    flex-direction: row;
+    background-color: inherit;
+    border-radius: 3vh;
+    width: 20vh;
+    height: 1.8vh;
+    justify-content: space-around;
+    border: 1px solid mediumseagreen;
+    padding: 1px;
+    margin-left: 1vh;
+    margin-top: 0.4vh;
+    align-items: center;
+}
+.status-rejected{
+    display: flex;
+    flex-direction: row;
+    background-color: inherit;
+    border-radius: 3vh;
+    width: 17vh;
+    height: 1.8vh;
+    justify-content: space-around;
+    border: 1px solid darkred;
+    padding: 1px;
+    margin-left: 1vh;
+    margin-top: 0.4vh;
+    align-items: center;
+}
+.jobCardDetails{
+    width: 100%;
+    margin-top: 10vh;
+    margin-right: 0.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    background-color: rgba(128, 128, 128, 0.3);
+}
+.a{
+    color: mediumseagreen;
+}
+.b{
+    color: darkred;
+}
+.jobCard p {
+    margin-left:1vh;
+    margin-top:0.5vh;
+    margin-bottom: 0.5vh;
+}

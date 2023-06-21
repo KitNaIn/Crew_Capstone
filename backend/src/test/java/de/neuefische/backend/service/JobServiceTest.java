@@ -11,8 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class JobServiceTest {
 
@@ -23,6 +25,7 @@ class JobServiceTest {
     @BeforeEach
     public void setup() {
         jobRepo = Mockito.mock(JobRepo.class);
+        jobService = Mockito.mock(JobService.class);
         generateUUIDService = Mockito.mock(GenerateUUIDService.class);
         jobService = new JobService(jobRepo, generateUUIDService);
 
@@ -58,7 +61,7 @@ class JobServiceTest {
         sampleJobs.add(job1);
         sampleJobs.add(job2);
         // WHEN
-        Mockito.when(jobRepo.findAll()).thenReturn(sampleJobs);
+        when(jobRepo.findAll()).thenReturn(sampleJobs);
         List<Job> result = jobService.findAll();
         // THEN
         assertEquals(2, result.size());
@@ -97,17 +100,17 @@ class JobServiceTest {
         List<Job> sampleJobs = new ArrayList<>();
         sampleJobs.add(generatedJob);
 
-        Mockito.when(generateUUIDService.generateUUID()).thenReturn("1");
-        Mockito.when(jobRepo.findAll()).thenReturn(sampleJobs);
+        when(generateUUIDService.generateUUID()).thenReturn("1");
+        when(jobRepo.findAll()).thenReturn(sampleJobs);
 
         // WHEN
         List<Job> result = jobService.save(inputJob);
         // THEN
         assertEquals(1, result.size());
         assertTrue(result.contains(generatedJob));
-        Mockito.verify(jobRepo).save(generatedJob);
-        Mockito.verify(generateUUIDService).generateUUID();
-        Mockito.verify(jobRepo).findAll();
+        verify(jobRepo).save(generatedJob);
+        verify(generateUUIDService).generateUUID();
+        verify(jobRepo).findAll();
     }
 
     @Test
@@ -193,6 +196,29 @@ class JobServiceTest {
         assertEquals("", result.getJobComment());
     }
 
+    @Test
+    void testDeleteJobyId() {
+        //GIVEN
+        String jobId = "123";
+        //WHEN
+        when(jobRepo.existsById(jobId)).thenReturn(true);
+        jobService.deleteJobById(jobId);
+        //THEN
+        verify(jobRepo,times(1)).existsById(jobId);
+        verify(jobRepo, times(1)).deleteById(jobId);
+    }
+
+    @Test
+    void testDeleteJobById_NotFound(){
+        //GIVEN
+        String jobId = "123";
+        //WHEN
+        when(jobRepo.existsById(jobId)).thenReturn(false);
+        //THEN
+        assertThrows(NoSuchElementException.class, () -> jobService.deleteJobById(jobId));
+        verify(jobRepo,times(1)).existsById(jobId);
+        verify(jobRepo, never()).deleteById(jobId);
+    }
 
 
 }

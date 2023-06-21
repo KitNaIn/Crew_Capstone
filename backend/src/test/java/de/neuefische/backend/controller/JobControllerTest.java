@@ -52,8 +52,7 @@ class JobControllerTest {
                                     }
                                 """))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].uuid").isNotEmpty())
-                .andExpect(status().isCreated())
-                .andReturn();
+                .andExpect(status().isCreated());
         //THEN
         mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs"))
                 .andExpect(status().isOk())

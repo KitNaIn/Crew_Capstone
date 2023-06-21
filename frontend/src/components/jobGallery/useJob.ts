@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Jobs } from './model/Jobs';
+import { Jobs } from './model/jobs';
 
 type UseJobsReturnType = [Jobs[], () => void];
 

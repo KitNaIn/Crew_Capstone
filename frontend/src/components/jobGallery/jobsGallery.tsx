@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import useJobs from './useJob';
 import JobsEntry from './jobsEntry';
 import JobCard from './jobCard';
-import {Jobs} from './model/Jobs';
+import {Jobs} from './model/jobs';
+import './jobsGallery.css';
 
 function JobsGallery() {
     const [jobs, fetchJobs] = useJobs();
