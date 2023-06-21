@@ -1,0 +1,57 @@
+.CalendarWrapper {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.CalendarWrapper td.highlight {
+    position: relative;
+}
+
+
+.CalendarWrapper td.highlight::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid mediumseagreen;
+    background-color: transparent;
+    z-index: 1;
+}
+.CalendarWrapper td.highlight span {
+    z-index: 3;
+}
+.CalendarWrapper td{
+    position: relative;
+    z-index: 2;
+    color: black;
+}
+.CalendarWrapper td span{
+    position: relative;
+    z-index: 1;
+}
+.CalendarNav{
+    display: flex;
+    justify-content: space-around;
+}
+.CalendarWrapper td .date-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.EventList{
+    overflowY:auto ;
+}
+.hasEvent{
+    background-color: orange;
+
+}
+
+
+
+
+
