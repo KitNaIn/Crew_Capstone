@@ -5,14 +5,16 @@ import de.neuefische.backend.repo.CalendarRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class CalendarServiceTest {
 
@@ -25,16 +27,17 @@ class CalendarServiceTest {
         calendarRepo = Mockito.mock(CalendarRepo.class);
         calendarService = Mockito.mock(CalendarService.class);
         generateUUIDService = Mockito.mock(GenerateUUIDService.class);
-        calendarService = new CalendarService(calendarRepo,generateUUIDService);
+        calendarService = new CalendarService(calendarRepo, generateUUIDService);
     }
+
     @Test
     void save_ShouldCreateCalendarEvent_andReturnArray_WithEvent() {
         //GIVEN
         CalendarEvent InputEvent = CalendarEvent.builder()
                 .title("Test Title")
                 .eventDate(LocalDate.now())
-                .startTime(LocalTime.of(9,0))
-                .endTime(LocalTime.of(14,0))
+                .startTime(LocalTime.of(9, 0))
+                .endTime(LocalTime.of(14, 0))
                 .notes("Test Notes")
                 .build();
 
@@ -55,7 +58,7 @@ class CalendarServiceTest {
         //WHEN
         List<CalendarEvent> result = calendarService.save(InputEvent);
         //THEN
-        assertEquals(1,result.size());
+        assertEquals(1, result.size());
         assertTrue(result.contains(generatedCalendarEvent));
         verify(calendarRepo).save(generatedCalendarEvent);
         verify(generateUUIDService).generateUUID();

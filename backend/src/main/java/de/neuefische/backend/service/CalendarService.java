@@ -1,10 +1,10 @@
 package de.neuefische.backend.service;
+
 import de.neuefische.backend.model.CalendarEvent;
 import de.neuefische.backend.repo.CalendarRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.List;
 
 @Service

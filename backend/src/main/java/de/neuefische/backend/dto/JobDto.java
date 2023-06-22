@@ -13,13 +13,13 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 public class JobDto {
-        private String jobFormat;
-        private String issuer;
-        private String contactPerson;
-        private String jobAddress;
-        private LocalDate jobDate;
-        private LocalTime startTime;
-        private LocalTime endTime;
-        private String jobComment;
+    private String jobFormat;
+    private String issuer;
+    private String contactPerson;
+    private String jobAddress;
+    private LocalDate jobDate;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String jobComment;
 }
 

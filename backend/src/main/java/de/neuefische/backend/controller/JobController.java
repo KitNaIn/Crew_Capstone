@@ -32,6 +32,7 @@ public class JobController {
     public List<Job> getAllJobsSortedByDateTime() {
         return jobService.getAllJobsSortedByDateTime();
     }
+
     @GetMapping("/{id}")
     public Job getJobById(@PathVariable String id) {
         return jobService.findJobById(id);
@@ -40,17 +41,17 @@ public class JobController {
 
     @PutMapping("/{id}")
     public Job updateJob(@PathVariable String id, @RequestBody JobDto job) {
-            Job updatedJob = Job.builder()
-                    .jobFormat(job.getJobFormat())
-                    .issuer(job.getIssuer())
-                    .contactPerson(job.getContactPerson())
-                    .jobAddress(job.getJobAddress())
-                    .jobDate(job.getJobDate())
-                    .startTime(job.getStartTime())
-                    .endTime(job.getEndTime())
-                    .jobComment(job.getJobComment())
-                    .build();
-            return jobService.updateJob(id, updatedJob);
+        Job updatedJob = Job.builder()
+                .jobFormat(job.getJobFormat())
+                .issuer(job.getIssuer())
+                .contactPerson(job.getContactPerson())
+                .jobAddress(job.getJobAddress())
+                .jobDate(job.getJobDate())
+                .startTime(job.getStartTime())
+                .endTime(job.getEndTime())
+                .jobComment(job.getJobComment())
+                .build();
+        return jobService.updateJob(id, updatedJob);
     }
 
     @DeleteMapping("/{id}")
