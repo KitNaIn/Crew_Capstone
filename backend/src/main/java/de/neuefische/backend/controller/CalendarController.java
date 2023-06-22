@@ -3,9 +3,8 @@ package de.neuefische.backend.controller;
 import de.neuefische.backend.model.CalendarEvent;
 import de.neuefische.backend.service.CalendarService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,4 +18,11 @@ public class CalendarController {
     public List<CalendarEvent> getAllCalendarEvents(){
         return calendarService.findAll();
     }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<CalendarEvent> saveCalendarEvent(@RequestBody CalendarEvent calendarEvent) {
+        return calendarService.save(calendarEvent);
+    }
+
 }

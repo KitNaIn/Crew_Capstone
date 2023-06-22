@@ -1,15 +1,17 @@
 import React from "react";
 import getCalendarDays from "./calendarUtils";
 import CalendarDay from "./CalendarDay";
+import './crewCalendar.css'
 
 interface CalendarDaysProps {
     date: Date;
     today: Date;
     handleDateClick: (day: Date | null) => void;
+    isEventDate: (day: Date | null) => boolean;
 }
 
-function CalendarDays({ date, today, handleDateClick }: CalendarDaysProps) {
-    const isSameDay = (date1: Date, date2: Date) => {
+function CalendarDays({ date, today, handleDateClick, isEventDate }: CalendarDaysProps) {
+    const isSameDay = (date1: Date | null, date2: Date) => {
         return (
             date1?.getDate() === date2?.getDate() &&
             date1?.getMonth() === date2?.getMonth() &&
@@ -20,26 +22,21 @@ function CalendarDays({ date, today, handleDateClick }: CalendarDaysProps) {
     const calendarDays = getCalendarDays(date);
 
     return (
-        <tr>
+        <>
             {calendarDays.map((week, weekIndex) => (
-                // eslint-disable-next-line
-                <React.Fragment key={`week-${weekIndex}`}>
-                    {week.map((day, dayIndex) => {
-                        const isCurrentDay = day && isSameDay(day, today);
-                        const uniqueKey = `day-${weekIndex}-${dayIndex}`;
-
-                        return (
-                            <CalendarDay
-                                key={uniqueKey}
-                                day={day}
-                                isCurrentDay={isCurrentDay}
-                                handleDateClick={handleDateClick}
-                            />
-                        );
-                    })}
-                </React.Fragment>
+                <tr key={`week-${weekIndex}`}>
+                    {week.map((day, dayIndex) => (
+                        <CalendarDay
+                            key={`day-${weekIndex}-${dayIndex}`}
+                            day={day}
+                            isCurrentDay={isSameDay(day, today)}
+                            isEventDate={isEventDate}
+                            handleDateClick={handleDateClick}
+                        />
+                    ))}
+                </tr>
             ))}
-        </tr>
+        </>
     );
 }
 
