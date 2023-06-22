@@ -15,7 +15,7 @@ public class CalendarController {
     private final CalendarService calendarService;
 
     @GetMapping
-    public List<CalendarEvent> getAllCalendarEvents(){
+    public List<CalendarEvent> getAllCalendarEvents() {
         return calendarService.findAll();
     }
 

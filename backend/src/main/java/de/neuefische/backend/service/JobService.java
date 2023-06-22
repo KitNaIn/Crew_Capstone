@@ -65,6 +65,7 @@ public class JobService {
     public Job findJobById(String id) {
         return jobRepo.findById(id).orElseThrow(() -> new NoSuchElementException("Job with id " + id + " does not exist"));
     }
+
     public Job updateJob(String id, Job job) {
         Job jobToUpdate = findJobById(id);
         jobToUpdate.setJobFormat(job.getJobFormat());

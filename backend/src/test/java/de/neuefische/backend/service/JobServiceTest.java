@@ -6,6 +6,7 @@ import de.neuefische.backend.repo.JobRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ class JobServiceTest {
         jobService = new JobService(jobRepo, generateUUIDService);
 
     }
+
     @Test
     void findAllShouldReturnTwoJobs() {
         // GIVEN
@@ -139,6 +141,7 @@ class JobServiceTest {
         assertEquals(jobDto.getEndTime(), result.getEndTime());
         assertEquals(jobDto.getJobComment(), result.getJobComment());
     }
+
     @Test
     void convertToJobEntityShouldHandleNullValues() {
         // GIVEN
@@ -203,19 +206,19 @@ class JobServiceTest {
         when(jobRepo.existsById(jobId)).thenReturn(true);
         jobService.deleteJobById(jobId);
         //THEN
-        verify(jobRepo,times(1)).existsById(jobId);
+        verify(jobRepo, times(1)).existsById(jobId);
         verify(jobRepo, times(1)).deleteById(jobId);
     }
 
     @Test
-    void testDeleteJobById_NotFound(){
+    void testDeleteJobById_NotFound() {
         //GIVEN
         String jobId = "123";
         //WHEN
         when(jobRepo.existsById(jobId)).thenReturn(false);
         //THEN
         assertThrows(NoSuchElementException.class, () -> jobService.deleteJobById(jobId));
-        verify(jobRepo,times(1)).existsById(jobId);
+        verify(jobRepo, times(1)).existsById(jobId);
         verify(jobRepo, never()).deleteById(jobId);
     }
 

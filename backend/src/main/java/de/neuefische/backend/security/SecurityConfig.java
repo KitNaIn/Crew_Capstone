@@ -1,4 +1,5 @@
 package de.neuefische.backend.security;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,10 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
@@ -40,7 +42,7 @@ public class SecurityConfig {
                             ("/api/user/**")).permitAll();
                     auth.requestMatchers(
                             ("/api/**")).authenticated();
-                    auth.anyRequest().permitAll();
+                    auth.anyRequest().authenticated();
                 })
                 .build();
     }

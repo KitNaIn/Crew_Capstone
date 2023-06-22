@@ -26,17 +26,6 @@ function App() {
                     pauseOnHover
                     theme="dark"
                 />
-                <header>
-                    <div>
-                        {user !== undefined ? (
-                            <button id="logout-button" onClick={logout}>
-                                Logout
-                            </button>
-                        ) : (
-                            <></>
-                        )}
-                    </div>
-                </header>
                 <div className="App">
                     <Routes>
                         <Route path="/" element={<Home login={login} register={register} />} />

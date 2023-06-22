@@ -2,9 +2,6 @@ package de.neuefische.backend.security;
 
 import de.neuefische.backend.dto.UserDto;
 import de.neuefische.backend.dto.UserLoginAndRegistrationDTO;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

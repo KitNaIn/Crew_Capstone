@@ -41,8 +41,8 @@ public class UserService implements UserDetailsService {
         if (userRepo.findUserByUsername(newUser.getUsername()).isPresent()) {
             throw new IllegalArgumentException("User with username " + user.getUsername() + " already exists");
         }
-        CrewUser temp = userRepo.save(newUser.withRoles(Collections.singletonList(new SimpleGrantedAuthority("user"))).withPassword(passwordEncoder.encode(user.getPassword())));
-        List<String> roles = temp.getRoles().stream().map(SimpleGrantedAuthority::toString).toList();
-        return new UserDto(temp.getId(), temp.getUsername(), roles);
+        CrewUser temporalUser = userRepo.save(newUser.withRoles(Collections.singletonList(new SimpleGrantedAuthority("user"))).withPassword(passwordEncoder.encode(user.getPassword())));
+        List<String> roles = temporalUser.getRoles().stream().map(SimpleGrantedAuthority::toString).toList();
+        return new UserDto(temporalUser.getId(), temporalUser.getUsername(), roles);
     }
 }

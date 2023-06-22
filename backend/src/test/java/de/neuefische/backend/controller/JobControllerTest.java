@@ -43,7 +43,7 @@ class JobControllerTest {
                         .contentType("application/json")
                         .content("""
                                     {
-                              
+                                                              
                                         "jobFormat": "Format",
                                         "issuer": "Issuer",
                                         "contactPerson": "Contact Person",
@@ -55,7 +55,7 @@ class JobControllerTest {
                                         "jobComment": "Job Comment"
                                     }
                                 """)
-                .with(csrf()))
+                        .with(csrf()))
                 .andExpect(status().is(201));
 
 
@@ -64,20 +64,20 @@ class JobControllerTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-            [
-                {
-                    "jobFormat": "Format",
-                    "issuer": "Issuer",
-                    "contactPerson": "Contact Person",
-                    "jobAddress": "Job Address",
-                    "jobDate": "2023-06-14",
-                    "startTime": "10:00:00",
-                    "endTime": "12:00:00",
-                    "status": null,
-                    "jobComment": "Job Comment"
-                }
-            ]
-        """))
+                            [
+                                {
+                                    "jobFormat": "Format",
+                                    "issuer": "Issuer",
+                                    "contactPerson": "Contact Person",
+                                    "jobAddress": "Job Address",
+                                    "jobDate": "2023-06-14",
+                                    "startTime": "10:00:00",
+                                    "endTime": "12:00:00",
+                                    "status": null,
+                                    "jobComment": "Job Comment"
+                                }
+                            ]
+                        """))
                 .andExpect(jsonPath("$[0].uuid").exists())
                 .andExpect(jsonPath("$[0].uuid").isNotEmpty());
     }
@@ -88,8 +88,8 @@ class JobControllerTest {
     @WithMockUser
     void getAllJobsSortedByDateTime_ShouldReturnSortedJobs_andStatusCode201() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                     {
                                         "jobFormat": "Format",
                                         "issuer": "Issuer",
@@ -102,23 +102,23 @@ class JobControllerTest {
                                         "jobComment": "Job Comment"
                                     }
                                 """)
-                .with(csrf()))
+                        .with(csrf()))
                 .andExpect(status().is(201));
         mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
-                                    {
-                                        "jobFormat": "Format",
-                                        "issuer": "Issuer",
-                                        "contactPerson": "Contact Person",
-                                        "jobAddress": "Job Address",
-                                        "jobDate": "2022-05-13",
-                                        "startTime": "10:00:00",
-                                        "endTime": "12:00:00",
-                                        "status": null,
-                                        "jobComment": "Job Comment"
-                                    }
-                                """)
+                            {
+                                "jobFormat": "Format",
+                                "issuer": "Issuer",
+                                "contactPerson": "Contact Person",
+                                "jobAddress": "Job Address",
+                                "jobDate": "2022-05-13",
+                                "startTime": "10:00:00",
+                                "endTime": "12:00:00",
+                                "status": null,
+                                "jobComment": "Job Comment"
+                            }
+                        """)
                 .with(csrf())
         );
         mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs/sorted")
@@ -136,18 +136,18 @@ class JobControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                        {
-                            "jobFormat": "Format",
-                            "issuer": "Issuer",
-                            "contactPerson": "Contact Person",
-                            "jobAddress": "Job Address",
-                            "jobDate": "2023-06-14",
-                            "startTime": "10:00:00",
-                            "endTime": "12:00:00",
-                            "status": null,
-                            "jobComment": "Job Comment"
-                        }
-                    """))
+                                    {
+                                        "jobFormat": "Format",
+                                        "issuer": "Issuer",
+                                        "contactPerson": "Contact Person",
+                                        "jobAddress": "Job Address",
+                                        "jobDate": "2023-06-14",
+                                        "startTime": "10:00:00",
+                                        "endTime": "12:00:00",
+                                        "status": null,
+                                        "jobComment": "Job Comment"
+                                    }
+                                """))
                 .andReturn();
         String content = result.getResponse().getContentAsString();
 
@@ -157,18 +157,18 @@ class JobControllerTest {
         Job addedJob = addedJobs[0];
 
         String updatedJobJson = """
-    {
-        "jobFormat": "Updated Format",
-        "issuer": "Issuer",
-        "contactPerson": "Contact Person",
-        "jobAddress": "Job Address",
-        "jobDate": "2023-06-14",
-        "startTime": "10:00:00",
-        "endTime": "12:00:00",
-        "status": null,
-        "jobComment": "Job Comment"
-    }
-    """;
+                {
+                    "jobFormat": "Updated Format",
+                    "issuer": "Issuer",
+                    "contactPerson": "Contact Person",
+                    "jobAddress": "Job Address",
+                    "jobDate": "2023-06-14",
+                    "startTime": "10:00:00",
+                    "endTime": "12:00:00",
+                    "status": null,
+                    "jobComment": "Job Comment"
+                }
+                """;
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/jobs/" + addedJob.getUuid())
                         .with(csrf())
@@ -190,8 +190,6 @@ class JobControllerTest {
     }
 
 
-
-
     @Test
     @DirtiesContext
     @WithMockUser
@@ -199,18 +197,18 @@ class JobControllerTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                            {
-                                "jobFormat": "Format",
-                                "issuer": "Issuer",
-                                "contactPerson": "Contact Person",
-                                "jobAddress": "Job Address",
-                                "jobDate": "2023-06-14",
-                                "startTime": "10:00:00",
-                                "endTime": "12:00:00",
-                                "status": null,
-                                "jobComment": "Job Comment"
-                            }
-                        """)
+                                    {
+                                        "jobFormat": "Format",
+                                        "issuer": "Issuer",
+                                        "contactPerson": "Contact Person",
+                                        "jobAddress": "Job Address",
+                                        "jobDate": "2023-06-14",
+                                        "startTime": "10:00:00",
+                                        "endTime": "12:00:00",
+                                        "status": null,
+                                        "jobComment": "Job Comment"
+                                    }
+                                """)
                         .with(csrf()))
                 .andExpect(status().isCreated())
                 .andReturn();
@@ -227,7 +225,6 @@ class JobControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/jobs" + addedJob.getUuid())
                         .with(csrf()))
                 .andExpect(status().isNotFound());
-
 
 
     }
