@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
-    const { login, register, logout, user } = useUser();
+    const { login, register, user } = useUser();
 
     return (
         <Router>
