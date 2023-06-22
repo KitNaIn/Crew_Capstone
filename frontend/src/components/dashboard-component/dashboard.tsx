@@ -70,7 +70,6 @@ function Dashboard() {
                             </p>
                         </div>
                         <div className="settings-sheet-content">
-                            {/* Hier kannst du den Inhalt des Settings-Sheets hinzufügen */}
                             <div className="settings-sheet-form">
                                 <div className="settings-sheet-input">
                                     <label htmlFor="name">Name</label>

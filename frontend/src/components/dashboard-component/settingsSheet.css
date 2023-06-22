@@ -12,7 +12,8 @@
 }
 
 .settings-sheet {
-    width: 400px;
+    width: 50%;
+    height: 100%;
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
