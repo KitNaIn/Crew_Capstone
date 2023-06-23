@@ -12,6 +12,8 @@ function JobsGallery() {
     const [selectedJob, setSelectedJob] = useState<Jobs | null>(null);
     const [showGallery, setShowGallery] = useState(true);
     const [selectedJobId, setSelectedJobId] = useState('')
+    const [selectedJobStatus, setSelectedJobStatus] = useState<string | undefined>(undefined);
+
 
     useEffect(() => {
         fetchJobs();
@@ -33,6 +35,7 @@ function JobsGallery() {
     const handleJobClick = (job: Jobs) => {
         setSelectedJob(job);
         setSelectedJobId(job.uuid);
+        setSelectedJobStatus(job.userStatus)
         setShowGallery(false);
     };
 
@@ -43,11 +46,14 @@ function JobsGallery() {
     const handleAcceptJob = (jobId: string) => {
         acceptJob(jobId);
         setShowGallery(true);
+        setSelectedJobStatus('accepted');
+        console.log(selectedJobStatus)
     };
 
     const handleRejectJob = (jobId: string) => {
         rejectJob(jobId);
         setShowGallery(true);
+        setSelectedJobStatus('rejected');
     };
 
     return (
@@ -70,7 +76,7 @@ function JobsGallery() {
                     {selectedJob && (
                         <JobCard
                             job={selectedJob}
-
+                            setSelectedJobStatus={setSelectedJobStatus}
                             onAccept={() => handleAcceptJob(selectedJob.uuid)}
                             onReject={() => handleRejectJob(selectedJob.uuid)}
                         />

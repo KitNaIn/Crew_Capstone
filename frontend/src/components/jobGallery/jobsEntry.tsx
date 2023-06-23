@@ -5,24 +5,31 @@ import './jobsGallery.css';
 type Props = {
     job: Jobs;
     selectedJobId: string | null | undefined;
-    selectedJobStatus: string | undefined;
+    selectedJobStatus: string | null | undefined;
 };
 
 function JobsEntry({ job, selectedJobId, selectedJobStatus }: Props) {
-
+    const getStatusIcon = (status: string) => {
+        if (status.toLowerCase() === 'accepted') {
+            return <span className="status-icon-accept">&#10004;</span>;
+        } else if (status.toLowerCase() === 'rejected') {
+            return <span className="status-icon-reject">&#10008;</span>;
+        }
+        return null;
+    };
 
     return (
         <div className="jobCard">
-            {selectedJobId === job.uuid && selectedJobStatus?.toLowerCase() === 'accepted' && (
-                <div className="status-accepted">
-                    <span className="status-icon-accept">&#10004;</span>
-                    <span className="status-text">Angenommen</span>
-                </div>
-            )}
-            {selectedJobId === job.uuid && selectedJobStatus?.toLowerCase() === 'rejected' && (
-                <div className="status-rejected">
-                    <span className="status-icon-reject">&#10008;</span>
-                    <span className="status-text">Abgelehnt</span>
+            {selectedJobId === job.uuid && (
+                <div>
+                    {getStatusIcon(selectedJobStatus || job.userStatus || '')}
+                    <span className="status-text">
+                        {selectedJobStatus?.toLowerCase() === 'accepted'
+                            ? 'Angenommen'
+                            : selectedJobStatus?.toLowerCase() === 'rejected'
+                                ? 'Abgelehnt'
+                                : ''}
+                    </span>
                 </div>
             )}
             <div style={{ display: 'flex' }}>

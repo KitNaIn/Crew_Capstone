@@ -6,15 +6,18 @@ type Props = {
     job: Jobs;
     onAccept: () => void;
     onReject: () => void;
+    setSelectedJobStatus: (status: string) => void;
 };
 
-function JobCard({ job, onAccept, onReject }: Props) {
+function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
     const handleAccept = () => {
-        onAccept();
+        void onAccept();
+        setSelectedJobStatus('accepted');
     };
 
     const handleReject = () => {
-        onReject();
+        void onReject();
+        setSelectedJobStatus('rejected');
     };
 
 

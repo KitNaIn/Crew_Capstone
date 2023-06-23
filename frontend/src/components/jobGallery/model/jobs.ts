@@ -8,5 +8,7 @@ export interface Jobs  {
     startTime:string,
     endTime:string
     status:string;
+    userStatus:string;
     jobComment:string
+
 }
