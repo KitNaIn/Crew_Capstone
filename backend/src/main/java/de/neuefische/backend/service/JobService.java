@@ -37,6 +37,18 @@ public class JobService {
         return findAll();
     }
 
+    public Job acceptJob( String jobId) {
+        Job job = findJobById(jobId);
+        job.setUserStatus("accepted");
+        return jobRepo.save(job);
+    }
+    public Job rejectJob( String jobId) {
+        Job job = findJobById(jobId);
+        job.setUserStatus("rejected");
+        return jobRepo.save(job);
+    }
+
+
     public Job convertToJobEntity(JobDto jobDto) {
         return Job.builder()
                 .jobFormat(jobDto.getJobFormat())

@@ -1,7 +1,6 @@
 import React from 'react';
-import {Jobs} from './model/jobs';
+import { Jobs } from './model/jobs';
 import './jobsGallery.css';
-
 
 type Props = {
     job: Jobs;
@@ -9,26 +8,30 @@ type Props = {
     selectedJobStatus: string | undefined;
 };
 
-function JobsEntry({job, selectedJobId, selectedJobStatus}: Props) {
+function JobsEntry({ job, selectedJobId, selectedJobStatus }: Props) {
+
+
     return (
         <div className="jobCard">
-            {selectedJobId === job.id && selectedJobStatus === 'accepted' && (
+            {selectedJobId === job.uuid && selectedJobStatus?.toLowerCase() === 'accepted' && (
                 <div className="status-accepted">
                     <span className="status-icon-accept">&#10004;</span>
-                    <span className="a">Angenommen</span>
+                    <span className="status-text">Angenommen</span>
                 </div>
             )}
-            {selectedJobId === job.id && selectedJobStatus === 'rejected' && (
+            {selectedJobId === job.uuid && selectedJobStatus?.toLowerCase() === 'rejected' && (
                 <div className="status-rejected">
                     <span className="status-icon-reject">&#10008;</span>
-                    <span className="b">Abgelehnt</span>
+                    <span className="status-text">Abgelehnt</span>
                 </div>
             )}
-            <div style={{display: 'flex'}}>
-                <p style={{color: 'grey'}}>{job.jobDate}</p>
-                <p>{job.startTime} - {job.endTime}</p>
+            <div style={{ display: 'flex' }}>
+                <p style={{ color: 'grey' }}>{job.jobDate}</p>
+                <p>
+                    {job.startTime} - {job.endTime}
+                </p>
             </div>
-            <p style={{color: 'grey'}}>{job.jobFormat}</p>
+            <p style={{ color: 'grey' }}>{job.jobFormat}</p>
             <p>{job.issuer}</p>
         </div>
     );

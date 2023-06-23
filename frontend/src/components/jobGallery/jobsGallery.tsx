@@ -1,51 +1,53 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import useJobs from './useJob';
 import JobsEntry from './jobsEntry';
 import JobCard from './jobCard';
-import {Jobs} from './model/jobs';
+import { Jobs } from './model/jobs';
 import './jobsGallery.css';
+import axios from 'axios';
 
 function JobsGallery() {
-    const [jobs, fetchJobs] = useJobs();
+    const [jobs, fetchJobs, acceptJob, rejectJob] = useJobs();
+    const [userId, setUserId] = useState('');
     const [selectedJob, setSelectedJob] = useState<Jobs | null>(null);
-    const [selectedJobId, setSelectedJobId] = useState<string | null | undefined>(null);
     const [showGallery, setShowGallery] = useState(true);
-    const [galleryStatus, setGalleryStatus] = useState(true);
-
+    const [selectedJobId, setSelectedJobId] = useState('')
 
     useEffect(() => {
         fetchJobs();
     }, []);
 
+    useEffect(() => {
+        fetchUserId();
+    }, []);
+    const fetchUserId = async () => {
+        try {
+            const response = await axios.get('/api/user/me');
+            const userId = response.data.id;
+            setUserId(userId);
+        } catch (error) {
+            console.error('Error fetching userId: ', error);
+        }
+    };
+
     const handleJobClick = (job: Jobs) => {
         setSelectedJob(job);
-        setSelectedJobId(job.id);
+        setSelectedJobId(job.uuid);
         setShowGallery(false);
-        console.log(job);
     };
 
     const handleShowGallery = () => {
         setShowGallery(true);
-        setGalleryStatus(true);
     };
 
-    const handleAcceptJob = () => {
-        if (selectedJob) {
-            const updatedJob: Jobs = {...selectedJob, status: 'accepted'};
-            setSelectedJob(updatedJob);
-            fetchJobs();
-            setShowGallery(true);
-        }
+    const handleAcceptJob = (jobId: string) => {
+        acceptJob(jobId);
+        setShowGallery(true);
     };
 
-    const handleRejectJob = () => {
-        if (selectedJob) {
-            const updatedJob: Jobs = {...selectedJob, status: 'rejected'};
-            setSelectedJob(updatedJob);
-            fetchJobs();
-            setShowGallery(true);
-
-        }
+    const handleRejectJob = (jobId: string) => {
+        rejectJob(jobId);
+        setShowGallery(true);
     };
 
     return (
@@ -53,13 +55,12 @@ function JobsGallery() {
             {showGallery ? (
                 <div className="jobGallery">
                     <header> Aufträge</header>
-                    {jobs.map((currentJob) => (
-                        <div key={currentJob.id} onClick={() => handleJobClick(currentJob)}>
+                    {jobs.map((currentJob: Jobs) => (
+                        <div key={currentJob.uuid} onClick={() => handleJobClick(currentJob)}>
                             <JobsEntry
-
                                 job={currentJob}
-                                selectedJobId={selectedJobId || null}
-                                selectedJobStatus={selectedJob?.status}
+                                selectedJobId={selectedJobId}
+                                selectedJobStatus={selectedJob?.status || ''}
                             />
                         </div>
                     ))}
@@ -69,11 +70,12 @@ function JobsGallery() {
                     {selectedJob && (
                         <JobCard
                             job={selectedJob}
-                            onAccept={handleAcceptJob}
-                            onReject={handleRejectJob}
+
+                            onAccept={() => handleAcceptJob(selectedJob.uuid)}
+                            onReject={() => handleRejectJob(selectedJob.uuid)}
                         />
                     )}
-                    <br/>
+                    <br />
                     <button onClick={handleShowGallery}>Zurück zur Galerie</button>
                 </div>
             )}

@@ -1,5 +1,5 @@
 export interface Jobs  {
-    id:string,
+    uuid:string,
     jobFormat:string,
     issuer:string,
     contactPerson:string,
