@@ -18,6 +18,7 @@ import java.time.LocalTime;
 public class CalendarEvent {
     @Id
     private String uuid;
+    private String userId;
     private String title;
     private LocalDate eventDate;
     private LocalTime startTime;

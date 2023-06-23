@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +45,16 @@ public class UserService implements UserDetailsService {
         CrewUser temporalUser = userRepo.save(newUser.withRoles(Collections.singletonList(new SimpleGrantedAuthority("user"))).withPassword(passwordEncoder.encode(user.getPassword())));
         List<String> roles = temporalUser.getRoles().stream().map(SimpleGrantedAuthority::toString).toList();
         return new UserDto(temporalUser.getId(), temporalUser.getUsername(), roles);
+    }
+
+    public UserDto getUserDetails(String username) {
+        CrewUser crewUser = userRepo.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " not found"));
+
+        List<String> roles = crewUser.getRoles().stream()
+                .map(SimpleGrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        return new UserDto(crewUser.getId(), crewUser.getUsername(), roles);
     }
 }

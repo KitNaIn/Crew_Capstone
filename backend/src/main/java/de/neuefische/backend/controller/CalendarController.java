@@ -10,19 +10,21 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/calendarevents")
+@RequestMapping("/api/calendarevents/{userId}")
 public class CalendarController {
     private final CalendarService calendarService;
 
     @GetMapping
-    public List<CalendarEvent> getAllCalendarEvents() {
-        return calendarService.findAll();
+    public List<CalendarEvent> getAllCalendarEvents(@PathVariable String userId) {
+        return calendarService.findAllByUserId(userId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public List<CalendarEvent> saveCalendarEvent(@RequestBody CalendarEvent calendarEvent) {
-        return calendarService.save(calendarEvent);
+    public List<CalendarEvent> saveCalendarEvent(@RequestBody CalendarEvent calendarEvent, @PathVariable String userId) {
+        calendarService.save(userId, calendarEvent);
+        return calendarService.findAllByUserId(userId);
     }
+
 
 }

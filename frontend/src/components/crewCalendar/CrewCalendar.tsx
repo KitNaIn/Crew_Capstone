@@ -6,16 +6,35 @@ import { CalendarEvent } from "./model/Event";
 import timeOptions from "./timeOptions";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 function CustomCalendar() {
     const [date, setDate] = useState(new Date());
     const today = new Date();
-    const [calendarEvent, fetchCalendarEvent, saveCalendarEvent] = useCalendarEvent();
+    const [userId, setUserId] = useState('');
+    const [calendarEvent, fetchCalendarEvent, saveCalendarEvent] = useCalendarEvent(userId);
     today.setHours(0, 0, 0, 0);
 
+
+    const fetchUserId = async () => {
+        try {
+            const response = await axios.get('/api/user/me');
+            const userId = response.data.id;
+            setUserId(userId);
+        } catch (error) {
+            console.error('Error fetching userId: ', error);
+        }
+    };
+
     useEffect(() => {
-        fetchCalendarEvent();
+        fetchUserId();
     }, []);
+
+    useEffect(() => {
+        if (userId !== '') {
+            fetchCalendarEvent();
+        }
+    }, [userId]);
 
     const [showModal, setShowModal] = useState(false);
     const [newEvent, setNewEvent] = useState<CalendarEvent>({
@@ -66,6 +85,7 @@ function CustomCalendar() {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         saveCalendarEvent(newEvent);
+        fetchCalendarEvent();
         setShowModal(false);
     };
     const isEventDate = (day: Date | null) => {

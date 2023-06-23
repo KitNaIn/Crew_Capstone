@@ -14,12 +14,17 @@ public class CalendarService {
     private final GenerateUUIDService generateUUIDService;
 
     public List<CalendarEvent> findAll() {
+        //not used right now, will be used in  later patch
         return calendarRepo.findAll();
     }
+    public List<CalendarEvent> findAllByUserId(String userId){
+        return calendarRepo.findAllByUserId(userId);
+    }
 
-    public List<CalendarEvent> save(CalendarEvent calendarEvent) {
+    public List<CalendarEvent> save(String userId, CalendarEvent calendarEvent) {
         CalendarEvent newCalendarEvent = CalendarEvent.builder()
                 .uuid(generateUUIDService.generateUUID())
+                .userId(userId)
                 .title(calendarEvent.getTitle())
                 .eventDate(calendarEvent.getEventDate())
                 .startTime(calendarEvent.getStartTime())
@@ -28,7 +33,7 @@ public class CalendarService {
                 .build();
 
         calendarRepo.save(newCalendarEvent);
-        return findAll();
+        return findAllByUserId(userId);
     }
 
 }
