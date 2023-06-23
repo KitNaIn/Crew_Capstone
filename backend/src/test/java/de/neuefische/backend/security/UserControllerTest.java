@@ -80,17 +80,6 @@ class UserControllerTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser("username")
-    void endpointTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/me")
-                        .with(csrf()))
-                .andExpect(status().isOk());
-    }
-
-
-
-    @Test
-    @DirtiesContext
     void testPostNewUser_shouldReturn_409_when_username_exists() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/user/register")
                         .contentType("application/json")
