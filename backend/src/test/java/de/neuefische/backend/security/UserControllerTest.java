@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
@@ -51,6 +52,31 @@ class UserControllerTest {
                         """))
                 .andExpect(jsonPath("$.id").isNotEmpty());
     }
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "testUser")
+    void getUserDetails_ShouldReturnUserDto() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/me")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    {
+                        "username": "testUser",
+                     
+                    }
+                    """));
+    }
+    @Test
+    @DirtiesContext
+    @WithMockUser("username")
+    void endpointTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/me")
+                        .with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+
 
     @Test
     @DirtiesContext
