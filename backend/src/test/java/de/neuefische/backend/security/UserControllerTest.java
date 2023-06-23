@@ -33,7 +33,7 @@ class UserControllerTest {
     @DirtiesContext
     void testPostNewUser_shouldReturn_201_and_userDTO_with_role_user() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/user/register")
-                        .contentType("application/json")
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
                                         "username": "user@crew.user",
@@ -56,17 +56,28 @@ class UserControllerTest {
     @DirtiesContext
     @WithMockUser(username = "testUser")
     void getUserDetails_ShouldReturnUserDto() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                    {
+                        "username": "testUser",
+                        "password": "password"
+                    }
+                    """)
+                        .with(csrf()))
+                .andExpect(status().isCreated());
+
         mockMvc.perform(MockMvcRequestBuilders.get("/api/user/me")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                    {
-                        "username": "testUser",
-                     
-                    }
-                    """));
+                {
+                    "username": "testUser"
+                }
+                """));
     }
+
     @Test
     @DirtiesContext
     @WithMockUser("username")
