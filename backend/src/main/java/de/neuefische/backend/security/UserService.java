@@ -24,11 +24,11 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final GenerateUUIDService generateUUIDService;
 
-
+    String usernameNotFound = "User with username ";
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         CrewUser crewUser = userRepo.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " not found"));
+                .orElseThrow(() -> new UsernameNotFoundException(usernameNotFound + username + " not found"));
         return new User(crewUser.getUsername(), crewUser.getPassword(), crewUser.getRoles());
     }
 
@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
                 .build();
 
         if (userRepo.findUserByUsername(newUser.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("User with username " + user.getUsername() + " already exists");
+            throw new IllegalArgumentException(usernameNotFound + user.getUsername() + " already exists");
         }
         CrewUser temporalUser = userRepo.save(newUser.withRoles(Collections.singletonList(new SimpleGrantedAuthority("user"))).withPassword(passwordEncoder.encode(user.getPassword())));
         List<String> roles = temporalUser.getRoles().stream().map(SimpleGrantedAuthority::toString).toList();
@@ -49,7 +49,7 @@ public class UserService implements UserDetailsService {
 
     public UserDto getUserDetails(String username) {
         CrewUser crewUser = userRepo.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " not found"));
+                .orElseThrow(() -> new UsernameNotFoundException(usernameNotFound + username + " not found"));
 
         List<String> roles = crewUser.getRoles().stream()
                 .map(SimpleGrantedAuthority::getAuthority)
