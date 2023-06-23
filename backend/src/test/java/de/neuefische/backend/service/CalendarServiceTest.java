@@ -25,16 +25,18 @@ class CalendarServiceTest {
     @BeforeEach
     public void setup() {
         calendarRepo = Mockito.mock(CalendarRepo.class);
-        calendarService = Mockito.mock(CalendarService.class);
         generateUUIDService = Mockito.mock(GenerateUUIDService.class);
         calendarService = new CalendarService(calendarRepo, generateUUIDService);
     }
 
+
     @Test
     void save_ShouldCreateCalendarEvent_andReturnArray_WithEvent() {
         //GIVEN
-        CalendarEvent InputEvent = CalendarEvent.builder()
+        String userId = "user123";
+        CalendarEvent inputEvent = CalendarEvent.builder()
                 .title("Test Title")
+                .userId("user123")
                 .eventDate(LocalDate.now())
                 .startTime(LocalTime.of(9, 0))
                 .endTime(LocalTime.of(14, 0))
@@ -43,25 +45,28 @@ class CalendarServiceTest {
 
         CalendarEvent generatedCalendarEvent = CalendarEvent.builder()
                 .uuid("1")
-                .title(InputEvent.getTitle())
-                .eventDate(InputEvent.getEventDate())
-                .startTime(InputEvent.getStartTime())
-                .endTime(InputEvent.getEndTime())
-                .notes(InputEvent.getNotes())
+                .title(inputEvent.getTitle())
+                .userId(inputEvent.getUserId())
+                .eventDate(inputEvent.getEventDate())
+                .startTime(inputEvent.getStartTime())
+                .endTime(inputEvent.getEndTime())
+                .notes(inputEvent.getNotes())
                 .build();
 
         List<CalendarEvent> sampleEvent = new ArrayList<>();
         sampleEvent.add(generatedCalendarEvent);
 
         when(generateUUIDService.generateUUID()).thenReturn("1");
-        when(calendarRepo.findAll()).thenReturn(sampleEvent);
+        when(calendarRepo.findAllByUserId(inputEvent.getUserId())).thenReturn(sampleEvent);
+
         //WHEN
-        List<CalendarEvent> result = calendarService.save(InputEvent);
+        List<CalendarEvent> result = calendarService.save(userId, inputEvent);
         //THEN
-        assertEquals(1, result.size());
-        assertTrue(result.contains(generatedCalendarEvent));
         verify(calendarRepo).save(generatedCalendarEvent);
         verify(generateUUIDService).generateUUID();
-        verify(calendarRepo).findAll();
+        verify(calendarRepo).findAllByUserId(userId);
+        assertEquals(1, result.size());
+        assertTrue(result.contains(generatedCalendarEvent));
     }
+
 }

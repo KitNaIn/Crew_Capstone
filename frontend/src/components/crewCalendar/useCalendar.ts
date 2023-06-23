@@ -1,38 +1,37 @@
 import { useState } from 'react';
-import { CalendarEvent } from "./model/Event";
-import axios from "axios";
+import { CalendarEvent } from './model/Event';
+import axios from 'axios';
 
-type useCalendarEventType = [CalendarEvent[], () => void, (event: CalendarEvent) => void];
+type useCalendarEventType = [
+    CalendarEvent[],
+    () => Promise<void>,
+    (event: CalendarEvent) => Promise<void>
+];
 
-const useCalendarEvent = (): useCalendarEventType => {
+const useCalendarEvent = (userId: string): useCalendarEventType => {
     const [calendarEvent, setCalendarEvent] = useState<CalendarEvent[]>([]);
 
-    const fetchCalendarEvent = async () => {
-        const url = "/api/calendarevents";
 
-        await axios
-            .get(url)
-            .then((response) => {
-                setCalendarEvent(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching jobs ', error);
-                setCalendarEvent([]);
-            });
+    const fetchCalendarEvent = async () => {
+        try {
+            const response = await axios.get(`/api/calendarevents/${userId}`);
+            setCalendarEvent(response.data);
+        } catch (error) {
+            console.error('Error fetching calendar events: ', error);
+            setCalendarEvent([]);
+        }
     };
 
     const saveCalendarEvent = async (event: CalendarEvent) => {
         try {
-            const response =
-                await axios.post("/api/calendarevents", event);
-
+            const response = await axios.post(`/api/calendarevents/${userId}`, event);
             if (response.status === 201) {
-                fetchCalendarEvent();
+                await fetchCalendarEvent();
             } else {
-                console.error('Fehler beim Speichern des Events');
+                console.error('Error saving event');
             }
         } catch (error) {
-            console.error("Fehler beim Speichern des Events: ", error);
+            console.error('Error saving event: ', error);
         }
     };
 
