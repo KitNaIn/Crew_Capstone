@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 import { Jobs } from './model/jobs';
 import './jobsGallery.css';
 
@@ -6,7 +6,7 @@ type Props = {
     job: Jobs;
     onAccept: () => void;
     onReject: () => void;
-    setSelectedJobStatus: (status: string) => void;
+    setSelectedJobStatus: Dispatch<SetStateAction<string | undefined>>;
 };
 
 function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
@@ -17,7 +17,8 @@ function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
 
     const handleReject = () => {
         void onReject();
-        setSelectedJobStatus('rejected');
+        setSelectedJobStatus('rejected')
+
     };
 
 

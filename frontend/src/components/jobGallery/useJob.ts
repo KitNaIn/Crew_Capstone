@@ -25,27 +25,51 @@ const useJobs = (): UseJobsReturnType => {
             });
     };
 
-    const acceptJob = (jobId: string) => {
+    const acceptJob = async (jobId: string) => {
         const url = `/api/jobs/${jobId}/accept`;
-        axios
-            .put(url)
-            .then(() => {
-            })
-            .catch((error) => {
-                console.error(`Error accepting Job ${jobId}`, error);
-            });
+        try {
+            await axios.put(url);
+            const updatedJobsResponse = await axios.get('/api/jobs/sorted');
+            const updatedJobs = updatedJobsResponse.data;
 
+            const updatedJobEntry = updatedJobs.find((job : Jobs ) => job.uuid === jobId);
+            if (updatedJobEntry) {
+                const updatedJobsList = jobs.map((job) => {
+                    if (job.uuid === jobId) {
+                        return updatedJobEntry;
+                    }
+                    return job;
+                });
+                setJobs(updatedJobsList);
+            }
+        } catch (error) {
+            console.error(`Error accepting Job ${jobId}`, error);
+        }
     };
 
-    const rejectJob = (jobId: string) => {
+
+
+
+    const rejectJob = async (jobId: string) => {
         const url = `/api/jobs/${jobId}/reject`;
-        axios
-            .put(url)
-            .then(() => {
-            })
-            .catch((error) => {
-                console.error(`Error rejecting Job ${jobId}`, error);
-            });
+        try {
+            await axios.put(url);
+            const updatedJobsResponse = await axios.get('/api/jobs/sorted');
+            const updatedJobs = updatedJobsResponse.data;
+
+            const updatedJobEntry = updatedJobs.find((job : Jobs ) => job.uuid === jobId);
+            if (updatedJobEntry) {
+                const updatedJobsList = jobs.map((job) => {
+                    if (job.uuid === jobId) {
+                        return updatedJobEntry;
+                    }
+                    return job;
+                });
+                setJobs(updatedJobsList);
+            }
+        } catch (error) {
+            console.error(`Error rejecting Job ${jobId}`, error);
+        }
     };
 
     useEffect(() => {

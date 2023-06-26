@@ -66,7 +66,7 @@ function JobsGallery() {
                             <JobsEntry
                                 job={currentJob}
                                 selectedJobId={selectedJobId}
-                                selectedJobStatus={selectedJob?.status || ''}
+                                selectedJobStatus={selectedJob?.userStatus || ''}
                             />
                         </div>
                     ))}

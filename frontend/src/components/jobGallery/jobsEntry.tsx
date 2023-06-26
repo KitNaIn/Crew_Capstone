@@ -9,10 +9,10 @@ type Props = {
 };
 
 function JobsEntry({ job, selectedJobId, selectedJobStatus }: Props) {
-    const getStatusIcon = (status: string) => {
-        if (status.toLowerCase() === 'accepted') {
+    const getStatusIcon = (userStatus: string) => {
+        if (userStatus.toLowerCase() === 'accepted') {
             return <span className="status-icon-accept">&#10004;</span>;
-        } else if (status.toLowerCase() === 'rejected') {
+        } else if (userStatus.toLowerCase() === 'rejected') {
             return <span className="status-icon-reject">&#10008;</span>;
         }
         return null;
@@ -20,18 +20,16 @@ function JobsEntry({ job, selectedJobId, selectedJobStatus }: Props) {
 
     return (
         <div className="jobCard">
-            {selectedJobId === job.uuid && (
-                <div>
-                    {getStatusIcon(selectedJobStatus || job.userStatus || '')}
-                    <span className="status-text">
-                        {selectedJobStatus?.toLowerCase() === 'accepted'
-                            ? 'Angenommen'
-                            : selectedJobStatus?.toLowerCase() === 'rejected'
-                                ? 'Abgelehnt'
-                                : ''}
-                    </span>
-                </div>
-            )}
+            <div>
+                {getStatusIcon(job.userStatus || '')}
+                <span className="status-text">
+                    {selectedJobStatus?.toLowerCase() === 'accepted'
+                        ? 'Angenommen'
+                        : selectedJobStatus?.toLowerCase() === 'rejected'
+                            ? 'Abgelehnt'
+                            : ''}
+                </span>
+            </div>
             <div style={{ display: 'flex' }}>
                 <p style={{ color: 'grey' }}>{job.jobDate}</p>
                 <p>
