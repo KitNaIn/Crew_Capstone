@@ -12,9 +12,8 @@ function CustomCalendar() {
     const [date, setDate] = useState(new Date());
     const today = new Date();
     const [userId, setUserId] = useState('');
-    const [calendarEvent, fetchCalendarEvent, saveCalendarEvent] = useCalendarEvent(userId);
+    const [calendarEvent, fetchCalendarEvent, saveCalendarEvent, updateCalendarEvent] = useCalendarEvent(userId);
     today.setHours(0, 0, 0, 0);
-
 
     const fetchUserId = async () => {
         try {
@@ -58,7 +57,19 @@ function CustomCalendar() {
 
     const handleDateClick = (day: Date | null) => {
         if (day) {
-            setNewEvent({ ...newEvent, eventDate: day.toISOString() });
+            const existingEvent = calendarEvent.find((event: CalendarEvent) => new Date(event.eventDate).toDateString() === day.toDateString());
+            if (existingEvent) {
+                setNewEvent(existingEvent);
+            } else {
+                setNewEvent({
+                    uuid: '',
+                    title: "",
+                    eventDate: day.toISOString(),
+                    startTime: '',
+                    endTime: '',
+                    notes: ''
+                });
+            }
             setShowModal(true);
         }
     };
@@ -84,10 +95,15 @@ function CustomCalendar() {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        saveCalendarEvent(newEvent);
+        if (newEvent.uuid) {
+            updateCalendarEvent(userId, newEvent.uuid, newEvent);
+        } else {
+            saveCalendarEvent(newEvent);
+        }
         fetchCalendarEvent();
         setShowModal(false);
     };
+
     const isEventDate = (day: Date | null) => {
         if (day !== null) {
             const foundEvent = calendarEvent.find((event: CalendarEvent) => new Date(event.eventDate).toDateString() === day.toDateString());
@@ -95,8 +111,17 @@ function CustomCalendar() {
         }
         return false;
     };
+    const handleEdit = (event: CalendarEvent) => {
+        setNewEvent(event);
+        setShowModal(true);
+    };
 
-
+    const handleUpdate = (event: React.FormEvent) => {
+        event.preventDefault();
+        updateCalendarEvent(userId, newEvent.uuid, newEvent);
+        fetchCalendarEvent();
+        setShowModal(false);
+    };
 
     return (
         <div className="Calendar">
@@ -147,6 +172,8 @@ function CustomCalendar() {
                             <div>
                                 <strong>Notizen:</strong> {event.notes}
                             </div>
+                            <button onClick={() => handleEdit(event)}>Bearbeiten</button>
+
                         </li>
                     ))}
                 </ul>
@@ -216,6 +243,7 @@ function CustomCalendar() {
                                 />
                             </div>
                             <button type="submit">Speichern</button>
+                            <button onClick={handleUpdate}> Aktualisieren </button>
                         </form>
                     </div>
                 </div>
