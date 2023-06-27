@@ -32,7 +32,9 @@ public class CalendarController {
             @RequestBody CalendarEvent updatedEvent) {
         return calendarService.update(userId, eventId, updatedEvent);
     }
-
-
+    @DeleteMapping("/{eventId}")
+    public void deleteCalendarEvent(@PathVariable String userId, @PathVariable String eventId) {
+        calendarService.delete(userId, eventId);
+    }
 
 }

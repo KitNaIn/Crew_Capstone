@@ -24,6 +24,19 @@ function CustomCalendar() {
             console.error('Error fetching userId: ', error);
         }
     };
+    const deleteCalendarEvent = async (userId: string, eventId: string) => {
+        try {
+            const response = await axios.delete(`/api/calendarevents/${userId}/${eventId}`);
+            if (response.status === 200) {
+                console.log('Event gelöscht');
+                await fetchCalendarEvent();
+            } else {
+                console.error('Fehler beim Löschen des Events');
+            }
+        } catch (error) {
+            console.error('Fehler beim Löschen des Events: ', error);
+        }
+    };
 
     useEffect(() => {
         fetchUserId();
@@ -122,6 +135,11 @@ function CustomCalendar() {
         fetchCalendarEvent();
         setShowModal(false);
     };
+    const handleDelete = async (eventId: string) => {
+        if (window.confirm('Möchtest du diesen Termin wirklich löschen?')) {
+            await deleteCalendarEvent(userId, eventId);
+        }
+    };
 
     return (
         <div className="Calendar">
@@ -173,6 +191,8 @@ function CustomCalendar() {
                                 <strong>Notizen:</strong> {event.notes}
                             </div>
                             <button onClick={() => handleEdit(event)}>Bearbeiten</button>
+                            <button onClick={() => handleDelete(event.uuid)}>Löschen</button>
+
 
                         </li>
                     ))}

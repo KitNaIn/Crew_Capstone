@@ -52,9 +52,14 @@ public class CalendarService {
         calendarRepo.save(existingEvent);
         return existingEvent;
     }
+    public void delete(String userId, String eventId) {
+        List<CalendarEvent> events = calendarRepo.findAllByUserId(userId);
+        CalendarEvent eventToDelete = events.stream()
+                .filter(event -> event.getUuid().equals(eventId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Event not found"));
 
-
-
-
+        calendarRepo.delete(eventToDelete);
+    }
 
 }
