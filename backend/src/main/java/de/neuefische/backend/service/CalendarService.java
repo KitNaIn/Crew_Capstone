@@ -35,5 +35,26 @@ public class CalendarService {
         calendarRepo.save(newCalendarEvent);
         return findAllByUserId(userId);
     }
+    public CalendarEvent update(String userId, String eventId, CalendarEvent updatedEvent) {
+        CalendarEvent existingEvent = calendarRepo.findById(eventId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid event ID"));
+
+        if (!existingEvent.getUserId().equals(userId)) {
+            throw new IllegalArgumentException("Invalid user ID for the event");
+        }
+
+        existingEvent.setTitle(updatedEvent.getTitle());
+        existingEvent.setEventDate(updatedEvent.getEventDate());
+        existingEvent.setStartTime(updatedEvent.getStartTime());
+        existingEvent.setEndTime(updatedEvent.getEndTime());
+        existingEvent.setNotes(updatedEvent.getNotes());
+
+        calendarRepo.save(existingEvent);
+        return existingEvent;
+    }
+
+
+
+
 
 }

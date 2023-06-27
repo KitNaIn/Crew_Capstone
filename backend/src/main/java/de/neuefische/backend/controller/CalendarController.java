@@ -25,6 +25,14 @@ public class CalendarController {
         calendarService.save(userId, calendarEvent);
         return calendarService.findAllByUserId(userId);
     }
+    @PutMapping("/{eventId}")
+    public CalendarEvent updateCalendarEvent(
+            @PathVariable String userId,
+            @PathVariable String eventId,
+            @RequestBody CalendarEvent updatedEvent) {
+        return calendarService.update(userId, eventId, updatedEvent);
+    }
+
 
 
 }
