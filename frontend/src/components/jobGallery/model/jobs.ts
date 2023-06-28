@@ -6,7 +6,7 @@ export interface Jobs  {
     jobAddress:string,
     jobDate:string,
     startTime:string,
-    endTime:string
+    endTime:string,
     status:string;
     userStatus:string;
     jobComment:string

@@ -22,6 +22,10 @@ function JobsGallery() {
     useEffect(() => {
         fetchUserId();
     }, []);
+    useEffect(() => {
+        console.log(selectedJobStatus);
+    }, [selectedJobStatus]);
+
     const fetchUserId = async () => {
         try {
             const response = await axios.get('/api/user/me');
@@ -37,6 +41,7 @@ function JobsGallery() {
         setSelectedJobId(job.uuid);
         setSelectedJobStatus(job.userStatus)
         setShowGallery(false);
+        console.log(job.uuid);
     };
 
     const handleShowGallery = () => {
@@ -47,7 +52,6 @@ function JobsGallery() {
         acceptJob(jobId);
         setShowGallery(true);
         setSelectedJobStatus('accepted');
-        console.log(selectedJobStatus)
     };
 
     const handleRejectJob = (jobId: string) => {

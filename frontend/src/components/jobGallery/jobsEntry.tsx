@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Jobs } from './model/jobs';
 import './jobsGallery.css';
 
@@ -9,6 +9,12 @@ type Props = {
 };
 
 function JobsEntry({ job, selectedJobId, selectedJobStatus }: Props) {
+    const [jobStatus, setJobStatus] = useState<string | undefined>(job.userStatus);
+
+    useEffect(() => {
+        setJobStatus(job.userStatus);
+    }, [job.userStatus]);
+
     const getStatusIcon = (userStatus: string) => {
         if (userStatus.toLowerCase() === 'accepted') {
             return <span className="status-icon-accept">&#10004;</span>;
@@ -18,17 +24,21 @@ function JobsEntry({ job, selectedJobId, selectedJobStatus }: Props) {
         return null;
     };
 
+    useEffect(() => {
+        console.log(selectedJobStatus);
+    }, [selectedJobStatus]);
+
     return (
         <div className="jobCard">
             <div>
-                {getStatusIcon(job.userStatus || '')}
+                {getStatusIcon(jobStatus || '')}
                 <span className="status-text">
-                    {selectedJobStatus?.toLowerCase() === 'accepted'
-                        ? 'Angenommen'
-                        : selectedJobStatus?.toLowerCase() === 'rejected'
-                            ? 'Abgelehnt'
-                            : ''}
-                </span>
+          {jobStatus?.toLowerCase() === 'accepted'
+              ? 'Angenommen'
+              : jobStatus?.toLowerCase() === 'rejected'
+                  ? 'Abgelehnt'
+                  : ''}
+        </span>
             </div>
             <div style={{ display: 'flex' }}>
                 <p style={{ color: 'grey' }}>{job.jobDate}</p>
