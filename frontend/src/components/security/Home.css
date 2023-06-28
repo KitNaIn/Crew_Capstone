@@ -1,0 +1,41 @@
+.background{
+    background: radial-gradient(circle at center, #8ECAE6, #18748B, #023047);
+    height: 100vh;
+}
+.boxbox{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+.box{
+    backdrop-filter: blur(8px);
+    background-color: rgba(142, 202, 230, 0.4);
+    margin-top:50%;
+    border:1px solid white;
+    border-radius:2vh;
+    height:40vh;
+    width:30vh;
+    display:flex;
+    align-items:center;
+    justify-items:center;
+    flex-direction: column;
+}
+.form{
+    justify-items:center;
+    display:flex;
+    flex-direction:column;
+    height:40vh;
+    width:30vw;
+}
+.fields{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+.avatar{
+    margin-top: 0.5vh;
+    height: 15vh;
+    width: 15vh;
+}

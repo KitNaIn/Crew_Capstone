@@ -1,6 +1,8 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import './Home.css';
+import avatar from './images/avatar.png';
 
 type Props = {
     login: (username: string, password: string) => Promise<void>,
@@ -54,15 +56,24 @@ function Home(props:Props) {
     }
 
     return (
-        <div>
-            <h1>Login & Registration</h1>
-            <p>Please fill out the form below to register for an account!</p>
-            <form onSubmit={onSubmit}>
-                <input type="email" placeholder="Email" required onChange={onChangeHandlerUsername}/>
-                <input type="password" placeholder="Password" required minLength={3} onChange={onChangeHandlerPassword} />
-                <button type="submit" className="login" onClick={onClickLogin}>Login</button>
-                <button type="submit" className="register" onClick={onClickRegister}>Register</button>
+        <div className="background">
+        <div className="boxbox">
+            <div className="box">
+                <img src={avatar} alt="Avatar" className="avatar" />
+            <form className="form" onSubmit={onSubmit}>
+                <div className="fields">
+                <input  type="email"  placeholder="Email" required onChange={onChangeHandlerUsername} style={{ height:"3.5vh", width:"45vw", background:"#035177", color:"white", marginTop:"0.5vh"}}/>
+                    <input type="password" placeholder="Password" required minLength={3} onChange={onChangeHandlerPassword} style={{ height:"3.5vh", width:"45vw", marginTop:"0.5vh", background:"#035177", color:"white"}} />
+
+                    <div style={{display:"flex", marginTop:"2vh", alignItems:"center"}}>
+                    <input type="checkbox"/> <p style={{fontSize:"10px", marginRight:"12vw"}}>Remember me</p>
+                        <button type="submit" className="register" onClick={onClickRegister} style={{backgroundColor:"#023047", color:"white" }}>Register</button>
+                    </div>
+                    <button type="submit" className="login" onClick={onClickLogin} style={{ width:"48vw", height:"4.5vh", marginTop:"2vh", backgroundColor:"#023047", color:"white"}}>Login</button>
+                </div>
             </form>
+            </div>
+        </div>
         </div>
     );
 }
