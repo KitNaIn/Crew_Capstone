@@ -6,6 +6,7 @@ import CrewCalendar from "../crewCalendar/CrewCalendar";
 import './dashboard.css'
 import './settingsSheet.css'
 import useUser from "../security/useUser";
+import Talk from "../chat/Talk";
 
 function Dashboard() {
     const [activeButton, setActiveButton] = useState<string | null>(null);
@@ -59,6 +60,7 @@ function Dashboard() {
             <div className="jobs-gallery-container">
                 {activeButton === 'Aufträge' && <JobsGallery />}
                 {activeButton === 'Kalender' && <CrewCalendar />}
+                {activeButton === 'Chat' && <Talk/>}
             </div>
             {isSettingsOpen && (
                 <div className="settings-sheet-overlay">
