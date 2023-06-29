@@ -1,6 +1,16 @@
 .background{
     background: radial-gradient(circle at center, #8ECAE6, #18748B, #023047);
     height: 100vh;
+    position: relative;
+    overflow: hidden;
+    transition:  height 0.5s ease-out;
+}
+.slide-out {
+    height: 0;
+}
+
+.slide-in {
+    height: 100vh;
 }
 .boxbox{
     display:flex;
@@ -8,19 +18,19 @@
     justify-content:center;
     align-items:center;
 }
-.box{
-    backdrop-filter: blur(8px);
+.box {
     background-color: rgba(142, 202, 230, 0.4);
-    margin-top:50%;
-    border:1px solid white;
-    border-radius:2vh;
-    height:40vh;
-    width:30vh;
-    display:flex;
-    align-items:center;
-    justify-items:center;
+    margin-top: 30%;
+    border-radius: 2vh;
+    height: 45vh;
+    width: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
+    box-shadow: 0 0 20px 8px rgba(142, 202, 230, 0.4);
 }
+
 .form{
     justify-items:center;
     display:flex;
@@ -35,7 +45,7 @@
 
 }
 .avatar{
-    margin-top: 0.5vh;
+    margin-top: 3.5vh;
     height: 15vh;
     width: 15vh;
 }
