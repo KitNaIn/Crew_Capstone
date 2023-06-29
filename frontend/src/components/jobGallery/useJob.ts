@@ -50,6 +50,7 @@ const useJobs = (): UseJobsReturnType => {
             }
         } catch (error) {
             console.error(`Error accepting Job ${jobId}`, error);
+
         }
     };
 
