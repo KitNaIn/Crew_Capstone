@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Jobs } from './model/jobs';
+import {Jobs} from './model/jobs';
 
 type UseJobsReturnType = [
     Jobs[],
@@ -8,6 +8,22 @@ type UseJobsReturnType = [
     (jobId: string, userId: string) => void,
     (jobId: string, userId: string) => void
 ];
+
+function updateJobs(jobs: Jobs[], jobId: string, updatedJobEntry : Jobs) {
+    return jobs.map((job) => {
+        if (job.uuid === jobId) {
+            return updatedJobEntry;
+        }
+        return job;
+    });
+}
+
+async function fetchUpdatedJobs(url: string) {
+    await axios.put(url);
+    const updatedJobsResponse = await axios.get('/api/jobs/sorted');
+    const updatedJobs: Jobs[] = updatedJobsResponse.data;
+    return updatedJobs;
+}
 
 const useJobs = (): UseJobsReturnType => {
     const [jobs, setJobs] = useState<Jobs[]>([]);
@@ -26,21 +42,11 @@ const useJobs = (): UseJobsReturnType => {
     };
 
     const acceptJob = async (jobId: string, userId:string) => {
-        const url = `/api/jobs/${jobId}/${userId}/accept`;
         try {
-            await axios.put(url);
-            const updatedJobsResponse = await axios.get('/api/jobs/sorted');
-            const updatedJobs = updatedJobsResponse.data;
-
+            const updatedJobs = await fetchUpdatedJobs(`/api/jobs/${jobId}/${userId}/accept`)
             const updatedJobEntry = updatedJobs.find((job : Jobs ) => job.uuid === jobId);
             if (updatedJobEntry) {
-                const updatedJobsList = jobs.map((job) => {
-                    if (job.uuid === jobId) {
-                        return updatedJobEntry;
-                    }
-                    return job;
-                });
-                setJobs(updatedJobsList);
+                setJobs(updateJobs(jobs, jobId, updatedJobEntry));
             }
         } catch (error) {
             console.error(`Error accepting Job ${jobId}`, error);
@@ -51,21 +57,12 @@ const useJobs = (): UseJobsReturnType => {
 
 
     const rejectJob = async (jobId: string, userId: string) => {
-        const url = `/api/jobs/${jobId}/${userId}/reject`;
         try {
-            await axios.put(url);
-            const updatedJobsResponse = await axios.get('/api/jobs/sorted');
-            const updatedJobs = updatedJobsResponse.data;
-
+            const updatedJobs = await fetchUpdatedJobs(`/api/jobs/${jobId}/${userId}/reject`);
             const updatedJobEntry = updatedJobs.find((job : Jobs ) => job.uuid === jobId);
             if (updatedJobEntry) {
-                const updatedJobsList = jobs.map((job) => {
-                    if (job.uuid === jobId) {
-                        return updatedJobEntry;
-                    }
-                    return job;
-                });
-                setJobs(updatedJobsList);
+
+                setJobs(updateJobs(jobs, jobId, updatedJobEntry));
             }
         } catch (error) {
             console.error(`Error rejecting Job ${jobId}`, error);

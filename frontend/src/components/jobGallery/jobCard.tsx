@@ -11,12 +11,12 @@ type Props = {
 
 function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
     const handleAccept = () => {
-        void onAccept();
+        onAccept();
         setSelectedJobStatus('accepted');
     };
 
     const handleReject = () => {
-        void onReject();
+        onReject();
         setSelectedJobStatus('rejected')
 
     };
