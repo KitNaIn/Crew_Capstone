@@ -31,7 +31,7 @@ function GroupChat() {
 
     return (
         <>
-            <h1 style={{ backgroundColor:"lightblue", display:"flex", justifyContent:"center",} }>Crew Chat</h1>
+            <h1 className="header">Crew Chat</h1>
             <div className="chat-container">
                 {messages.slice().reverse().map((message, index) => (
                     <div

@@ -52,7 +52,7 @@ function JobsGallery() {
         <div>
             {showGallery ? (
                 <div className="jobGallery">
-                    <header> Aufträge</header>
+                    <header className="header"> Aufträge</header>
                     {jobs.map((currentJob) => (
                         <div key={currentJob.id} onClick={() => handleJobClick(currentJob)}>
                             <JobsEntry

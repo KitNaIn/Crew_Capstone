@@ -143,7 +143,7 @@ function CustomCalendar() {
 
     return (
         <div className="Calendar">
-            <header>Verfügbarkeiten</header>
+            <header className="header">Verfügbarkeiten</header>
             <br />
             <div className="CalendarNav">
                 <button onClick={handlePrevMonth}>Prev Month</button>
