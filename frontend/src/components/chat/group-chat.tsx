@@ -3,15 +3,17 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import './group-chat.tsx.css';
 
 function GroupChat() {
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<{ text: string; sent: boolean; timestamp: string }[]>([]);
     const [text, setText] = useState('');
 
     const { sendJsonMessage, readyState } = useWebSocket('ws://localhost:8080/api/ws/chat', {
         onMessage: (event) => {
             const receivedMessage = JSON.parse(event.data).message;
-            setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+            const timestamp = new Date().toLocaleString();
+            setMessages((prevMessages) => [...prevMessages, { text: receivedMessage, sent: false, timestamp }]);
         },
     });
+
 
     const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
         setText(event.target.value);
@@ -21,6 +23,8 @@ function GroupChat() {
         if (readyState === ReadyState.OPEN) {
             const messageObject = { message: text };
             sendJsonMessage(messageObject);
+            const timestamp = new Date().toLocaleString();
+            setMessages((prevMessages) => [...prevMessages, { text, sent: true, timestamp }]);
             setText('');
         }
     };
@@ -28,9 +32,19 @@ function GroupChat() {
     return (
         <>
             <h1>Chat</h1>
-            {messages.map((message, index) => (
-                <div key={index+1}>{message}</div>
-            ))}
+            <div className="chat-container">
+                {messages.slice().reverse().map((message, index) => (
+                    <div
+                        key={index + 1}
+                        className={message.sent ? 'sent-message' : 'received-message'}
+                    >
+                        <div className="message-bubble">
+                            <div>{message.text}</div>
+                            <div className="timestamp">{message.timestamp}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
             <div className="input-and-send">
                 <input placeholder="Type here..." className="input" value={text} onChange={handleTextChange}/>
                 <button className="cta" onClick={sendChatMessage}>

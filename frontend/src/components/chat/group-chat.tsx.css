@@ -81,3 +81,44 @@
 .cta:active {
     transform: scale(0.95);
 }
+.chat-container {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 80%;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.sent-message {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.received-message {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.message-bubble {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.sent-message .message-bubble {
+    background-color: #3b82f6;
+    color: #fff;
+}
+
+.received-message .message-bubble {
+    background-color: #b1dae7;
+    backdrop-filter: blur(4px);
+    color: #000;
+}
+.timestamp{
+    color:grey;
+    font-family: monospace;
+
+}
