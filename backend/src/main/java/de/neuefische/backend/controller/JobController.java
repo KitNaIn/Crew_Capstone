@@ -37,20 +37,20 @@ public class JobController {
     public Job getJobById(@PathVariable String id) {
         return jobService.findJobById(id);
     }
-    @PutMapping("/{id}/accept")
-    public ResponseEntity<Job> acceptJob(@PathVariable String id) {
+    @PutMapping("/{id}/{userId}/accept")
+    public ResponseEntity<Job> acceptJob(@PathVariable String id, @PathVariable String userId) {
         try {
-            Job updatedJob = jobService.acceptJob(id);
+            Job updatedJob = jobService.acceptJob(id, userId);
             return ResponseEntity.ok(updatedJob);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @PutMapping("/{id}/reject")
-    public ResponseEntity<Job> rejectJob(@PathVariable String id) {
+    @PutMapping("/{id}/{userId}/reject")
+    public ResponseEntity<Job> rejectJob(@PathVariable String id , @PathVariable String userId) {
         try {
-            Job updatedJob = jobService.rejectJob(id);
+            Job updatedJob = jobService.rejectJob(id, userId);
             return ResponseEntity.ok(updatedJob);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

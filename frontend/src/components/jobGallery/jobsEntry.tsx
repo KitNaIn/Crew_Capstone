@@ -5,37 +5,29 @@ import './jobsGallery.css';
 type Props = {
     job: Jobs;
     selectedJobId: string | null | undefined;
-    selectedJobStatus: string | null | undefined;
+    userId : string;
 };
 
-function JobsEntry({ job, selectedJobId, selectedJobStatus }: Props) {
-    const [jobStatus, setJobStatus] = useState<string | undefined>(job.userStatus);
+function JobsEntry({ job, userId }: Props) {
 
-    useEffect(() => {
-        setJobStatus(job.userStatus);
-    }, [job.userStatus]);
 
-    const getStatusIcon = (userStatus: string) => {
-        if (userStatus.toLowerCase() === 'accepted') {
+    const getStatusIcon = () => {
+        if (job.acceptedUsers && job.acceptedUsers.includes(userId)) {
             return <span className="status-icon-accept">&#10004;</span>;
-        } else if (userStatus.toLowerCase() === 'rejected') {
+        } else if (job.rejectedUsers && job.rejectedUsers.includes(userId)) {
             return <span className="status-icon-reject">&#10008;</span>;
         }
         return null;
     };
 
-    useEffect(() => {
-        console.log(selectedJobStatus);
-    }, [selectedJobStatus]);
-
     return (
         <div className="jobCard">
             <div>
-                {getStatusIcon(jobStatus || '')}
+                {getStatusIcon()}
                 <span className="status-text">
-          {jobStatus?.toLowerCase() === 'accepted'
+          {job.acceptedUsers?.includes(userId)
               ? 'Angenommen'
-              : jobStatus?.toLowerCase() === 'rejected'
+              : job.rejectedUsers?.includes(userId)
                   ? 'Abgelehnt'
                   : ''}
         </span>

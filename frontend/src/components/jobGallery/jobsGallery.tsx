@@ -23,7 +23,6 @@ function JobsGallery() {
         fetchUserId();
     }, []);
     useEffect(() => {
-        console.log(selectedJobStatus);
     }, [selectedJobStatus]);
 
     const fetchUserId = async () => {
@@ -49,13 +48,13 @@ function JobsGallery() {
     };
 
     const handleAcceptJob = (jobId: string) => {
-        acceptJob(jobId);
+        acceptJob(jobId, userId);
         setShowGallery(true);
         setSelectedJobStatus('accepted');
     };
 
     const handleRejectJob = (jobId: string) => {
-        rejectJob(jobId);
+        rejectJob(jobId, userId);
         setShowGallery(true);
         setSelectedJobStatus('rejected');
     };
@@ -68,9 +67,9 @@ function JobsGallery() {
                     {jobs.map((currentJob: Jobs) => (
                         <div key={currentJob.uuid} onClick={() => handleJobClick(currentJob)}>
                             <JobsEntry
+                                userId={userId}
                                 job={currentJob}
                                 selectedJobId={selectedJobId}
-                                selectedJobStatus={selectedJob?.userStatus || ''}
                             />
                         </div>
                     ))}

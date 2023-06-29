@@ -10,5 +10,7 @@ export interface Jobs  {
     status:string;
     userStatus:string;
     jobComment:string
+    acceptedUsers: string [];
+    rejectedUsers: string [];
 
 }

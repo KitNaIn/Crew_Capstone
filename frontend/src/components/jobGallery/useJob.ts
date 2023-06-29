@@ -5,8 +5,8 @@ import { Jobs } from './model/jobs';
 type UseJobsReturnType = [
     Jobs[],
     () => void,
-    (jobId: string) => void,
-    (jobId: string) => void
+    (jobId: string, userId: string) => void,
+    (jobId: string, userId: string) => void
 ];
 
 const useJobs = (): UseJobsReturnType => {
@@ -25,8 +25,8 @@ const useJobs = (): UseJobsReturnType => {
             });
     };
 
-    const acceptJob = async (jobId: string) => {
-        const url = `/api/jobs/${jobId}/accept`;
+    const acceptJob = async (jobId: string, userId:string) => {
+        const url = `/api/jobs/${jobId}/${userId}/accept`;
         try {
             await axios.put(url);
             const updatedJobsResponse = await axios.get('/api/jobs/sorted');
@@ -50,8 +50,8 @@ const useJobs = (): UseJobsReturnType => {
 
 
 
-    const rejectJob = async (jobId: string) => {
-        const url = `/api/jobs/${jobId}/reject`;
+    const rejectJob = async (jobId: string, userId: string) => {
+        const url = `/api/jobs/${jobId}/${userId}/reject`;
         try {
             await axios.put(url);
             const updatedJobsResponse = await axios.get('/api/jobs/sorted');
