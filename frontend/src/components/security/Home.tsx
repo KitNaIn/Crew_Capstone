@@ -81,12 +81,13 @@ function Home(props:Props) {
                     </div>
                     <div style={{display:"flex", marginTop:"2vh", alignItems:"center"}}>
                     <input type="checkbox"/> <p style={{fontSize:"10px", marginRight:"12vw"}}>Remember me</p>
-                        <button type="submit" className="register" onClick={onClickRegister} style={{backgroundColor:"#023047", color:"white" }}>Register</button>
                     </div>
                     <button type="submit" className="shadow__btn" onClick={onClickLogin} >Login</button>
                 </div>
             </form>
             </div>
+            <p onClick={onClickRegister} style={{display:"flex", color:"lightgrey", marginTop:"vh", fontSize:"1.5vh"}}> Don't have an Account yet? Register now!  </p>
+
         </div>
         </div>
     );
