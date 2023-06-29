@@ -12,13 +12,17 @@ function Dashboard() {
     const [activeButton, setActiveButton] = useState<string | null>(null);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const { logout } = useUser();
+    const settingsOverlayClassName = `settings-sheet-overlay ${isSettingsOpen ? 'open' : ''}`;
+
 
     const handleButtonClick = (buttonName: string) => {
         setActiveButton(buttonName);
     }
 
     const handleSettingsClick = () => {
-        setIsSettingsOpen(true);
+        setTimeout(() => {
+            setIsSettingsOpen(true);
+        }, 300);
     }
 
     const closeSettings = () => {
@@ -63,7 +67,7 @@ function Dashboard() {
                 {activeButton === 'Chat' && <GroupChat/>}
             </div>
             {isSettingsOpen && (
-                <div className="settings-sheet-overlay">
+                <div className={settingsOverlayClassName}>
                     <div className="settings-sheet">
                         <div className="settings-sheet-header">
                             <h2 className="settings-sheet-title">Edit profile</h2>
