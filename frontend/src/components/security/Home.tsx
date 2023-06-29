@@ -73,13 +73,17 @@ function Home(props:Props) {
                 <img src={avatar} alt="Avatar" className="avatar" />
             <form className="form" onSubmit={onSubmit}>
                 <div className="fields">
-                <input  type="email"  placeholder="Email" required onChange={onChangeHandlerUsername} style={{ height:"2.5vh", width:"45vw", background:"#035177", color:"white", marginTop:"0.5vh"}}/>
-                    <input type="password" placeholder="Password" required minLength={3} onChange={onChangeHandlerPassword} style={{ height:"2.5vh", width:"45vw", marginTop:"1vh", background:"#035177", color:"white"}} />
+                    <div className="form">
+                        <input className="input" placeholder="Email" required onChange={onChangeHandlerUsername}  type="email"/>
+                            <span className="input-border"></span>
+                        <input className="input" type="password" placeholder="Password" required minLength={3} onChange={onChangeHandlerPassword} />
+                        <span className="input-border"></span>
+                    </div>
                     <div style={{display:"flex", marginTop:"2vh", alignItems:"center"}}>
                     <input type="checkbox"/> <p style={{fontSize:"10px", marginRight:"12vw"}}>Remember me</p>
                         <button type="submit" className="register" onClick={onClickRegister} style={{backgroundColor:"#023047", color:"white" }}>Register</button>
                     </div>
-                    <button type="submit" className="login" onClick={onClickLogin} style={{ width:"48vw", height:"4.5vh", marginTop:"2vh", backgroundColor:"#023047", color:"white"}}>Login</button>
+                    <button type="submit" className="shadow__btn" onClick={onClickLogin} >Login</button>
                 </div>
             </form>
             </div>
