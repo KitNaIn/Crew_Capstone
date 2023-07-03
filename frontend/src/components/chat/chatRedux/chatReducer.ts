@@ -1,3 +1,5 @@
+import { createStore } from 'redux';
+
 interface ChatState {
     messages: { text: string; sent: boolean; timestamp: string }[];
 }
@@ -18,4 +20,6 @@ const chatReducer = (state = initialState, action: { type: string; payload: any 
     }
 };
 
-export default chatReducer;
+const store = createStore(chatReducer);
+
+export default store;
