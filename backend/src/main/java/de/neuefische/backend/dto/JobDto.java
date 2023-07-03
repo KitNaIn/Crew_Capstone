@@ -13,6 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 public class JobDto {
+    private String uuid;
     private String jobFormat;
     private String issuer;
     private String contactPerson;
@@ -21,5 +22,7 @@ public class JobDto {
     private LocalTime startTime;
     private LocalTime endTime;
     private String jobComment;
+    private String userStatus;
+    private String status;
 }
 

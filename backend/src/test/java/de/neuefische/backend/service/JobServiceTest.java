@@ -222,5 +222,107 @@ class JobServiceTest {
         verify(jobRepo, never()).deleteById(jobId);
     }
 
+    @Test
+    void acceptJobShouldAcceptUserAndReturnUpdatedJob() {
+        // GIVEN
+        String jobId = "1";
+        String userId = "user1";
+        Job job = Job.builder()
+                .uuid(jobId)
+                .acceptedUsers(null)
+                .rejectedUsers(null)
+                .build();
+
+        // WHEN
+        when(jobRepo.findById(jobId)).thenReturn(java.util.Optional.of(job));
+        when(jobRepo.save(job)).thenReturn(job);
+        Job result = jobService.acceptJob(jobId, userId);
+
+        // THEN
+        assertTrue(result.getAcceptedUsers().contains(userId));
+        assertTrue(result.getRejectedUsers().isEmpty());
+
+        verify(jobRepo).findById(jobId);
+        verify(jobRepo).save(job);
+    }
+
+    @Test
+    void acceptJobShouldAddUserToAcceptedUsersListIfNotAlreadyPresent() {
+        // GIVEN
+        String jobId = "1";
+        String userId = "user1";
+        List<String> acceptedUsers = new ArrayList<>();
+        acceptedUsers.add("user2");
+        Job job = Job.builder()
+                .uuid(jobId)
+                .acceptedUsers(acceptedUsers)
+                .rejectedUsers(null)
+                .build();
+
+        // WHEN
+        when(jobRepo.findById(jobId)).thenReturn(java.util.Optional.of(job));
+        when(jobRepo.save(job)).thenReturn(job);
+        Job result = jobService.acceptJob(jobId, userId);
+
+        // THEN
+        assertTrue(result.getAcceptedUsers().contains(userId));
+        assertEquals(2, result.getAcceptedUsers().size());
+        assertNotNull(result.getRejectedUsers());
+        assertTrue(result.getRejectedUsers().isEmpty());
+
+        verify(jobRepo).findById(jobId);
+        verify(jobRepo).save(job);
+    }
+
+    @Test
+    void rejectJobShouldRejectUserAndReturnUpdatedJob() {
+        // GIVEN
+        String jobId = "1";
+        String userId = "user1";
+        Job job = Job.builder()
+                .uuid(jobId)
+                .acceptedUsers(null)
+                .rejectedUsers(null)
+                .build();
+
+        // WHEN
+        when(jobRepo.findById(jobId)).thenReturn(java.util.Optional.of(job));
+        when(jobRepo.save(job)).thenReturn(job);
+        Job result = jobService.rejectJob(jobId, userId);
+
+        // THEN
+        assertTrue(result.getRejectedUsers().contains(userId));
+        assertTrue(result.getAcceptedUsers().isEmpty());
+
+        verify(jobRepo).findById(jobId);
+        verify(jobRepo).save(job);
+    }
+    @Test
+    void acceptJobShouldRemoveUserFromRejectedUsersListIfPresent() {
+        // GIVEN
+        String jobId = "1";
+        String userId = "user1";
+        List<String> rejectedUsers = new ArrayList<>();
+        rejectedUsers.add(userId);
+        Job job = Job.builder()
+                .uuid(jobId)
+                .acceptedUsers(null)
+                .rejectedUsers(rejectedUsers)
+                .build();
+
+        // WHEN
+        when(jobRepo.findById(jobId)).thenReturn(java.util.Optional.of(job));
+        when(jobRepo.save(job)).thenReturn(job);
+        Job result = jobService.acceptJob(jobId, userId);
+
+        // THEN
+        assertFalse(result.getRejectedUsers().contains(userId));
+        assertTrue(result.getAcceptedUsers().contains(userId));
+        assertTrue(result.getRejectedUsers().isEmpty());
+
+        verify(jobRepo).findById(jobId);
+        verify(jobRepo).save(job);
+    }
+
 
 }

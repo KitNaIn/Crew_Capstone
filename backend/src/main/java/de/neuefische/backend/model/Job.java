@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -26,5 +27,8 @@ public class Job {
     private LocalTime startTime;
     private LocalTime endTime;
     private String status;
+    private String userStatus;
     private String jobComment;
+    private List<String> acceptedUsers;
+    private List<String> rejectedUsers;
 }
