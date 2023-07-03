@@ -6,6 +6,7 @@ import de.neuefische.backend.repo.JobRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -36,6 +37,43 @@ public class JobService {
         jobRepo.save(newJob);
         return findAll();
     }
+
+    public Job acceptJob( String jobId, String userId) {
+        Job job = findJobById(jobId);
+        job.setUserStatus("accepted");
+        if (job.getAcceptedUsers() == null ){
+            job.setAcceptedUsers(new ArrayList<>());
+        }
+        if (!job.getAcceptedUsers().contains(userId)){
+            job.getAcceptedUsers().add(userId);
+        }
+        if (job.getRejectedUsers() == null) {
+            job.setRejectedUsers(new ArrayList<>());
+        }
+        if (job.getRejectedUsers().contains(userId)) {
+
+            job.getRejectedUsers().remove(userId);
+        }
+        return jobRepo.save(job);
+    }
+    public Job rejectJob( String jobId, String userId) {
+        Job job = findJobById(jobId);
+        job.setUserStatus("rejected");
+        if (job.getRejectedUsers() == null) {
+            job.setRejectedUsers(new ArrayList<>());
+        }
+        if (!job.getRejectedUsers().contains(userId)){
+            job.getRejectedUsers().add(userId);
+        }
+        if (job.getAcceptedUsers() == null) {
+            job.setAcceptedUsers(new ArrayList<>());
+        }
+        if(job.getAcceptedUsers().contains(userId)) {
+            job.getAcceptedUsers().remove(userId);
+        }
+        return jobRepo.save(job);
+    }
+
 
     public Job convertToJobEntity(JobDto jobDto) {
         return Job.builder()
