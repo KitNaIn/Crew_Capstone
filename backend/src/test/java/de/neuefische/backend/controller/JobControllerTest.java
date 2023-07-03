@@ -299,4 +299,43 @@ class JobControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.acceptedUsers").isArray());
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void rejectJob_shouldThrowException() throws Exception {
+        // GIVEN
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/jobs")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "jobFormat": "Format",
+                                    "issuer": "Issuer",
+                                    "contactPerson": "Contact Person",
+                                    "jobAddress": "Job Address",
+                                    "jobDate": "2023-06-14",
+                                    "startTime": "10:00:00",
+                                    "endTime": "12:00:00",
+                                    "status": null,
+                                    "jobComment": "Job Comment"
+                                }
+                            """)
+                        .with(csrf()))
+                .andExpect(status().isCreated())
+                .andReturn();
+        String content = result.getResponse().getContentAsString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        Job[] addedJobs = objectMapper.readValue(content, Job[].class);
+        Job addedJob = addedJobs[0];
+
+        // WHEN && THEN
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/jobs/" + addedJob.getUuid()+1 + "/userId/reject")
+                        .with(csrf()))
+                .andExpect(status().isInternalServerError());
+    }
+
+
+
 }
