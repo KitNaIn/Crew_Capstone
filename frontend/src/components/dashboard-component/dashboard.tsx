@@ -7,6 +7,8 @@ import './dashboard.css'
 import './settingsSheet.css'
 import useUser from "../security/useUser";
 import GroupChat from "../chat/group-chat";
+import store from '../chat/chatRedux/store';
+import {Provider} from "react-redux";
 
 function Dashboard() {
     const [activeButton, setActiveButton] = useState<string | null>(null);
@@ -64,7 +66,7 @@ function Dashboard() {
             <div className="jobs-gallery-container">
                 {activeButton === 'Aufträge' && <JobsGallery />}
                 {activeButton === 'Kalender' && <CrewCalendar />}
-                {activeButton === 'Chat' && <GroupChat/>}
+                {activeButton === 'Chat' &&  <Provider store={store}><GroupChat/></Provider>}
             </div>
             {isSettingsOpen && (
                 <div className={settingsOverlayClassName}>
