@@ -7,14 +7,14 @@
     justify-content: space-around;
 }
 .highlight-current{
-background-color: lightskyblue;
+background-color: lightgreen;
     border-radius: 50%;
     width: 25px;
     height: 25px;
 
 }
 .highlight-event{
-background-color: darkorange;
+background-color: indianred;
 border-radius: 50%;
     width: 15px;
     height: 25px;
