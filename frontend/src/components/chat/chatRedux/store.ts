@@ -1,6 +1,9 @@
 
-import chatReducer from './chatReducer';
+import {configureStore, Store} from '@reduxjs/toolkit';
+import { chatReducer } from "./chatReducer";
 
-const store = (chatReducer);
-
-export default store;
+export const store: Store<ChatState, AddMessageAction> & {
+    dispatch: DispatchType
+} = configureStore({
+    reducer: chatReducer
+});

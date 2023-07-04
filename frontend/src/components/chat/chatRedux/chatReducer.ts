@@ -1,21 +1,23 @@
-interface ChatState {
-    messages: { text: string; sent: boolean; timestamp: string }[];
-}
+
+import * as actionTypes from './actionTypes';
 
 const initialState: ChatState = {
-    messages: [],
+    messages: [
+        {
+            text: "this is a test",
+            sent: true,
+            timestamp: "03.07.2023 - 21:20"
+        },
+    ],
 };
 
-const chatReducer = (state = initialState, action: { type: string; payload: any }): ChatState => {
+export const chatReducer = (state: ChatState = initialState, action: AddMessageAction): ChatState => {
     switch (action.type) {
-        case 'ADD_MESSAGE':
+        case actionTypes.ADD_MESSAGE:
             return {
                 ...state,
-                messages: [...state.messages, action.payload],
+                messages: [...state.messages, action.message]
             };
-        default:
-            return state;
     }
-};
-
-export default chatReducer;
+    return state;
+}

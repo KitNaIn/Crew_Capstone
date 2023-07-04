@@ -7,7 +7,7 @@ import './dashboard.css'
 import './settingsSheet.css'
 import useUser from "../security/useUser";
 import GroupChat from "../chat/group-chat";
-import store from '../chat/chatRedux/store';
+import {store} from '../chat/chatRedux/store';
 import {Provider} from "react-redux";
 
 function Dashboard() {

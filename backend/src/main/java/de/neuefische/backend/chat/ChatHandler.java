@@ -24,7 +24,7 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         sessions.add(session);
-        session.sendMessage(new TextMessage(objectMapper.writeValueAsString(messages)));
+//        session.sendMessage(new TextMessage(objectMapper.writeValueAsString(messages)));
     }
 
     @Override
@@ -40,8 +40,8 @@ public class ChatHandler extends TextWebSocketHandler {
     }
 
     void broadcast(String message) throws IOException {
-        for (WebSocketSession session : sessions) {
-            session.sendMessage(new TextMessage(message));
+        for (WebSocketSession s : sessions) {
+            s.sendMessage(new TextMessage(message));
         }
     }
 }
