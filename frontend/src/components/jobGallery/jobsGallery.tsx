@@ -85,7 +85,7 @@ function JobsGallery() {
                         />
                     )}
                     <br />
-                    <button onClick={handleShowGallery}>Zurück zur Galerie</button>
+                    {/*<button onClick={handleShowGallery}>Zurück zur Galerie</button>*/}
                 </div>
             )}
         </div>

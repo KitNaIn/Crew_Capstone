@@ -6,7 +6,7 @@ import CrewCalendar from "../crewCalendar/CrewCalendar";
 import './dashboard.css'
 import './settingsSheet.css'
 import useUser from "../security/useUser";
-import Talk from "../chat/Talk";
+
 
 function Dashboard() {
     const [activeButton, setActiveButton] = useState<string | null>(null);
@@ -32,35 +32,35 @@ function Dashboard() {
                     className={activeButton === 'Aufträge' ? 'active' : ''}
                     onClick={() => handleButtonClick('Aufträge')}
                 >
-                    <FontAwesomeIcon icon={faBarsProgress} size="lg" color="#00569e" />
+                    <FontAwesomeIcon icon={faBarsProgress} size="lg" color="darkslategray" />
                     {activeButton === 'Aufträge' && <span className="spans">Aufträge</span>}
                 </div>
                 <div
                     className={activeButton === 'Kalender' ? 'active' : ''}
                     onClick={() => handleButtonClick('Kalender')}
                 >
-                    <FontAwesomeIcon icon={faCalendarDays} size="lg" color="#00569e" />
+                    <FontAwesomeIcon icon={faCalendarDays} size="lg" color="darkslategray" />
                     {activeButton === 'Kalender' && <span className="spans">Kalender</span>}
                 </div>
                 <div
                     className={activeButton === 'Chat' ? 'active' : ''}
                     onClick={() => handleButtonClick('Chat')}
                 >
-                    <FontAwesomeIcon icon={faComment} size="lg" color="#00569e" />
+                    <FontAwesomeIcon icon={faComment} size="lg" color="darkslategray" />
                     {activeButton === 'Chat' && <span className="spans">Chat</span>}
                 </div>
                 <div
                     className={activeButton === 'Einstellungen' ? 'active' : ''}
                     onClick={() => handleSettingsClick()}
                 >
-                    <FontAwesomeIcon icon={faUserSecret} size="lg" color="#00569e" />
+                    <FontAwesomeIcon icon={faUserSecret} size="lg" color="darkslategray" />
                     {activeButton === 'Einstellungen' && <span className="spans">Einstellungen</span>}
                 </div>
             </div>
             <div className="jobs-gallery-container">
                 {activeButton === 'Aufträge' && <JobsGallery />}
                 {activeButton === 'Kalender' && <CrewCalendar />}
-                {activeButton === 'Chat' && <Talk/>}
+                {activeButton === 'Chat' }
             </div>
             {isSettingsOpen && (
                 <div className="settings-sheet-overlay">
