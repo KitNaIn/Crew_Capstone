@@ -205,21 +205,23 @@ function CustomCalendar() {
                     {sortedEvents?.map((event) => (
                         <div className="Entrys" key={event.uuid}
                         style={{backgroundImage : getBackgroundImage(event.startTime)}}>
-                            <div>
+                            <div style={{ marginTop:'1.5vh'}}>
                                 <strong>Titel:</strong> {event.title}
                             </div>
-                            <strong>Datum:</strong> {event.eventDate}
-                            <div>
+                            <strong>Datum: {event.eventDate}</strong>
+                            <div style={{ marginTop:'1.5vh'}}>
                                 <strong>Startzeit:</strong> {event.startTime}
                             </div>
-                            <div>
+                            <div style={{ marginTop:'0.5vh'}}>
                                 <strong>Endzeit:</strong> {event.endTime}
                             </div>
-                            <div>
+                            <div style={{ marginTop:'5vh', overflow:'scroll', height:'20vh'}}>
                                 <strong>Notizen:</strong> {event.notes}
                             </div>
-                            <button onClick={() => handleEdit(event)}>Bearbeiten</button>
-                            <button onClick={() => handleDelete(event.uuid)}>Löschen</button>
+                            <div style={{ display:'flex', justifyContent:'center', marginTop:'20vh'}}>
+                            <button className="EntryButton" onClick={() => handleEdit(event)}>Bearbeiten</button>
+                            <button className="EntryButton" onClick={() => handleDelete(event.uuid)}>Löschen</button>
+                            </div>
                         </div>
                     ))}
                 </div>
