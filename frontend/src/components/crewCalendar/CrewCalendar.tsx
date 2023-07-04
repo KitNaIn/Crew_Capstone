@@ -175,7 +175,7 @@ function CustomCalendar() {
             <br />
             <div className="CalendarNav">
                 <button onClick={handlePrevMonth}>Prev Month</button>
-                <span>{date.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+                <span style={{letterSpacing:'-0.5px'}}>{date.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
                 <button onClick={handleNextMonth}>Next Month</button>
             </div>
             <br />
@@ -201,7 +201,7 @@ function CustomCalendar() {
                 </tbody>
             </table>
             <div className="EventList">
-                <h3 style={{display:'flex', justifyContent:'center'}}>Termine</h3>
+                <h3 style={{display:'flex', justifyContent:'center', letterSpacing:'-1px', fontSize:'20px'}}>Termine</h3>
                 <div className="Carousel">
                     {sortedEvents?.map((event) => (
                         <div className="Entrys" key={event.uuid}

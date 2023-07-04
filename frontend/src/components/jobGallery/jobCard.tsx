@@ -52,8 +52,8 @@ function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
                         margin: '1.5vh',
                     }}
                 >
-                    <button onClick={handleAccept}>Annehmen</button>
-                    <button onClick={handleReject}>Ablehnen</button>
+                    <button className='accept-button' onClick={handleAccept}>Annehmen</button>
+                    <button className='reject-button' onClick={handleReject}>Ablehnen</button>
                 </div>
             </div>
         </div>
