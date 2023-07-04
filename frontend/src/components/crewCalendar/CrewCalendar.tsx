@@ -218,10 +218,10 @@ function CustomCalendar() {
                             <div style={{ marginTop:'0.5vh'}}>
                                 <strong>Endzeit:</strong> {formatTime(event.endTime)}
                             </div>
-                            <div style={{ marginTop:'5vh', overflow:'scroll', height:'20vh'}}>
+                            <div className='notes'>
                                 <strong>Notizen:</strong> {event.notes}
                             </div>
-                            <div style={{ display:'flex', justifyContent:'center', marginTop:'20vh'}}>
+                            <div style={{ display:'flex', justifyContent:'center', marginTop:'1.5vh'}}>
                             <button className="EntryButton" onClick={() => handleEdit(event)}>Bearbeiten</button>
                             <button className="EntryButton" onClick={() => handleDelete(event.uuid)}>Löschen</button>
                             </div>
