@@ -26,10 +26,6 @@ function GroupChat() {
         })();
     }, []);
 
-    const formatTimestamp = (date: Date) => {
-        return date.toLocaleString(undefined, { minute: 'numeric', hour: 'numeric', hour12: false });
-    };
-
     const { sendJsonMessage, readyState } = useWebSocket('ws://localhost:8080/api/chat', {
         onMessage: (event) => {
             if (event.data.startsWith("[") && event.data.length > 1 && event.data.charAt(1) !== "]") {
@@ -61,22 +57,23 @@ function GroupChat() {
         return message.userName === userName;
     }
 
+
     return (
         <>
-            <h1 className="header">Crew Chat</h1>
+            <header className="header">Crew Chat</header>
             { messages && <div className="chat-container">
                 {messages.slice().reverse().map((m, index) => (
                     <div key={index + 1} className={checkAuthor(m) ? 'sent-message' : 'received-message'}>
                         <div className="message-bubble">
+                            <small>{m.userName}</small>
                             <div>{m.message}</div>
                             <div className="timestamp">{m.timeStamp}</div>
-                            <small>{m.userName}</small>
                         </div>
                     </div>
                 ))}
             </div>}
             <div className="input-and-send">
-                <input placeholder="Type here..." className="input" value={text} onChange={handleTextChange} />
+                <input placeholder="Type here..." className="input" value={text} onChange={handleTextChange}  />
                 <button className="cta" onClick={() => sendChatMessage()}>
                     <span>Send</span>
                     <svg viewBox="0 0 13 10" height="10px" width="15px">
