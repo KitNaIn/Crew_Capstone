@@ -69,10 +69,10 @@
     font-size: 20px;
     color: darkslategray;
 }
-.a{
+.status-text-accepted{
     color: mediumseagreen;
 }
-.b{
+.status-text-rejected{
     color: darkred;
 }
 .jobCard p {
