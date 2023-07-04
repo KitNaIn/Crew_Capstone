@@ -7,6 +7,11 @@ import timeOptions from "./timeOptions";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import morgenImage from './calendarPictures/morgen.jpg';
+import mittagImage from './calendarPictures/mittag.jpg';
+import abendImage from './calendarPictures/abend.jpg';
+import nachtImage from './calendarPictures/nacht.jpg';
+
 
 function CustomCalendar() {
     const [date, setDate] = useState(new Date());
@@ -140,6 +145,28 @@ function CustomCalendar() {
             await deleteCalendarEvent(userId, eventId);
         }
     };
+    const sortedEvents = calendarEvent?.sort((a, b) => {
+        const dateA = new Date(a.eventDate);
+        const dateB = new Date(b.eventDate);
+        return dateA.getTime() - dateB.getTime();
+    });
+
+    const getBackgroundImage = (startTime: string) => {
+        if (startTime >= '06:01' && startTime < '10:00') {
+            return `url(${morgenImage})`;
+        } else if (startTime >= '10:01' && startTime < '17:00') {
+            return `url(${mittagImage})`;
+        } else if (startTime >= '17:01' && startTime < '22:00') {
+            return `url(${abendImage})`;
+        } else if (startTime >= '22:01' || startTime < '06:00') {
+            return `url(${nachtImage})`;
+        } else {
+            return 'none';
+        }
+    };
+
+
+
 
     return (
         <div className="Calendar">
@@ -174,9 +201,10 @@ function CustomCalendar() {
             </table>
             <div className="EventList">
                 <h3>Termine</h3>
-                <ul>
-                    {calendarEvent?.map((event) => (
-                        <li key={event.uuid}>
+                <div className="Carousel">
+                    {sortedEvents?.map((event) => (
+                        <div className="Entrys" key={event.uuid}
+                        style={{backgroundImage : getBackgroundImage(event.startTime)}}>
                             <div>
                                 <strong>Titel:</strong> {event.title}
                             </div>
@@ -192,11 +220,9 @@ function CustomCalendar() {
                             </div>
                             <button onClick={() => handleEdit(event)}>Bearbeiten</button>
                             <button onClick={() => handleDelete(event.uuid)}>Löschen</button>
-
-
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
             {showModal && (
                 <div className="Modal">

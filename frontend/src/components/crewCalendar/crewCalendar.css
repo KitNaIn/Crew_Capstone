@@ -125,3 +125,22 @@ border-radius: 50%;
 .EventList li {
     margin-bottom: 10px;
 }
+.Carousel{
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    overflow-x:scroll;
+    flex-wrap: nowrap;
+}
+.Entrys {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-right: 10px;
+    width: 300px;
+    height: 350px;
+    background-size: cover;
+}
