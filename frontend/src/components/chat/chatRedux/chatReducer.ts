@@ -13,12 +13,11 @@ const initialState: ChatState = {
 };
 
 export const chatReducer = (state: ChatState = initialState, action: AddMessageAction): ChatState => {
-    switch (action.type) {
-        case actionTypes.ADD_MESSAGE:
-            return {
-                ...state,
-                messages: [...state.messages, action.message]
-            };
+    if (action.type === actionTypes.ADD_MESSAGE) {
+        return {
+            ...state,
+            messages: [...state.messages, action.message]
+        };
     }
     return state;
 }

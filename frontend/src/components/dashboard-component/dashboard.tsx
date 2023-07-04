@@ -26,9 +26,6 @@ function Dashboard() {
     const closeSettings = () => {
         setIsSettingsOpen(false);
     }
-    const handleOutsideClick = () => {
-        setIsSettingsOpen(false);
-    }
 
     return (
         <div className="dashboard-container">

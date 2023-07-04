@@ -42,7 +42,8 @@ function GroupChat() {
         },
     });
 
-    const sendChatMessage = () => {
+    const sendChatMessage = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         if (readyState === ReadyState.OPEN) {
             sendJsonMessage({ message: text });
             setText('');
@@ -62,8 +63,8 @@ function GroupChat() {
         <>
             <header className="header">Crew Chat</header>
             { messages && <div className="chat-container">
-                {messages.slice().reverse().map((m, index) => (
-                    <div key={index + 1} className={checkAuthor(m) ? 'sent-message' : 'received-message'}>
+                {messages.slice().reverse().map((m) => (
+                    <div key={m.messageId} className={checkAuthor(m) ? 'sent-message' : 'received-message'}>
                         <div className="message-bubble">
                             <small>{m.userName}</small>
                             <div>{m.message}</div>
@@ -74,7 +75,7 @@ function GroupChat() {
             </div>}
             <div className="input-and-send">
                 <input placeholder="Type here..." className="input" value={text} onChange={handleTextChange}  />
-                <button className="cta" onClick={() => sendChatMessage()}>
+                <button className="cta" onClick={(event) => sendChatMessage(event)}>
                     <span>Send</span>
                     <svg viewBox="0 0 13 10" height="10px" width="15px">
                         <path d="M1,5 L11,5"></path>

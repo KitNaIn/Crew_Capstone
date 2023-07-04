@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Dashboard from './components/dashboard-component/dashboard';
 import useUser from './components/security/useUser';
 import { ToastContainer } from 'react-toastify';

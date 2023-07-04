@@ -2,6 +2,7 @@ package de.neuefische.backend.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.backend.dto.MessageDto;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -25,18 +26,18 @@ public class ChatHandler extends TextWebSocketHandler {
     private final ObjectMapper objectMapper;
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(@NonNull WebSocketSession session) throws Exception {
         sessions.add(session);
         session.sendMessage(new TextMessage(objectMapper.writeValueAsString(messages)));
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(@NonNull WebSocketSession session,@NonNull CloseStatus status) {
         sessions.remove(session);
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session,@NonNull TextMessage message) throws Exception {
         Message m = new Message();
 
         Principal principal = session.getPrincipal();
