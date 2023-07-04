@@ -164,7 +164,7 @@ function CustomCalendar() {
             return 'none';
         }
     };
-
+    
 
 
 
@@ -208,7 +208,9 @@ function CustomCalendar() {
                             <div style={{ marginTop:'1.5vh'}}>
                                 <strong>Titel:</strong> {event.title}
                             </div>
-                            <strong>Datum: {event.eventDate}</strong>
+                            <div>
+                            <strong style={{width:'60vw'}}>Datum: </strong>{event.eventDate}
+                            </div>
                             <div style={{ marginTop:'1.5vh'}}>
                                 <strong>Startzeit:</strong> {event.startTime}
                             </div>
