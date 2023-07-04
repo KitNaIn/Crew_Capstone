@@ -31,28 +31,28 @@ function Dashboard() {
                     className={activeButton === 'Aufträge' ? 'active' : ''}
                     onClick={() => handleButtonClick('Aufträge')}
                 >
-                    <FontAwesomeIcon icon={faBarsProgress} size="lg" color="darkslategray" />
+                    <FontAwesomeIcon icon={faBarsProgress} size="lg" color="lightsteelblue" />
                     {activeButton === 'Aufträge' && <span className="spans">Aufträge</span>}
                 </div>
                 <div
                     className={activeButton === 'Kalender' ? 'active' : ''}
                     onClick={() => handleButtonClick('Kalender')}
                 >
-                    <FontAwesomeIcon icon={faCalendarDays} size="lg" color="darkslategray" />
+                    <FontAwesomeIcon icon={faCalendarDays} size="lg" color="lightsteelblue" />
                     {activeButton === 'Kalender' && <span className="spans">Kalender</span>}
                 </div>
                 <div
                     className={activeButton === 'Chat' ? 'active' : ''}
                     onClick={() => handleButtonClick('Chat')}
                 >
-                    <FontAwesomeIcon icon={faComment} size="lg" color="darkslategray" />
+                    <FontAwesomeIcon icon={faComment} size="lg" color="lightsteelblue" />
                     {activeButton === 'Chat' && <span className="spans">Chat</span>}
                 </div>
                 <div
                     className={activeButton === 'Einstellungen' ? 'active' : ''}
                     onClick={() => handleSettingsClick()}
                 >
-                    <FontAwesomeIcon icon={faUserSecret} size="lg" color="darkslategray" />
+                    <FontAwesomeIcon icon={faUserSecret} size="lg" color="lightsteelblue" />
                     {activeButton === 'Einstellungen' && <span className="spans">Einstellungen</span>}
                 </div>
             </div>

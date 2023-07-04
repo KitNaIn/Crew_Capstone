@@ -11,6 +11,7 @@ import morgenImage from './calendarPictures/morgen.jpg';
 import mittagImage from './calendarPictures/mittag.jpg';
 import abendImage from './calendarPictures/abend.jpg';
 import nachtImage from './calendarPictures/nacht.jpg';
+import {formatTime, formatDate} from "../utility/dateUtils";
 
 
 function CustomCalendar() {
@@ -200,7 +201,7 @@ function CustomCalendar() {
                 </tbody>
             </table>
             <div className="EventList">
-                <h3>Termine</h3>
+                <h3 style={{display:'flex', justifyContent:'center'}}>Termine</h3>
                 <div className="Carousel">
                     {sortedEvents?.map((event) => (
                         <div className="Entrys" key={event.uuid}
@@ -209,13 +210,13 @@ function CustomCalendar() {
                                 <strong>Titel:</strong> {event.title}
                             </div>
                             <div>
-                            <strong style={{width:'60vw'}}>Datum: </strong>{event.eventDate}
+                            <strong style={{width:'60vw'}}>Datum: </strong>{formatDate(event.eventDate)}
                             </div>
                             <div style={{ marginTop:'1.5vh'}}>
-                                <strong>Startzeit:</strong> {event.startTime}
+                                <strong>Startzeit:</strong> {formatTime(event.startTime)}
                             </div>
                             <div style={{ marginTop:'0.5vh'}}>
-                                <strong>Endzeit:</strong> {event.endTime}
+                                <strong>Endzeit:</strong> {formatTime(event.endTime)}
                             </div>
                             <div style={{ marginTop:'5vh', overflow:'scroll', height:'20vh'}}>
                                 <strong>Notizen:</strong> {event.notes}
