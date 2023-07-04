@@ -29,7 +29,7 @@ function Home(props:Props) {
                     setAnimate(true);
                     setTimeout(() => {
                         navigate("/dashboard");
-                    }, 500);
+                    }, 300);
                 }).catch((error) => {
                 toast.error(error.message || "Login failed");
             });

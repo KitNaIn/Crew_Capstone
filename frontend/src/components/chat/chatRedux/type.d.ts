@@ -1,17 +1,17 @@
-
-interface Message {
-    text: string;
-    sent: boolean;
-    timestamp: string;
+interface MessageDto {
+    message: string;
+    messageId: string;
+    timeStamp: string;
+    userName: string;
 }
 
 type ChatState = {
-    messages: Message[];
+    messages: MessageDto[];
 }
 
 type AddMessageAction = {
     type: string,
-    message: Message
+    message: MessageDto
 }
 
 type DispatchType = (args: AddMessageAction) => AddMessageAction

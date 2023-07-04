@@ -1,12 +1,13 @@
 
-import * as actionTypes from './actionCreators';
+import * as actionTypes from './actionTypes';
 
 const initialState: ChatState = {
     messages: [
         {
-            text: "this is a test",
-            sent: true,
-            timestamp: "03.07.2023 - 21:20"
+            message: "Geh gefälligst Arbeiten du faule Socke!",
+            userName: "admin@Crew.de",
+            timeStamp: "03.07.2023 - 21:20",
+            messageId: "6da01f56-b60f-4120-b0cf-e1511a5ec954"
         },
     ],
 };

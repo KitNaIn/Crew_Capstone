@@ -1,7 +1,8 @@
-export const ADD_MESSAGE = "ADD_MESSAGE";
-export function addMessage(message: Message): AddMessageAction {
+import * as actionTypes from './actionTypes';
+
+export function addMessage(message: MessageDto): AddMessageAction {
     return {
-        type: ADD_MESSAGE,
+        type: actionTypes.ADD_MESSAGE,
         message,
     };
 }

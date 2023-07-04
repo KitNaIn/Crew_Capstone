@@ -27,7 +27,7 @@ function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
 
     return (
         <div>
-            <header>Auftragsdetails</header>
+            <header className='header'>Auftragsdetails</header>
             <div className="jobCardDetails">
                 <p>
                     {formatDate(job.jobDate)} {formatTime(job.startTime) + 'Uhr'} - {formatTime(job.endTime) + 'Uhr'}

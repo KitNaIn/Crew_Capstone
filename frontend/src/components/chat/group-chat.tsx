@@ -1,21 +1,30 @@
-import React, {useState, ChangeEvent, Dispatch} from 'react';
+import React, {ChangeEvent, Dispatch, useEffect, useState} from 'react';
 import {shallowEqual, useDispatch, useSelector} from 'react-redux';
-import { addMessage } from './chatRedux/actionCreators';
-import useWebSocket, { ReadyState } from 'react-use-websocket';
+import {addMessage} from './chatRedux/actionCreators';
+import useWebSocket, {ReadyState} from 'react-use-websocket';
 import './group-chat.tsx.css';
-
-// type Props = {
-//     addMessage: (message: Message | any) => AddMessageAction
-// }
+import axios from "axios";
 
 
 function GroupChat() {
     const [text, setText] = useState('');
     const dispatch: Dispatch<any> = useDispatch();
-    const messages: Message[] = useSelector(
+    const messages: MessageDto[] = useSelector(
         (state: ChatState) => state.messages,
         shallowEqual
     )
+    const [userName, setUserName] = useState('');
+
+    useEffect(() => {
+        (async function () {
+            try {
+                const response = await axios.get('/api/user/me');
+                setUserName(response.data.username);
+            } catch (error) {
+                console.error('Error fetching userId: ', error);
+            }
+        })();
+    }, []);
 
     const formatTimestamp = (date: Date) => {
         return date.toLocaleString(undefined, { minute: 'numeric', hour: 'numeric', hour12: false });
@@ -23,17 +32,22 @@ function GroupChat() {
 
     const { sendJsonMessage, readyState } = useWebSocket('ws://localhost:8080/api/chat', {
         onMessage: (event) => {
-            const receivedMessage = JSON.parse(event.data).message;
-            const timestamp = formatTimestamp(new Date());
-            const addMessageAction = addMessage({ text: receivedMessage, sent: false, timestamp });
-            dispatch(addMessageAction);
+            if (event.data.startsWith("[") && event.data.length > 1 && event.data.charAt(1) !== "]") {
+                JSON.parse(event.data)
+                    .forEach((messageDto: MessageDto) => {
+                        const addMessageAction = addMessage(messageDto);
+                        dispatch(addMessageAction);
+                    })
+            } else {
+                const messageDto: MessageDto = JSON.parse(event.data);
+                const addMessageAction = addMessage(messageDto);
+                dispatch(addMessageAction);
+            }
         },
     });
 
     const sendChatMessage = () => {
         if (readyState === ReadyState.OPEN) {
-            // const messageObject: Message = { text, sent: true, timestamp: formatTimestamp(new Date()) };
-            // dispatch(addMessage(messageObject));
             sendJsonMessage({ message: text });
             setText('');
         }
@@ -43,15 +57,20 @@ function GroupChat() {
         setText(event.target.value);
     };
 
+    function checkAuthor(message: MessageDto) {
+        return message.userName === userName;
+    }
+
     return (
-        <div>
-            <header className="header">Crew Chat</header>
+        <>
+            <h1 className="header">Crew Chat</h1>
             { messages && <div className="chat-container">
-                {messages.slice().reverse().map((message, index) => (
-                    <div key={index + 1} className={message.sent ? 'sent-message' : 'received-message'}>
+                {messages.slice().reverse().map((m, index) => (
+                    <div key={index + 1} className={checkAuthor(m) ? 'sent-message' : 'received-message'}>
                         <div className="message-bubble">
-                            <div>{message.text}</div>
-                            <div className="timestamp">{message.timestamp}</div>
+                            <div>{m.message}</div>
+                            <div className="timestamp">{m.timeStamp}</div>
+                            <small>{m.userName}</small>
                         </div>
                     </div>
                 ))}
@@ -66,7 +85,7 @@ function GroupChat() {
                     </svg>
                 </button>
             </div>
-        </div>
+        </>
     );
 }
 
