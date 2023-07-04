@@ -28,9 +28,11 @@ function App() {
                 />
                 <div className="App">
                     <Routes>
+
                         <Route path="/" element={<Home login={login} register={register} />} />
                         <Route element={<ProtectedRoutesUser user={user} />} />
                         <Route path="dashboard" element={<Dashboard />} />
+
                     </Routes>
                 </div>
 

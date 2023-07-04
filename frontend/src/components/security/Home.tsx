@@ -86,7 +86,7 @@ function Home(props:Props) {
                 </div>
             </form>
             </div>
-            <p onClick={onClickRegister} style={{display:"flex", color:"lightgrey", marginTop:"vh", fontSize:"1.5vh"}}> Don't have an Account yet? Register now!  </p>
+            <p onClick={onClickRegister} style={{display:"flex", color:"lightgrey", marginTop:"vh", fontSize:"1.5vh"}}> Don't have an Account yet? Sign in!  </p>
 
         </div>
         </div>

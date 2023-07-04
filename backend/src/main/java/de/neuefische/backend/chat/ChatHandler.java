@@ -17,9 +17,8 @@ import java.util.List;
 public class ChatHandler extends TextWebSocketHandler {
 
     private final List<WebSocketSession> sessions = new ArrayList<>();
-    private final List<String> messages = new ArrayList<>();
+    private final List<Message> messages = new ArrayList<>();
     private final ObjectMapper objectMapper;
-
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -34,8 +33,9 @@ public class ChatHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        Message m = new Message();
         String payload = message.getPayload();
-        messages.add(payload);
+        messages.add(m);
         broadcast(payload);
     }
 

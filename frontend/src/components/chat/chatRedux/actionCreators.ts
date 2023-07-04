@@ -1,8 +1,7 @@
-import * as actionTypes from './actionTypes';
-
+export const ADD_MESSAGE = "ADD_MESSAGE";
 export function addMessage(message: Message): AddMessageAction {
     return {
-        type: actionTypes.ADD_MESSAGE,
+        type: ADD_MESSAGE,
         message,
     };
 }

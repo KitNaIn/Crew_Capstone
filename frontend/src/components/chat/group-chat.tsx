@@ -44,8 +44,8 @@ function GroupChat() {
     };
 
     return (
-        <>
-            <h1 className="header">Crew Chat</h1>
+        <div>
+            <header className="header">Crew Chat</header>
             { messages && <div className="chat-container">
                 {messages.slice().reverse().map((message, index) => (
                     <div key={index + 1} className={message.sent ? 'sent-message' : 'received-message'}>
@@ -66,7 +66,7 @@ function GroupChat() {
                     </svg>
                 </button>
             </div>
-        </>
+        </div>
     );
 }
 
