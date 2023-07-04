@@ -65,7 +65,7 @@ function Dashboard() {
                 {activeButton === 'Chat' && <Provider store={store}><GroupChat/></Provider>}
             </div>
             {isSettingsOpen && (
-                <div className="settings-sheet-overlay" >
+                <div className={`settings-sheet-overlay ${isSettingsOpen ? 'open' : ''}`}>
                     <div className="settings-sheet">
                         <div className="settings-sheet-header">
                             <h2 className="settings-sheet-title">Edit profile</h2>
