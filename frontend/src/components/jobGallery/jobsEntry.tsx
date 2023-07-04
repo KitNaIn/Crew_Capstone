@@ -1,6 +1,7 @@
 import React from 'react';
 import { Jobs } from './model/jobs';
 import './jobsGallery.css';
+import {formatTime, formatDate} from '../utility/dateUtils';
 
 type Props = {
     job: Jobs;
@@ -26,19 +27,19 @@ function JobsEntry({ job, userId }: Props) {
                 {getStatusIcon()}
                 <span className="status-text">
           {job.acceptedUsers?.includes(userId)
-              ? 'Angenommen'
+              ? ' Angenommen'
               : job.rejectedUsers?.includes(userId)
-                  ? 'Abgelehnt'
+                  ? ' Abgelehnt'
                   : ''}
         </span>
             </div>
             <div style={{ display: 'flex' }}>
-                <p style={{ color: 'grey' }}>{job.jobDate}</p>
+                <p style={{ color: 'darkslategrey' }}>{formatDate(job.jobDate)}</p>
                 <p>
-                    {job.startTime} - {job.endTime}
+                    {formatTime(job.startTime)} - {formatTime(job.endTime)}
                 </p>
             </div>
-            <p style={{ color: 'grey' }}>{job.jobFormat}</p>
+            <p style={{ color: 'darkslategrey' }}>{job.jobFormat}</p>
             <p>{job.issuer}</p>
         </div>
     );

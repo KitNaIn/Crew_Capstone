@@ -6,25 +6,18 @@ import CrewCalendar from "../crewCalendar/CrewCalendar";
 import './dashboard.css'
 import './settingsSheet.css'
 import useUser from "../security/useUser";
-import GroupChat from "../chat/group-chat";
-import {store} from '../chat/chatRedux/store';
-import {Provider} from "react-redux";
 
 function Dashboard() {
     const [activeButton, setActiveButton] = useState<string | null>(null);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const { logout } = useUser();
-    const settingsOverlayClassName = `settings-sheet-overlay ${isSettingsOpen ? 'open' : ''}`;
-
 
     const handleButtonClick = (buttonName: string) => {
         setActiveButton(buttonName);
     }
 
     const handleSettingsClick = () => {
-        setTimeout(() => {
-            setIsSettingsOpen(true);
-        }, 300);
+        setIsSettingsOpen(true);
     }
 
     const closeSettings = () => {
@@ -38,38 +31,37 @@ function Dashboard() {
                     className={activeButton === 'Aufträge' ? 'active' : ''}
                     onClick={() => handleButtonClick('Aufträge')}
                 >
-                    <FontAwesomeIcon icon={faBarsProgress} size="lg" color="#00569e" />
+                    <FontAwesomeIcon icon={faBarsProgress} size="lg" color="lightsteelblue" />
                     {activeButton === 'Aufträge' && <span className="spans">Aufträge</span>}
                 </div>
                 <div
                     className={activeButton === 'Kalender' ? 'active' : ''}
                     onClick={() => handleButtonClick('Kalender')}
                 >
-                    <FontAwesomeIcon icon={faCalendarDays} size="lg" color="#00569e" />
+                    <FontAwesomeIcon icon={faCalendarDays} size="lg" color="lightsteelblue" />
                     {activeButton === 'Kalender' && <span className="spans">Kalender</span>}
                 </div>
                 <div
                     className={activeButton === 'Chat' ? 'active' : ''}
                     onClick={() => handleButtonClick('Chat')}
                 >
-                    <FontAwesomeIcon icon={faComment} size="lg" color="#00569e" />
+                    <FontAwesomeIcon icon={faComment} size="lg" color="lightsteelblue" />
                     {activeButton === 'Chat' && <span className="spans">Chat</span>}
                 </div>
                 <div
                     className={activeButton === 'Einstellungen' ? 'active' : ''}
                     onClick={() => handleSettingsClick()}
                 >
-                    <FontAwesomeIcon icon={faUserSecret} size="lg" color="#00569e" />
+                    <FontAwesomeIcon icon={faUserSecret} size="lg" color="lightsteelblue" />
                     {activeButton === 'Einstellungen' && <span className="spans">Einstellungen</span>}
                 </div>
             </div>
             <div className="jobs-gallery-container">
                 {activeButton === 'Aufträge' && <JobsGallery />}
                 {activeButton === 'Kalender' && <CrewCalendar />}
-                {activeButton === 'Chat' &&  <Provider store={store}><GroupChat/></Provider>}
             </div>
             {isSettingsOpen && (
-                <div className={settingsOverlayClassName}>
+                <div className="settings-sheet-overlay">
                     <div className="settings-sheet">
                         <div className="settings-sheet-header">
                             <h2 className="settings-sheet-title">Edit profile</h2>

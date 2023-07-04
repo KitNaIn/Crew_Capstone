@@ -1,6 +1,8 @@
 import React, {Dispatch, SetStateAction} from 'react';
 import { Jobs } from './model/jobs';
 import './jobsGallery.css';
+import {formatTime, formatDate} from '../utility/dateUtils';
+
 
 type Props = {
     job: Jobs;
@@ -28,10 +30,10 @@ function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
             <header>Auftragsdetails</header>
             <div className="jobCardDetails">
                 <p>
-                    {job.jobDate} {job.startTime} - {job.endTime}
+                    {formatDate(job.jobDate)} {formatTime(job.startTime) + 'Uhr'} - {formatTime(job.endTime) + 'Uhr'}
                 </p>
                 <p>{job.jobFormat}</p>
-                <p>
+                <p style={{ marginLeft:'1.5vh'}}>
                     {job.issuer} {job.jobAddress}
                 </p>
                 <p> Ansprechpartner/in: {job.contactPerson}</p>
@@ -40,7 +42,7 @@ function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
                 </p>
                 <input
                     placeholder="Fragen oder Rückmeldungen zu diesem Auftrag?"
-                    style={{ width: '40vh', height: '15vh' }}
+                    style={{ width: '40vh', height: '15vh' , marginTop:'12vh'}}
                 />
                 <div
                     style={{
