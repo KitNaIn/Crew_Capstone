@@ -35,7 +35,7 @@ class CalendarServiceTest {
         CalendarEvent inputEvent = CalendarEvent.builder()
                 .title("Test Title")
                 .userId("user123")
-                .eventDate(LocalDate.now())
+                .eventStartDate(LocalDate.now())
                 .startTime(LocalTime.of(9, 0))
                 .endTime(LocalTime.of(14, 0))
                 .notes("Test Notes")
@@ -45,7 +45,7 @@ class CalendarServiceTest {
                 .uuid("1")
                 .title(inputEvent.getTitle())
                 .userId(inputEvent.getUserId())
-                .eventDate(inputEvent.getEventDate())
+                .eventStartDate(inputEvent.getEventStartDate())
                 .startTime(inputEvent.getStartTime())
                 .endTime(inputEvent.getEndTime())
                 .notes(inputEvent.getNotes())
@@ -92,7 +92,7 @@ class CalendarServiceTest {
                 .uuid(eventId)
                 .userId(userId)
                 .title("Old Title")
-                .eventDate(LocalDate.now())
+                .eventStartDate(LocalDate.now())
                 .startTime(LocalTime.of(9, 0))
                 .endTime(LocalTime.of(14, 0))
                 .notes("Old Notes")
@@ -100,7 +100,7 @@ class CalendarServiceTest {
 
         CalendarEvent updatedEvent = CalendarEvent.builder()
                 .title("New Title")
-                .eventDate(LocalDate.now().plusDays(1))
+                .eventStartDate(LocalDate.now().plusDays(1))
                 .startTime(LocalTime.of(10, 0))
                 .endTime(LocalTime.of(15, 0))
                 .notes("New Notes")
@@ -116,7 +116,7 @@ class CalendarServiceTest {
         verify(calendarRepo).findById(eventId);
         verify(calendarRepo).save(existingEvent);
         assertEquals("New Title", result.getTitle());
-        assertEquals(LocalDate.now().plusDays(1), result.getEventDate());
+        assertEquals(LocalDate.now().plusDays(1), result.getEventStartDate());
         assertEquals(LocalTime.of(10, 0), result.getStartTime());
         assertEquals(LocalTime.of(15, 0), result.getEndTime());
         assertEquals("New Notes", result.getNotes());
@@ -131,7 +131,7 @@ class CalendarServiceTest {
                 .uuid(eventId)
                 .userId("otherUser")
                 .title("Old Title")
-                .eventDate(LocalDate.now())
+                .eventStartDate(LocalDate.now())
                 .startTime(LocalTime.of(9, 0))
                 .endTime(LocalTime.of(14, 0))
                 .notes("Old Notes")
@@ -139,7 +139,7 @@ class CalendarServiceTest {
 
         CalendarEvent updatedEvent = CalendarEvent.builder()
                 .title("New Title")
-                .eventDate(LocalDate.now().plusDays(1))
+                .eventStartDate(LocalDate.now().plusDays(1))
                 .startTime(LocalTime.of(10, 0))
                 .endTime(LocalTime.of(15, 0))
                 .notes("New Notes")

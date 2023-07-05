@@ -2,7 +2,6 @@ package de.neuefische.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.backend.model.CalendarEvent;
-import de.neuefische.backend.service.CalendarService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,9 +28,6 @@ class CalendarControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private CalendarService calendarService;
-
     @Test
     @WithMockUser
     void getAllCalendarEvents_ShouldReturnEmptyList() throws Exception {
@@ -50,15 +46,17 @@ class CalendarControllerTest {
     void saveCalendarEvent_ShouldReturnCalendarEventsWithAddedEvent_andStatusCode201() throws Exception {
         // GIVEN
         String userId = "test-user";
-        LocalDate eventDate = LocalDate.parse("2023-06-14");
+        LocalDate eventStartDate = LocalDate.parse("2023-06-14");
+        LocalDate eventEndDate = LocalDate.parse("2023-06-15");
         LocalTime startTime = LocalTime.parse("10:00:00");
         LocalTime endTime = LocalTime.parse("12:00:00");
 
         CalendarEvent calendarEvent = CalendarEvent.builder()
                 .userId(userId)
                 .title("Event")
-                .eventDate(eventDate)
+                .eventStartDate(eventStartDate)
                 .startTime(startTime)
+                .eventEndDate(eventEndDate)
                 .endTime(endTime)
                 .notes("Event notes")
                 .build();
@@ -77,7 +75,8 @@ class CalendarControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].userId").value(userId))
                 .andExpect(jsonPath("$[0].title").value("Event"))
-                .andExpect(jsonPath("$[0].eventDate").value("2023-06-14"))
+                .andExpect(jsonPath("$[0].eventStartDate").value("2023-06-14"))
+                .andExpect(jsonPath("$[0].eventEndDate").value("2023-06-15"))
                 .andExpect(jsonPath("$[0].startTime").value("10:00:00"))
                 .andExpect(jsonPath("$[0].endTime").value("12:00:00"))
                 .andExpect(jsonPath("$[0].notes").value("Event notes"));

@@ -58,8 +58,9 @@ function CustomCalendar() {
     const [newEvent, setNewEvent] = useState<CalendarEvent>({
         uuid: '',
         title: "",
-        eventDate: '',
+        eventStartDate: '',
         startTime: '',
+        eventEndDate:'',
         endTime: '',
         notes: ''
     });
@@ -76,15 +77,16 @@ function CustomCalendar() {
 
     const handleDateClick = (day: Date | null) => {
         if (day) {
-            const existingEvent = calendarEvent.find((event: CalendarEvent) => new Date(event.eventDate).toDateString() === day.toDateString());
+            const existingEvent = calendarEvent.find((event: CalendarEvent) => new Date(event.eventStartDate).toDateString() === day.toDateString());
             if (existingEvent) {
                 setNewEvent(existingEvent);
             } else {
                 setNewEvent({
                     uuid: '',
                     title: "",
-                    eventDate: day.toISOString(),
+                    eventStartDate: day.toISOString(),
                     startTime: '',
+                    eventEndDate: day.toISOString(),
                     endTime: '',
                     notes: ''
                 });
@@ -108,8 +110,14 @@ function CustomCalendar() {
         setNewEvent({ ...newEvent, [name]: value });
     };
 
-    const handleDateChange = (selectedDate: Date) => {
-        setNewEvent({ ...newEvent, eventDate: selectedDate.toISOString() });
+    const handleDateChange = (selectedDate: Date | null, dateType: 'start' | 'end') => {
+        if (selectedDate) {
+            if (dateType === 'start') {
+                setNewEvent({ ...newEvent, eventStartDate: selectedDate.toISOString() });
+            } else if (dateType === 'end') {
+                setNewEvent({ ...newEvent, eventEndDate: selectedDate.toISOString() });
+            }
+        }
     };
 
     const handleSubmit = (event: React.FormEvent) => {
@@ -125,11 +133,17 @@ function CustomCalendar() {
 
     const isEventDate = (day: Date | null) => {
         if (day !== null) {
-            const foundEvent = calendarEvent.find((event: CalendarEvent) => new Date(event.eventDate).toDateString() === day.toDateString());
+            const foundEvent = calendarEvent.find((event: CalendarEvent) => {
+                const eventStartDate = new Date(event.eventStartDate).setHours(0, 0, 0, 0);
+                const eventEndDate = new Date(event.eventEndDate).setHours(23, 59, 59, 999);
+                const selectedDay = day.setHours(0, 0, 0, 0);
+                return selectedDay >= eventStartDate && selectedDay <= eventEndDate;
+            });
             return foundEvent !== undefined;
         }
         return false;
     };
+
     const handleEdit = (event: CalendarEvent) => {
         setNewEvent(event);
         setShowModal(true);
@@ -147,8 +161,8 @@ function CustomCalendar() {
         }
     };
     const sortedEvents = calendarEvent?.sort((a, b) => {
-        const dateA = new Date(a.eventDate);
-        const dateB = new Date(b.eventDate);
+        const dateA = new Date(a.eventStartDate);
+        const dateB = new Date(b.eventStartDate);
         return dateA.getTime() - dateB.getTime();
     });
 
@@ -206,16 +220,17 @@ function CustomCalendar() {
                     {sortedEvents?.map((event) => (
                         <div className="Entrys" key={event.uuid}
                         style={{backgroundImage : getBackgroundImage(event.startTime)}}>
-                            <div style={{ marginTop:'1.5vh'}}>
+                            <div style={{ marginTop:'1vh'}}>
                                 <strong>Titel:</strong> {event.title}
                             </div>
-                            <div>
-                            <strong style={{width:'60vw'}}>Datum: </strong>{formatDate(event.eventDate)}
-                            </div>
-                            <div style={{ marginTop:'1.5vh'}}>
+                            <div style={{marginTop:'2vh'}}>
+                                <strong style={{width:'60vw'}}>Start Datum: </strong>{formatDate(event.eventStartDate)}
+                                <br/>
                                 <strong>Startzeit:</strong> {formatTime(event.startTime)}
                             </div>
-                            <div style={{ marginTop:'0.5vh'}}>
+                            <div style={{marginTop:'2vh'}}>
+                                <strong style={{width:'60vw', marginTop:'2vh'}}>End Datum: </strong>{formatDate(event.eventEndDate)}
+                                <br/>
                                 <strong>Endzeit:</strong> {formatTime(event.endTime)}
                             </div>
                             <div className='notes'>
@@ -245,11 +260,11 @@ function CustomCalendar() {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="eventDate">Datum:</label>
+                                <label htmlFor="eventDate"> Start Datum:</label>
                                 <DatePicker
                                     id="eventDate"
-                                    selected={new Date(newEvent.eventDate)}
-                                    onChange={handleDateChange}
+                                    selected={new Date(newEvent.eventStartDate)}
+                                    onChange={(date) => handleDateChange(date, 'start')}
                                     dateFormat="yyyy-MM-dd"
                                 />
                             </div>
@@ -267,6 +282,15 @@ function CustomCalendar() {
                                         </option>
                                     ))}
                                 </select>
+                            </div>
+                            <div>
+                                <label htmlFor="eventDate"> End Datum:</label>
+                                <DatePicker
+                                    id="eventDate"
+                                    selected={new Date(newEvent.eventEndDate)}
+                                    onChange={(date) => handleDateChange(date, 'end')}
+                                    dateFormat="yyyy-MM-dd"
+                                />
                             </div>
                             <div>
                                 <label htmlFor="endTime">Endzeit:</label>

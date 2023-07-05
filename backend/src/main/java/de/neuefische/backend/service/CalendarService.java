@@ -26,8 +26,9 @@ public class CalendarService {
                 .uuid(generateUUIDService.generateUUID())
                 .userId(userId)
                 .title(calendarEvent.getTitle())
-                .eventDate(calendarEvent.getEventDate())
+                .eventStartDate(calendarEvent.getEventStartDate())
                 .startTime(calendarEvent.getStartTime())
+                .eventEndDate(calendarEvent.getEventEndDate())
                 .endTime(calendarEvent.getEndTime())
                 .notes(calendarEvent.getNotes())
                 .build();
@@ -44,7 +45,7 @@ public class CalendarService {
         }
 
         existingEvent.setTitle(updatedEvent.getTitle());
-        existingEvent.setEventDate(updatedEvent.getEventDate());
+        existingEvent.setEventStartDate(updatedEvent.getEventStartDate());
         existingEvent.setStartTime(updatedEvent.getStartTime());
         existingEvent.setEndTime(updatedEvent.getEndTime());
         existingEvent.setNotes(updatedEvent.getNotes());

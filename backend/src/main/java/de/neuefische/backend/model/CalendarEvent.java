@@ -20,8 +20,9 @@ public class CalendarEvent {
     private String uuid;
     private String userId;
     private String title;
-    private LocalDate eventDate;
+    private LocalDate eventStartDate;
     private LocalTime startTime;
+    private LocalDate eventEndDate;
     private LocalTime endTime;
     private String notes;
 }
