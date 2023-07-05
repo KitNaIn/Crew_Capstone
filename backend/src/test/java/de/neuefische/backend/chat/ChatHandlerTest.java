@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketSession;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 class ChatHandlerTest {
     private ChatHandler chatHandler;
@@ -37,9 +37,9 @@ class ChatHandlerTest {
     }
 
     @Test
-    public void afterConnectionClosed_ShouldRemoveSession() {
+    void afterConnectionClosed_ShouldRemoveSession() {
         //GIVEN
-        WebSocketSession session = Mockito.mock(WebSocketSession.class);
+        WebSocketSession session = mock(WebSocketSession.class);
         CloseStatus closeStatus = CloseStatus.NORMAL;
         List<WebSocketSession> sessions = new ArrayList<>();
         sessions.add(session);
@@ -56,7 +56,9 @@ class ChatHandlerTest {
 
 
     @Test
-    public void handleTextMessage_ShouldAddMessageAndBroadcast() throws Exception {
+    void handleTextMessage() throws Exception {
 
     }
+    
+
 }
