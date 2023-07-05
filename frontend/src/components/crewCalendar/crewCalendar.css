@@ -14,10 +14,8 @@ background-color: lightgreen;
 
 }
 .highlight-event{
-background-color: lightsteelblue;
-border-radius: 50%;
-    width: 15px;
-    height: 25px;
+    background-color: lightsteelblue;
+    border-radius: 50%;
 }
 .CalendarThread th {
     text-align: center;
@@ -44,6 +42,8 @@ border-radius: 50%;
 .CalendarWrapper td {
     text-align: center;
     padding: 10px;
+    width: 30px;
+    height: 30px;
 
 }
 

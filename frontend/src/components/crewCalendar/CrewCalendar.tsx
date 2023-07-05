@@ -160,6 +160,7 @@ function CustomCalendar() {
             await deleteCalendarEvent(userId, eventId);
         }
     };
+
     const sortedEvents = calendarEvent?.sort((a, b) => {
         const dateA = new Date(a.eventStartDate);
         const dateB = new Date(b.eventStartDate);
@@ -217,7 +218,7 @@ function CustomCalendar() {
             <div className="EventList">
                 <h3 style={{display:'flex', justifyContent:'center', letterSpacing:'-1px', fontSize:'20px'}}>Termine</h3>
                 <div className="Carousel">
-                    {sortedEvents?.map((event) => (
+                    {sortedEvents && sortedEvents?.map((event:CalendarEvent) => (
                         <div className="Entrys" key={event.uuid}
                         style={{backgroundImage : getBackgroundImage(event.startTime)}}>
                             <div style={{ marginTop:'1vh'}}>
@@ -246,7 +247,7 @@ function CustomCalendar() {
             </div>
             {showModal && (
                 <div className="Modal">
-                    <div className="ModalContent">
+                    <div className="ModalContent" style={{width:'70vw'}}>
                         <h3>Neuer Termin</h3>
                         <form onSubmit={handleSubmit}>
                             <div>
@@ -317,8 +318,10 @@ function CustomCalendar() {
                                     onChange={handleTextareaChange}
                                 />
                             </div>
+                            <div style={{display:'flex', justifyContent:'space-around'}}>
                             <button type="submit">Speichern</button>
                             <button onClick={handleUpdate}> Aktualisieren </button>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -24,7 +24,7 @@ function CalendarDays({ date, today, handleDateClick, isEventDate }: CalendarDay
     return (
         <>
             {calendarDays.map((week, weekIndex) => (
-                <tr key={`week-${weekIndex}`}>
+                <tr className="days" key={`week-${weekIndex}`}>
                     {week.map((day, dayIndex) => (
                         <CalendarDay
                             key={`day-${weekIndex}-${dayIndex}`}
