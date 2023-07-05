@@ -7,14 +7,14 @@
     justify-content: space-around;
 }
 .highlight-current{
-background-color: lightgreen;
+    background-color: lightblue;
     border-radius: 50%;
     width: 25px;
     height: 25px;
 
 }
 .highlight-event{
-    background-color: lightsteelblue;
+    background-color: lightslategray;
     border-radius: 50%;
 }
 .CalendarThread th {
@@ -39,14 +39,13 @@ background-color: lightgreen;
     padding: 10px;
     text-align: center;
     color: white;
+    position: relative;
 }
 .CalendarWrapper td {
     text-align: center;
     padding: 10px;
-    width: 30px;
-    height: 30px;
+    height: 17px;
     color: white;
-
 }
 
 .Modal {
@@ -105,9 +104,6 @@ background-color: lightgreen;
 
 .ModalContent form button:hover {
     background-color: dodgerblue;
-}
-.CalendarThread td.hasEvent:hover {
-    background-color: yellow;
 }
 .EventList {
     margin-top: 20px;

@@ -217,7 +217,7 @@ function CustomCalendar() {
                 </tbody>
             </table>
             <div className="EventList">
-                <h3 style={{display:'flex', justifyContent:'center', letterSpacing:'-1px', fontSize:'20px'}}>Termine</h3>
+                <h3 style={{display:'flex', justifyContent:'center', letterSpacing:'-1px', fontSize:'20px', color:'white'}}>Termine</h3>
                 <div className="Carousel">
                     {sortedEvents && sortedEvents?.map((event:CalendarEvent) => (
                         <div className="Entrys" key={event.uuid}
@@ -238,9 +238,9 @@ function CustomCalendar() {
                             <div className='notes'>
                                 <strong>Notizen:</strong> {event.notes}
                             </div>
-                            <div style={{ display:'flex', justifyContent:'center', marginTop:'1.5vh'}}>
-                            <button className="EntryButton" onClick={() => handleEdit(event)}>Bearbeiten</button>
-                            <button className="EntryButton" onClick={() => handleDelete(event.uuid)}>Löschen</button>
+                            <div style={{ display:'flex'}}>
+                            <button className="navButtons" onClick={() => handleEdit(event)}>Edit</button>
+                            <button className="navButtons" onClick={() => handleDelete(event.uuid)}>delete</button>
                             </div>
                         </div>
                     ))}
