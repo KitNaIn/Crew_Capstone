@@ -15,7 +15,8 @@
     flex-direction: column-reverse;
     height: 100vh;
     width: 100%;
-    background-color: whitesmoke;
+    background: radial-gradient(ellipse at bottom, #18748B 0%, #023047 100%);
+    overflow: hidden;
 }
 .jobs-gallery-container {
     flex-grow: 1;

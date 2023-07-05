@@ -28,6 +28,9 @@ function App() {
                     pauseOnHover
                     theme="dark"
                 />
+                <div className='stars'/>
+                <div className='stars2'/>
+                <div className='stars3'/>
                 <div className="App">
                     <Routes>
 

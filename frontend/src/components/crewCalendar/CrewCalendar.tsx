@@ -191,7 +191,7 @@ function CustomCalendar() {
             <br />
             <div className="CalendarNav">
                 <button onClick={handlePrevMonth}>Prev Month</button>
-                <span style={{letterSpacing:'-0.5px'}}>{date.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+                <span style={{letterSpacing:'-0.5px', color:'white'}}>{date.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
                 <button onClick={handleNextMonth}>Next Month</button>
             </div>
             <br />
