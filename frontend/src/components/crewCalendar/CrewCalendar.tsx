@@ -156,6 +156,7 @@ function CustomCalendar() {
         setShowModal(false);
     };
     const handleDelete = async (eventId: string) => {
+        setShowModal(true);
         if (window.confirm('Möchtest du diesen Termin wirklich löschen?')) {
             await deleteCalendarEvent(userId, eventId);
         }

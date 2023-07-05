@@ -159,3 +159,13 @@ background-color: lightgreen;
     overflow: auto;
     height:25vh;
 }
+.smallDropdown {
+    /* Fügen Sie hier Ihre gewünschten Stile hinzu */
+    width: 200px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+    /* Weitere Stile... */
+}

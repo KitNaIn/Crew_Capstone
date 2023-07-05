@@ -11,7 +11,7 @@
 }
 .input {
     font-family: monospace;
-    max-width: 190px;
+    max-width: 800px;
     outline: none;
     border: 1px solid #dadada;
     padding: 10px;
@@ -27,8 +27,10 @@
     color: #000;
 }
 .cta {
+    display: flex;
+    align-items: center;
+    margin-left: 33vw;
     position: relative;
-    margin: auto;
     padding: 12px 18px;
     transition: all 0.2s ease;
     border: none;
