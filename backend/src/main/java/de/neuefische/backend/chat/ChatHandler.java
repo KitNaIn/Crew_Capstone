@@ -2,8 +2,8 @@ package de.neuefische.backend.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.backend.dto.MessageDto;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -12,17 +12,16 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ChatHandler extends TextWebSocketHandler {
 
-    private final List<WebSocketSession> sessions = new ArrayList<>();
-    private final List<Message> messages = new ArrayList<>();
+    private final List<WebSocketSession> sessions;
+    private final List<Message> messages;
     private final ObjectMapper objectMapper;
 
     @Override

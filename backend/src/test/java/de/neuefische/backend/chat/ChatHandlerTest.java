@@ -1,64 +1,71 @@
 package de.neuefische.backend.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 
 class ChatHandlerTest {
-    private ChatHandler chatHandler;
-    private List<WebSocketSession> sessions;
-    private List<Message> messages;
-    @Mock
-    private WebSocketSession session;
-    @Mock
-    private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        sessions = new ArrayList<>();
-        messages = new ArrayList<>();
-        chatHandler = new ChatHandler(objectMapper);
-    }
 
     @Test
     void afterConnectionEstablishedShouldAddSessionAndSendMessages() throws Exception {
+        //GIVEN
+        ArrayList<WebSocketSession> sessions = new ArrayList<>();
+        CloseStatus closeStatus = CloseStatus.NORMAL;
 
+        ChatHandler chatHandler = new ChatHandler(sessions, new ArrayList<>(), new ObjectMapper());
+
+        //WHEN
+        WebSocketSession session = mock(WebSocketSession.class);
+        chatHandler.afterConnectionEstablished(session);
+
+        //THEN
+        assertEquals(1, sessions.size(), "The session should be added");
     }
 
     @Test
     void afterConnectionClosed_ShouldRemoveSession() {
         //GIVEN
+        ArrayList<WebSocketSession> sessions = new ArrayList<>();
         WebSocketSession session = mock(WebSocketSession.class);
-        CloseStatus closeStatus = CloseStatus.NORMAL;
-        List<WebSocketSession> sessions = new ArrayList<>();
         sessions.add(session);
+        CloseStatus closeStatus = CloseStatus.NORMAL;
 
-        ChatHandler chatHandler = new ChatHandler(new ObjectMapper());
+        ChatHandler chatHandler = new ChatHandler(sessions, new ArrayList<>(), new ObjectMapper());
 
         //WHEN
         chatHandler.afterConnectionClosed(session, closeStatus);
-        sessions.remove(session);
 
         //THEN
         assertEquals(0, sessions.size(), "The session should be removed");
     }
-
-
     @Test
     void handleTextMessage() throws Exception {
+        //GIVEN
+        ArrayList<WebSocketSession> sessions = new ArrayList<>();
+        WebSocketSession session = mock(WebSocketSession.class);
+        sessions.add(session);
 
+        ArrayList<Message> messages = new ArrayList<>();
+        ChatHandler chatHandler = new ChatHandler(sessions, messages, new ObjectMapper());
+        String payload = "{\"message\": \"this is a test\"}";
+
+        //WHEN
+        chatHandler.handleTextMessage(session, new TextMessage(payload));
+
+        //THEN
+        assertEquals(1, messages.size(), "The messages should include exactly 1 entry");
+        assertEquals("this is a test",
+                messages.get(0).getMessage(),
+                "The message should have the exact same payload");
+        assertNotEquals("", messages.get(0).getMessageId());
     }
-    
-
 }
+
