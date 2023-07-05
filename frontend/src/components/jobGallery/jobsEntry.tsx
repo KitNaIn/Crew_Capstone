@@ -25,7 +25,7 @@ function JobsEntry({ job, userId }: Props) {
         <div className="jobCard">
             <div>
                 {getStatusIcon()}
-                <span className="status-text">
+                <span className={`status-text${job.acceptedUsers?.includes(userId) ? ' status-text-accepted' : ''}${job.rejectedUsers?.includes(userId) ? ' status-text-rejected' : ''}`}>
           {job.acceptedUsers?.includes(userId)
               ? ' Angenommen'
               : job.rejectedUsers?.includes(userId)

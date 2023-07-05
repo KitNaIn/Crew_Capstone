@@ -7,14 +7,14 @@
     justify-content: space-around;
 }
 .highlight-current{
-background-color: lightskyblue;
+background-color: lightgreen;
     border-radius: 50%;
     width: 25px;
     height: 25px;
 
 }
 .highlight-event{
-background-color: red;
+background-color: lightsteelblue;
 border-radius: 50%;
     width: 15px;
     height: 25px;
@@ -135,6 +135,7 @@ border-radius: 50%;
 .Entrys {
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex-shrink: 0;
     padding: 10px;
     border-radius: 5px;
@@ -144,12 +145,16 @@ border-radius: 50%;
     height: 400px;
     background-size: cover;
     font-size: 20px;
+    line-height: 20px;
 }
 .EntryButton{
     backdrop-filter: blur(8px);
     background-color: rgba(255, 255, 255, 0.3);
 }
 .notes{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 3vh;
     overflow: auto;
     height:25vh;

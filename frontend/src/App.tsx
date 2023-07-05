@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Dashboard from './components/dashboard-component/dashboard';
 import useUser from './components/security/useUser';
 import { ToastContainer } from 'react-toastify';
@@ -12,7 +12,7 @@ function App() {
     const { login, register, user } = useUser();
 
     return (
-        <Router>
+
             <div className="App">
                 <ToastContainer
                     position="top-center"
@@ -28,13 +28,17 @@ function App() {
                 />
                 <div className="App">
                     <Routes>
+
                         <Route path="/" element={<Home login={login} register={register} />} />
                         <Route element={<ProtectedRoutesUser user={user} />} />
                         <Route path="dashboard" element={<Dashboard />} />
+
                     </Routes>
                 </div>
+
+
             </div>
-        </Router>
+
 );
 }
 

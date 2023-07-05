@@ -7,6 +7,7 @@
     margin-bottom: 0.5vh;
     background-color: lightsteelblue;
     font-size: 16px;
+
 }
 
 .status-icon-accept {
@@ -66,17 +67,26 @@
     flex-direction: column;
     align-items: center;
     background-color: lightsteelblue;
-    font-size: 20px;
+    font-size: 18px;
     color: darkslategray;
 }
-.a{
+.status-text-accepted{
     color: mediumseagreen;
 }
-.b{
+.status-text-rejected{
     color: darkred;
 }
 .jobCard p {
     margin-left:1vh;
     margin-top:0.5vh;
     margin-bottom: 0.5vh;
+}
+.accept-button{
+    background-color:mediumseagreen;
+    font-family: monospace;
+
+}
+.reject-button{
+    background-color: darkred;
+    font-family: monospace;
 }

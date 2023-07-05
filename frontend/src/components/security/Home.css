@@ -1,6 +1,16 @@
 .background{
     background: radial-gradient(circle at center, #8ECAE6, #18748B, #023047);
     height: 100vh;
+    position: relative;
+    overflow: hidden;
+    transition:  height 0.5s ease-out;
+}
+.slide-out {
+    height: 0;
+}
+
+.slide-in {
+    height: 100vh;
 }
 .boxbox{
     display:flex;
@@ -8,34 +18,89 @@
     justify-content:center;
     align-items:center;
 }
-.box{
-    backdrop-filter: blur(8px);
+.box {
     background-color: rgba(142, 202, 230, 0.4);
-    margin-top:50%;
-    border:1px solid white;
-    border-radius:2vh;
-    height:40vh;
-    width:30vh;
-    display:flex;
-    align-items:center;
-    justify-items:center;
+    margin-top: 30%;
+    border-radius: 2vh;
+    height: 45vh;
+    width: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
+    box-shadow: 0 0 20px 8px rgba(142, 202, 230, 0.4);
 }
-.form{
-    justify-items:center;
-    display:flex;
-    flex-direction:column;
-    height:40vh;
-    width:30vw;
-}
+
 .fields{
     display:flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
-
 }
 .avatar{
-    margin-top: 0.5vh;
+    margin-top: 3.5vh;
     height: 15vh;
     width: 15vh;
+}
+.shadow__btn {
+    margin-top:2vh;
+    width: 20vh;
+    padding: 10px 20px;
+    border: none;
+    font-size: 17px;
+    color: #fff;
+    border-radius: 7px;
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: 0.5s;
+    transition-property: box-shadow;
+    background: rgb(0,140,255);
+    box-shadow: 0 0 25px rgb(0,140,255);
+}
+.shadow__btn:hover {
+    box-shadow: 0 0 5px rgb(0,140,255),
+    0 0 25px rgb(0,140,255),
+    0 0 50px rgb(0,140,255),
+    0 0 100px rgb(0,140,255);
+}
+.form {
+    --width-of-input: 200px;
+    --border-height: 1px;
+    --border-before-color: rgba(221, 221, 221, 0.39);
+    --border-after-color: #5891ff;
+    --input-hovered-color: #4985e01f;
+    position: relative;
+    width: var(--width-of-input);
+}
+.input {
+    color: #fff;
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: none;
+    border-bottom: var(--border-height) solid var(--border-before-color);
+}
+.input-border {
+    position: absolute;
+    background: var(--border-after-color);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+}
+input:hover {
+    background: var(--input-hovered-color);
+}
+
+input:focus {
+    outline: none;
+}
+input:focus ~ .input-border {
+    width: 100%;
+}
+input:valid ~ .input-border{
+  width: 100%;
 }
