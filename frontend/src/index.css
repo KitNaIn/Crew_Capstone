@@ -18,12 +18,6 @@ code {
   font-size: 20px;
   letter-spacing: -1.5px;
 }
-html {
-  height: 100%;
-  background: radial-gradient(ellipse at bottom, #18748B 0%, #023047 100%);
-  overflow: hidden;
-}
-
 .stars {
   width: 1px;
   height: 1px;
@@ -75,20 +69,6 @@ html {
   box-shadow: 807px 644px #FFF , 1791px 1789px #FFF , 477px 162px #FFF , 890px 127px #FFF , 1029px 1508px #FFF , 1414px 1472px #FFF , 65px 1850px #FFF , 811px 1481px #FFF , 543px 1227px #FFF , 1159px 1599px #FFF , 783px 636px #FFF , 1754px 885px #FFF , 1101px 528px #FFF , 346px 286px #FFF , 1705px 347px #FFF , 1643px 960px #FFF , 54px 314px #FFF , 229px 1765px #FFF , 372px 1497px #FFF , 102px 1153px #FFF , 1019px 604px #FFF , 1567px 36px #FFF , 1425px 1344px #FFF , 678px 1320px #FFF , 1253px 955px #FFF , 752px 1091px #FFF , 1579px 1034px #FFF , 366px 1799px #FFF , 1926px 486px #FFF , 1895px 1141px #FFF , 1710px 949px #FFF , 278px 1693px #FFF , 549px 1204px #FFF , 663px 399px #FFF , 1686px 1692px #FFF , 1287px 1978px #FFF , 1181px 370px #FFF , 1473px 217px #FFF , 1247px 1097px #FFF , 1856px 233px #FFF , 942px 389px #FFF , 37px 755px #FFF , 1361px 1883px #FFF , 1725px 1355px #FFF , 580px 1735px #FFF , 133px 1516px #FFF , 1248px 1968px #FFF , 1334px 1588px #FFF , 949px 547px #FFF , 1742px 493px #FFF , 968px 1266px #FFF , 1330px 1867px #FFF , 1789px 1812px #FFF , 1100px 466px #FFF , 825px 1682px #FFF , 1699px 446px #FFF , 1127px 1890px #FFF , 231px 493px #FFF , 1611px 1845px #FFF , 591px 1010px #FFF , 290px 851px #FFF , 1019px 136px #FFF , 166px 211px #FFF , 1664px 1060px #FFF , 321px 467px #FFF , 1694px 283px #FFF , 1933px 1824px #FFF , 1347px 285px #FFF , 1180px 1962px #FFF , 20px 1212px #FFF , 918px 912px #FFF , 660px 1163px #FFF , 896px 1588px #FFF , 443px 294px #FFF , 1034px 761px #FFF , 626px 464px #FFF , 1936px 1165px #FFF , 848px 299px #FFF , 1467px 751px #FFF , 1373px 345px #FFF , 1244px 1926px #FFF , 649px 690px #FFF , 597px 400px #FFF , 1988px 630px #FFF , 1575px 245px #FFF , 1763px 195px #FFF , 1795px 1107px #FFF , 460px 1427px #FFF , 81px 123px #FFF , 494px 747px #FFF , 1744px 1784px #FFF , 526px 1626px #FFF , 825px 734px #FFF , 80px 559px #FFF , 520px 9px #FFF , 553px 1859px #FFF , 1461px 799px #FFF , 78px 1864px #FFF , 1846px 1406px #FFF , 1192px 1400px #FFF;
 }
 
-#title {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  color: #FFF;
-  text-align: center;
-  font-family: "lato", sans-serif;
-  font-weight: 300;
-  font-size: 50px;
-  letter-spacing: 10px;
-  margin-top: -60px;
-  padding-left: 10px;
-}
 #title span {
   background: -webkit-linear-gradient(white, #38495a);
   -webkit-background-clip: text;

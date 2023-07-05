@@ -161,3 +161,19 @@ background-color: lightgreen;
     overflow: auto;
     height:25vh;
 }
+.navButtons{
+    border: none;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    height: 30px;
+    width: 80px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transform: skew(-21deg);
+    -ms-transform: skew(-21deg);
+    transform: skew(-21deg);
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.3);
+}

@@ -190,9 +190,9 @@ function CustomCalendar() {
             <header className="header">Verfügbarkeiten</header>
             <br />
             <div className="CalendarNav">
-                <button onClick={handlePrevMonth}>Prev Month</button>
+                <button className='navButtons' onClick={handlePrevMonth}>Prev</button>
                 <span style={{letterSpacing:'-0.5px', color:'white'}}>{date.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
-                <button onClick={handleNextMonth}>Next Month</button>
+                <button className='navButtons' onClick={handleNextMonth}>Next</button>
             </div>
             <br />
             <table className="CalendarWrapper">
