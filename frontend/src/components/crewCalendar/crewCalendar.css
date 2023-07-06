@@ -15,8 +15,9 @@
 }
 .highlight-event{
     background-color: lightslategray;
-    border-radius: 50%;
+
 }
+
 .CalendarThread th {
     text-align: center;
     padding: 10px;
