@@ -20,7 +20,7 @@ function JobCard({job, onAccept, onReject, setSelectedJobStatus}: Props) {
 
 
     const [userId, setUserId] = useState('');
-    const [calendarEvent, fetchCalendarEvent, saveCalendarEvent] = useCalendarEvent(userId);
+    const [,, saveCalendarEvent] = useCalendarEvent(userId);
 
     useEffect(() => {
         fetchUserId();

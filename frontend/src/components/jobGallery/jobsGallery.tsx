@@ -15,7 +15,7 @@ function JobsGallery() {
     const [showGallery, setShowGallery] = useState(true);
     const [selectedJobId, setSelectedJobId] = useState('')
     const [selectedJobStatus, setSelectedJobStatus] = useState<string | undefined>(undefined);
-    const [calendarEvent, fetchCalendarEvent, saveCalendarEvent] = useCalendarEvent(userId);
+    const [, , saveCalendarEvent] = useCalendarEvent(userId);
 
 
     useEffect(() => {
@@ -44,10 +44,6 @@ function JobsGallery() {
         setSelectedJobStatus(job.userStatus)
         setShowGallery(false);
         console.log(job.uuid);
-    };
-
-    const handleShowGallery = () => {
-        setShowGallery(true);
     };
 
     const handleAcceptJob = (jobId: string) => {
@@ -90,7 +86,6 @@ function JobsGallery() {
                         />
                     )}
                     <br/>
-                    {/*<button onClick={handleShowGallery}>Zurück zur Galerie</button>*/}
                 </div>
             )}
         </div>
