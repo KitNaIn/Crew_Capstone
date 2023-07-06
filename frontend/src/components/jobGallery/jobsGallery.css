@@ -81,12 +81,95 @@
     margin-top:0.5vh;
     margin-bottom: 0.5vh;
 }
-.accept-button{
-    background-color:mediumseagreen;
-    font-family: monospace;
-
+.accept-button {
+    background: #fff;
+    border: none;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    width: 120px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transform: skew(-21deg);
+    -ms-transform: skew(-21deg);
+    transform: skew(-21deg);
 }
-.reject-button{
-    background-color: darkred;
+
+.accept-span {
     font-family: monospace;
+    display: inline-block;
+    -webkit-transform: skew(21deg);
+    -ms-transform: skew(21deg);
+    transform: skew(21deg);
+}
+
+.accept-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    left: 0;
+    background: mediumseagreen;
+    opacity: 0;
+    z-index: -1;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.accept-button:hover {
+    color: #fff;
+}
+
+.accept-button:hover::before {
+    left: 0;
+    right: 0;
+    opacity: 1;
+}
+.reject-button {
+    background: #fff;
+    border: none;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    width: 120px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transform: skew(-21deg);
+    -ms-transform: skew(-21deg);
+    transform: skew(-21deg);
+}
+
+.reject-span {
+    font-family: monospace;
+    display: inline-block;
+    -webkit-transform: skew(21deg);
+    -ms-transform: skew(21deg);
+    transform: skew(21deg);
+}
+
+.reject-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    left: 0;
+    background: darkred;
+    opacity: 0;
+    z-index: -1;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.reject-button:hover {
+    color: #fff;
+}
+
+.reject-button:hover::before {
+    left: 0;
+    right: 0;
+    opacity: 1;
 }

@@ -80,13 +80,15 @@ function Home(props:Props) {
                         <span className="input-border"></span>
                     </div>
                     <div style={{display:"flex", marginTop:"2vh", alignItems:"center"}}>
-                    <input type="checkbox"/> <p style={{display:"flex",fontSize:"10px", marginRight:"10vw"}}>Remember me</p>
+                    <input type="checkbox"/> <p style={{display:"flex",fontSize:"10px", marginRight:"5vw"}}>Remember me</p>
                     </div>
                     <button type="submit" className="shadow__btn" onClick={onClickLogin} >Login</button>
                 </div>
             </form>
             </div>
-            <p onClick={onClickRegister} typeof='submit' style={{display:"flex", color:"lightgrey", marginTop:"vh", fontSize:"1.5vh", cursor:'pointer'}}> Don't have an Account yet? Sign in!  </p>
+            <p onClick={onClickRegister} style={{display: "flex", color: "lightgrey", marginTop: "1vh", fontSize: "1.5vh", cursor: 'pointer'}}>
+                Don't have an Account yet? Sign in!
+            </p>
         </div>
         </div>
     );

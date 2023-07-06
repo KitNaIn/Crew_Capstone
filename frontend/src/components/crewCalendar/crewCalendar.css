@@ -7,44 +7,46 @@
     justify-content: space-around;
 }
 .highlight-current{
-background-color: lightgreen;
+    background-color: lightblue;
     border-radius: 50%;
     width: 25px;
     height: 25px;
 
 }
 .highlight-event{
-background-color: lightsteelblue;
-border-radius: 50%;
-    width: 15px;
-    height: 25px;
+    background-color: lightslategray;
+
 }
+
 .CalendarThread th {
     text-align: center;
     padding: 10px;
-    background-color: #f2f2f2;
+    background-color: inherit;
 
 }
 .CalendarThread th:first-child,
 .CalendarThread td:first-child {
-    color: red;
+    color: white;
 }
 
 .CalendarThread th:last-child,
 .CalendarThread td:last-child {
-    color: blue;
+    color: white;
 }
 
 .CalendarThread th,
 .CalendarThread td {
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 10px;
     text-align: center;
+    color: white;
+    position: relative;
 }
 .CalendarWrapper td {
     text-align: center;
     padding: 10px;
-
+    height: 17px;
+    color: white;
 }
 
 .Modal {
@@ -104,9 +106,6 @@ border-radius: 50%;
 .ModalContent form button:hover {
     background-color: dodgerblue;
 }
-.CalendarThread td.hasEvent:hover {
-    background-color: yellow;
-}
 .EventList {
     margin-top: 20px;
 }
@@ -158,4 +157,20 @@ border-radius: 50%;
     margin-top: 3vh;
     overflow: auto;
     height:25vh;
+}
+.navButtons{
+    border: none;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    height: 30px;
+    width: 80px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transform: skew(-21deg);
+    -ms-transform: skew(-21deg);
+    transform: skew(-21deg);
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.3);
 }

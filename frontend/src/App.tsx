@@ -6,6 +6,8 @@ import { ToastContainer } from 'react-toastify';
 import Home from './components/security/Home';
 import ProtectedRoutesUser from './components/security/model/ProtectedRoutesUser';
 import 'react-toastify/dist/ReactToastify.css';
+import JobsGallery from "./components/jobGallery/jobsGallery";
+import CrewCalendar from "./components/crewCalendar/CrewCalendar";
 
 
 function App() {
@@ -26,12 +28,17 @@ function App() {
                     pauseOnHover
                     theme="dark"
                 />
+                <div className='stars'/>
+                <div className='stars2'/>
+                <div className='stars3'/>
                 <div className="App">
                     <Routes>
 
                         <Route path="/" element={<Home login={login} register={register} />} />
                         <Route element={<ProtectedRoutesUser user={user} />} />
-                        <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/jobs" element={<JobsGallery/>}/>
+                        <Route path="/calendar" element={<CrewCalendar/>}/>
 
                     </Routes>
                 </div>
