@@ -186,7 +186,7 @@ function CustomCalendar() {
 
     return (
         <div className="Calendar">
-            <header className="header">Verfügbarkeiten</header>
+            <h1 className="header">Verfügbarkeiten</h1>
             <br />
             <div className="CalendarNav">
                 <button className='navButtons' onClick={handlePrevMonth}>Prev</button>
@@ -239,7 +239,7 @@ function CustomCalendar() {
                             </div>
                             <div style={{ display:'flex'}}>
                             <button className="navButtons" onClick={() => handleEdit(event)}>Edit</button>
-                            <button className="navButtons" onClick={() => handleDelete(event.uuid)}>delete</button>
+                            <button className="navButtons" onClick={() => handleDelete(event.uuid)}>Delete</button>
                             </div>
                         </div>
                     ))}

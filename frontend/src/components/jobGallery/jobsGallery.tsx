@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import useJobs from './useJob';
 import JobsEntry from './jobsEntry';
 import JobCard from './jobCard';
-import { Jobs } from './model/jobs';
+import {Jobs} from './model/jobs';
 import './jobsGallery.css';
 import axios from 'axios';
+import useCalendarEvent from "../crewCalendar/useCalendar";
+
 
 function JobsGallery() {
     const [jobs, fetchJobs, acceptJob, rejectJob] = useJobs();
@@ -13,6 +15,7 @@ function JobsGallery() {
     const [showGallery, setShowGallery] = useState(true);
     const [selectedJobId, setSelectedJobId] = useState('')
     const [selectedJobStatus, setSelectedJobStatus] = useState<string | undefined>(undefined);
+    const [, , saveCalendarEvent] = useCalendarEvent(userId);
 
 
     useEffect(() => {
@@ -43,10 +46,6 @@ function JobsGallery() {
         console.log(job.uuid);
     };
 
-    const handleShowGallery = () => {
-        setShowGallery(true);
-    };
-
     const handleAcceptJob = (jobId: string) => {
         acceptJob(jobId, userId);
         setShowGallery(true);
@@ -63,7 +62,7 @@ function JobsGallery() {
         <div>
             {showGallery ? (
                 <div className="jobGallery">
-                    <header className='header'> Aufträge</header>
+                    <h1 className='header'> Aufträge</h1>
                     {jobs.map((currentJob: Jobs) => (
                         <div key={currentJob.uuid} onClick={() => handleJobClick(currentJob)}>
                             <JobsEntry
@@ -82,10 +81,11 @@ function JobsGallery() {
                             setSelectedJobStatus={setSelectedJobStatus}
                             onAccept={() => handleAcceptJob(selectedJob.uuid)}
                             onReject={() => handleRejectJob(selectedJob.uuid)}
+                            saveCalendarEvent={saveCalendarEvent}
+
                         />
                     )}
-                    <br />
-                    {/*<button onClick={handleShowGallery}>Zurück zur Galerie</button>*/}
+                    <br/>
                 </div>
             )}
         </div>

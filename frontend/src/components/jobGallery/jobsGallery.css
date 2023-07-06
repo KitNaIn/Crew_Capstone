@@ -3,10 +3,12 @@
     flex-direction: column;
     align-items: flex-start;
     width:100%;
-    margin-top: 1.5vh;
+    margin-top: 2vh;
     margin-bottom: 0.5vh;
     background-color: lightsteelblue;
     font-size: 16px;
+    line-height: 15px;
+
 
 }
 
@@ -89,7 +91,6 @@
     font-size: 15px;
     font-weight: 600;
     width: 120px;
-    text-transform: uppercase;
     cursor: pointer;
     -webkit-transform: skew(-21deg);
     -ms-transform: skew(-21deg);
@@ -135,7 +136,6 @@
     font-size: 15px;
     font-weight: 600;
     width: 120px;
-    text-transform: uppercase;
     cursor: pointer;
     -webkit-transform: skew(-21deg);
     -ms-transform: skew(-21deg);

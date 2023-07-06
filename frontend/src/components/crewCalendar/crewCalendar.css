@@ -7,8 +7,7 @@
     justify-content: space-around;
 }
 .highlight-current{
-    background-color: lightblue;
-    border-radius: 50%;
+    background-color: darkslategray;
     width: 25px;
     height: 25px;
 
@@ -159,6 +158,7 @@
     height:25vh;
 }
 .navButtons{
+    font-family: monospace;
     border: none;
     padding: 10px 20px;
     display: inline-block;
@@ -166,7 +166,6 @@
     font-weight: 600;
     height: 30px;
     width: 80px;
-    text-transform: uppercase;
     cursor: pointer;
     -webkit-transform: skew(-21deg);
     -ms-transform: skew(-21deg);
