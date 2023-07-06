@@ -1,8 +1,8 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import { Jobs } from './model/jobs';
+import {Jobs} from './model/jobs';
 import './jobsGallery.css';
-import {formatTime, formatDate} from '../utility/dateUtils';
-import { CalendarEvent } from '../crewCalendar/model/Event';
+import {formatDate, formatTime} from '../utility/dateUtils';
+import {CalendarEvent} from '../crewCalendar/model/Event';
 import useCalendarEvent from "../crewCalendar/useCalendar";
 import axios from "axios";
 
@@ -16,7 +16,7 @@ type Props = {
 
 };
 
-function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
+function JobCard({job, onAccept, onReject, setSelectedJobStatus}: Props) {
 
 
     const [userId, setUserId] = useState('');
@@ -56,7 +56,6 @@ function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
     };
 
 
-
     return (
         <div>
             <h1 className='header'>Auftragsdetails</h1>
@@ -65,16 +64,16 @@ function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
                     {formatDate(job.jobDate)} {formatTime(job.startTime) + 'Uhr'} - {formatTime(job.endTime) + 'Uhr'}
                 </p>
                 <p>{job.jobFormat}</p>
-                <p style={{ marginLeft:'1.5vh'}}>
+                <p style={{marginLeft: '1.5vh'}}>
                     {job.issuer} {job.jobAddress}
                 </p>
                 <p> Ansprechpartner/in: {job.contactPerson}</p>
-                <p style={{ border: '1px solid black', padding: '10px' }}>
+                <p style={{border: '1px solid black', padding: '10px'}}>
                     {job.jobComment}
                 </p>
                 <input
                     placeholder="Fragen oder Rückmeldungen zu diesem Auftrag?"
-                    style={{ width: '40vh', height: '15vh' , marginTop:'12vh'}}
+                    style={{width: '40vh', height: '15vh', marginTop: '12vh'}}
                 />
                 <div
                     style={{

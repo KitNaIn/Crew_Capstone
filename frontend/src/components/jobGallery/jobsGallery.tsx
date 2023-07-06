@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import useJobs from './useJob';
 import JobsEntry from './jobsEntry';
 import JobCard from './jobCard';
-import { Jobs } from './model/jobs';
+import {Jobs} from './model/jobs';
 import './jobsGallery.css';
 import axios from 'axios';
 import useCalendarEvent from "../crewCalendar/useCalendar";
@@ -16,7 +16,6 @@ function JobsGallery() {
     const [selectedJobId, setSelectedJobId] = useState('')
     const [selectedJobStatus, setSelectedJobStatus] = useState<string | undefined>(undefined);
     const [calendarEvent, fetchCalendarEvent, saveCalendarEvent] = useCalendarEvent(userId);
-
 
 
     useEffect(() => {
@@ -90,7 +89,7 @@ function JobsGallery() {
 
                         />
                     )}
-                    <br />
+                    <br/>
                     {/*<button onClick={handleShowGallery}>Zurück zur Galerie</button>*/}
                 </div>
             )}
