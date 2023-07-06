@@ -35,6 +35,7 @@ function JobsEntry({ job, userId }: Props) {
             </div>
             <div style={{ display: 'flex' }}>
                 <p style={{ color: 'darkslategrey' }}>{formatDate(job.jobDate)}</p>
+
                 <p>
                     {formatTime(job.startTime)} - {formatTime(job.endTime)}
                 </p>

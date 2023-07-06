@@ -14,8 +14,7 @@ code {
   color: #f2f2f2;
   display:flex;
   justify-Content: center;
-  background: #023047;
-  font-size: 20px;
+  font-size: 25px;
   letter-spacing: -1.5px;
 }
 .stars {

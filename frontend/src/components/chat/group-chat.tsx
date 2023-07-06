@@ -61,7 +61,7 @@ function GroupChat() {
 
     return (
         <>
-            <header className="header">Crew Chat</header>
+            <h1 className="header">Crew Chat</h1>
             { messages && <div className="chat-container">
                 {messages.slice().reverse().map((m) => (
                     <div key={m.messageId} className={checkAuthor(m) ? 'sent-message' : 'received-message'}>

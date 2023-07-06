@@ -1,7 +1,10 @@
-import React, {Dispatch, SetStateAction} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import { Jobs } from './model/jobs';
 import './jobsGallery.css';
 import {formatTime, formatDate} from '../utility/dateUtils';
+import { CalendarEvent } from '../crewCalendar/model/Event';
+import useCalendarEvent from "../crewCalendar/useCalendar";
+import axios from "axios";
 
 
 type Props = {
@@ -9,25 +12,54 @@ type Props = {
     onAccept: () => void;
     onReject: () => void;
     setSelectedJobStatus: Dispatch<SetStateAction<string | undefined>>;
+    saveCalendarEvent: (event: CalendarEvent) => Promise<void>;
+
 };
 
 function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
-    const handleAccept = () => {
+
+
+    const [userId, setUserId] = useState('');
+    const [calendarEvent, fetchCalendarEvent, saveCalendarEvent] = useCalendarEvent(userId);
+
+    useEffect(() => {
+        fetchUserId();
+    }, []);
+
+    const fetchUserId = async () => {
+        try {
+            const response = await axios.get('/api/user/me');
+            const userId = response.data.id;
+            setUserId(userId);
+        } catch (error) {
+            console.error('Error fetching userId: ', error);
+        }
+    };
+
+    const handleAccept = async () => {
         onAccept();
         setSelectedJobStatus('accepted');
+        await saveCalendarEvent({
+            uuid: job.uuid,
+            title: job.issuer,
+            eventStartDate: job.jobDate,
+            startTime: job.startTime,
+            eventEndDate: job.jobDate,
+            endTime: job.endTime,
+            notes: job.jobComment
+        });
     };
 
     const handleReject = () => {
         onReject();
         setSelectedJobStatus('rejected')
-
     };
 
 
 
     return (
         <div>
-            <header className='header'>Auftragsdetails</header>
+            <h1 className='header'>Auftragsdetails</h1>
             <div className="jobCardDetails">
                 <p>
                     {formatDate(job.jobDate)} {formatTime(job.startTime) + 'Uhr'} - {formatTime(job.endTime) + 'Uhr'}
@@ -54,12 +86,12 @@ function JobCard({ job, onAccept, onReject, setSelectedJobStatus }: Props) {
                 >
                     <button className='accept-button' onClick={handleAccept}>
                         <span className='accept-span'>
-                           Annehmen
+                           annehmen
                         </span>
                     </button>
                     <button className='reject-button' onClick={handleReject}>
                         <span className='reject-span'>
-                        Ablehnen
+                        ablehnen
                         </span>
                     </button>
                 </div>
