@@ -84,7 +84,7 @@ function CustomCalendar() {
                 setNewEvent({
                     uuid: '',
                     title: "",
-                    eventStartDate: day.toISOString(),
+                    eventStartDate: formatDate(day.toISOString()),
                     startTime: '',
                     eventEndDate: day.toISOString(),
                     endTime: '',
@@ -264,7 +264,7 @@ function CustomCalendar() {
                                 <label htmlFor="eventDate"> Start Datum:</label>
                                 <DatePicker
                                     id="eventDate"
-                                    selected={new Date(newEvent.eventStartDate)}
+                                    selected={new Date (newEvent.eventStartDate)}
                                     onChange={(date) => handleDateChange(date, 'start')}
                                     dateFormat="yyyy-MM-dd"
                                 />
@@ -276,9 +276,11 @@ function CustomCalendar() {
                                     name="startTime"
                                     value={newEvent.startTime}
                                     onChange={handleSelectChange}
+                                    className='timeDropdown'
+                                    size={5}
                                 >
                                     {timeOptions.map((option) => (
-                                        <option key={option} value={option}>
+                                        <option className='timeTable' key={option} value={option}>
                                             {option}
                                         </option>
                                     ))}
@@ -289,7 +291,7 @@ function CustomCalendar() {
                                 <DatePicker
                                     id="eventDate"
                                     selected={new Date(newEvent.eventEndDate)}
-                                    onChange={(date) => handleDateChange(date, 'end')}
+                                    onChange={(date:Date|null) => handleDateChange(date, 'end')}
                                     dateFormat="yyyy-MM-dd"
                                 />
                             </div>
@@ -301,8 +303,9 @@ function CustomCalendar() {
                                     value={newEvent.endTime}
                                     onChange={handleSelectChange}
                                     className="smalldDropdown"
+                                    size={5}
                                 >
-                                    {timeOptions.map((option) => (
+                                    {timeOptions.map((option:string) => (
                                         <option key={option} value={option}>
                                             {option}
                                         </option>
