@@ -46,7 +46,7 @@ function Home(props:Props) {
         if (animate) {
             setTimeout(() => {
                 setAnimate(false);
-            }, 500);
+            }, 300);
         }
     }, [animate]);
 

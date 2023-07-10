@@ -26,12 +26,12 @@
     }
 
     .settings-sheet {
-        width: 57%;
+        width: 80%;
         height: 100%;
         background-color: #fff;
         border-radius: 8px;
         padding: 20px;
-        transform: translateX(35%);
+        transform: translateX(10%);
         transition: transform 0.3s ease-in-out;
     }
     .settings-sheet-overlay.open{

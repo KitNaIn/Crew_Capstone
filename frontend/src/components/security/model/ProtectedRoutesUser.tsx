@@ -11,7 +11,7 @@ function ProtectedRoutesUser(props: Props) {
     const authenticated = props.user !== undefined && props.user.username !== "anyonymousUser"
 
     return (
-        authenticated ? <Outlet/> : <Navigate to={"/"}/>
+        authenticated ? <Outlet/> : <Navigate to={"/login"}/>
     );
 }
 

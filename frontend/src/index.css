@@ -27,7 +27,7 @@ code {
 .stars:after {
   content: " ";
   position: absolute;
-  top: 2000px;
+  top: 400px;
   width: 1px;
   height: 1px;
   background: transparent;
@@ -44,7 +44,7 @@ code {
 .stars2:after {
   content: " ";
   position: absolute;
-  top: 2000px;
+  top: 400px;
   width: 2px;
   height: 2px;
   background: transparent;
@@ -61,7 +61,7 @@ code {
 .stars3:after {
   content: " ";
   position: absolute;
-  top: 1000px;
+  top: 400px;
   width: 3px;
   height: 3px;
   background: transparent;
@@ -79,6 +79,6 @@ code {
     transform: translateY(0px);
   }
   to {
-    transform: translateY(-2000px);
+    transform: translateY(-1000px);
   }
 }

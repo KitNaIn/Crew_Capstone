@@ -15,7 +15,7 @@ function App() {
 
     return (
 
-            <div className="App">
+            <div className="Apps">
                 <ToastContainer
                     position="top-center"
                     autoClose={5000}
@@ -34,7 +34,7 @@ function App() {
                 <div className="App">
                     <Routes>
 
-                        <Route path="/" element={<Home login={login} register={register} />} />
+                        <Route path="/login" element={<Home login={login} register={register} />} />
                         <Route element={<ProtectedRoutesUser user={user} />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/jobs" element={<JobsGallery/>}/>
