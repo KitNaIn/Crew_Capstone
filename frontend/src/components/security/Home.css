@@ -56,6 +56,8 @@
     transition-property: box-shadow;
     background: rgb(0,140,255);
     box-shadow: 0 0 25px rgb(0,140,255);
+    align-self: center;
+    margin-bottom: 3vh;
 }
 .shadow__btn:hover {
     box-shadow: 0 0 5px rgb(0,140,255),
@@ -104,3 +106,4 @@ input:focus ~ .input-border {
 input:valid ~ .input-border{
   width: 100%;
 }
+
