@@ -68,6 +68,7 @@ class JobServiceTest {
         assertEquals(2, result.size());
         assertTrue(result.contains(job1));
         assertTrue(result.contains(job2));
+
     }
 
     @Test
