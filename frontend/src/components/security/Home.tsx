@@ -118,16 +118,6 @@ function Home(props: Props) {
                                             minLength={3}
                                             onChange={onChangeHandlerPassword}
                                         />
-                                        <span className="input-border"></span>
-                                        <input
-                                            className="input"
-                                            type="password"
-                                            placeholder="Confirm Password"
-                                            required
-                                            minLength={3}
-                                            onChange={onChangeHandlerConfirmPassword}
-                                        />
-                                        <span className="input-border"></span>
                                     </div>
                                     <div style={{ display: 'flex', marginTop: '2vh', alignItems: 'center' }}>
                                         <input type="checkbox" />{' '}
