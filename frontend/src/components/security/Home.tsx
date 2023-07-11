@@ -22,10 +22,12 @@ enum BoxState {
 function Home(props: Props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [buttonType, setButtonType] = useState<ButtonType | undefined>(undefined);
     const [boxState, setBoxState] = useState<BoxState>(BoxState.Login);
     const navigate = useNavigate();
     const [animate, setAnimate] = useState(false);
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
 
     function onSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -41,13 +43,17 @@ function Home(props: Props) {
                     toast.error(error.message || 'Login failed');
                 });
         } else if (buttonType === ButtonType.Register) {
+            if (password !== confirmPassword) {
+                toast.error('Passwords do not match');
+                return;
+            }
+
             props.register(username, password)
                 .then(() => {
                     navigate('/login');
                 })
                 .catch((error) => {
                     toast.error(error.message || 'Registration failed');
-
                 });
         }
     }
@@ -66,6 +72,12 @@ function Home(props: Props) {
 
     function onChangeHandlerPassword(e: ChangeEvent<HTMLInputElement>) {
         setPassword(e.target.value);
+        setPasswordsMatch(e.target.value === confirmPassword);
+    }
+
+    function onChangeHandlerConfirmPassword(e: ChangeEvent<HTMLInputElement>) {
+        setConfirmPassword(e.target.value);
+        setPasswordsMatch(e.target.value === password);
     }
 
     function onClickLogin() {
@@ -107,10 +119,21 @@ function Home(props: Props) {
                                             onChange={onChangeHandlerPassword}
                                         />
                                         <span className="input-border"></span>
+                                        <input
+                                            className="input"
+                                            type="password"
+                                            placeholder="Confirm Password"
+                                            required
+                                            minLength={3}
+                                            onChange={onChangeHandlerConfirmPassword}
+                                        />
+                                        <span className="input-border"></span>
                                     </div>
                                     <div style={{ display: 'flex', marginTop: '2vh', alignItems: 'center' }}>
                                         <input type="checkbox" />{' '}
-                                        <p style={{ display: 'flex', fontSize: '10px', marginRight: '5vw' }}>Remember me</p>
+                                        <p style={{ display: 'flex', fontSize: '10px', marginRight: '5vw' }}>
+                                            Remember me
+                                        </p>
                                     </div>
                                     <button type="submit" className="shadow__btn" onClick={onClickLogin}>
                                         Login
@@ -132,7 +155,7 @@ function Home(props: Props) {
                         </>
                     ) : (
                         <>
-                            <h2 style={{letterSpacing:'-1px'}}>Register</h2>
+                            <h2 style={{ letterSpacing: '-1px' }}>Register</h2>
                             <form className="form" onSubmit={onSubmit}>
                                 <div className="fields">
                                     <div className="form">
@@ -143,7 +166,7 @@ function Home(props: Props) {
                                             onChange={onChangeHandlerUsername}
                                             type="email"
                                         />
-                                        <span className="input-border" ></span>
+                                        <span className="input-border"></span>
                                         <input
                                             className="input"
                                             type="password"
@@ -153,12 +176,28 @@ function Home(props: Props) {
                                             onChange={onChangeHandlerPassword}
                                         />
                                         <span className="input-border"></span>
+                                        <input
+                                            className="input"
+                                            type="password"
+                                            placeholder="Confirm Password"
+                                            required
+                                            minLength={3}
+                                            onChange={onChangeHandlerConfirmPassword}
+                                        />
+                                        <span className="input-border"></span>
+                                        {!passwordsMatch && <p style={{color:'indianred'}}>Passwords do not match.</p>}
                                     </div>
                                     <div style={{ display: 'flex', marginTop: '2vh', alignItems: 'center' }}>
                                         <input type="checkbox" />{' '}
-                                        <p style={{ display: 'flex', fontSize: '10px', marginRight: '5vw' }}>Remember me</p>
+                                        <p style={{ display: 'flex', fontSize: '10px', marginRight: '5vw' }}>
+                                            Remember me
+                                        </p>
                                     </div>
-                                    <button type="submit" className="shadow__btn" onClick={() => setButtonType(ButtonType.Register) }>
+                                    <button
+                                        type="submit"
+                                        className="shadow__btn"
+                                        onClick={() => setButtonType(ButtonType.Register)}
+                                    >
                                         Register
                                     </button>
                                     <p
@@ -169,7 +208,7 @@ function Home(props: Props) {
                                             marginTop: '1vh',
                                             fontSize: '1.5vh',
                                             cursor: 'pointer',
-                                            alignSelf:'center'
+                                            alignSelf: 'center',
                                         }}
                                     >
                                         Go back to Login
