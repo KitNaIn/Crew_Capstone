@@ -14,5 +14,4 @@ Crew
 ![Bildschirmfoto 2023-07-11 um 15 20 29](https://github.com/KitNaIn/Crew_Capstone/assets/130964979/2e6760ed-9c20-4b69-babb-cd6ce7126fe3)
 
 ![Bildschirmfoto 2023-07-11 um 15 20 55](https://github.com/KitNaIn/Crew_Capstone/assets/130964979/506045df-0b6d-4ead-8a5e-fb3cb7cc409f)
-
 ![Bildschirmfoto 2023-07-11 um 15 21 05](https://github.com/KitNaIn/Crew_Capstone/assets/130964979/2f53bd23-8c04-4aa9-b6b1-09800e7294ba)
