@@ -84,7 +84,7 @@ function CustomCalendar() {
                 setNewEvent({
                     uuid: '',
                     title: "",
-                    eventStartDate: formatDate(day.toISOString()),
+                    eventStartDate: day.toISOString(),
                     startTime: '',
                     eventEndDate: day.toISOString(),
                     endTime: '',
@@ -322,7 +322,7 @@ function CustomCalendar() {
                                 />
                             </div>
                             <div style={{display:'flex', justifyContent:'space-around'}}>
-                            <button type="submit">Speichern</button>
+                            <button type="submit" >Speichern</button>
                             <button onClick={handleUpdate}> Aktualisieren </button>
                             </div>
                         </form>

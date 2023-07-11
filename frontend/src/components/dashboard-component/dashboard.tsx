@@ -9,11 +9,25 @@ import useUser from "../security/useUser";
 import GroupChat from "../chat/group-chat";
 import {Provider} from "react-redux";
 import {store} from "../chat/chatRedux/store";
+import axios from "axios";
+import {User} from "../security/model/User";
+
 
 function Dashboard() {
     const [activeButton, setActiveButton] = useState<string | null>(null);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-    const { logout } = useUser();
+    const { user, logout } = useUser();
+    const [userName, setUserName] = useState('');
+
+    const fetchUserName = async (user: string) => {
+        try {
+            const response = await axios.get('/api/user/me');
+            const username = response.data.username;
+            setUserName(username);
+        } catch (error) {
+            console.error('Error fetching userId: ', error);
+        }
+    };
 
     const handleButtonClick = (buttonName: string) => {
         setActiveButton(buttonName);
@@ -76,12 +90,12 @@ function Dashboard() {
                         <div className="settings-sheet-content">
                             <div className="settings-sheet-form">
                                 <div className="settings-sheet-input">
-                                    <label htmlFor="name">Name</label>
-                                    <input id="name" type="text" value="Pedro Duarte" />
+                                    <label htmlFor="name">UserId</label>
+                                    <input id="name" type="text" value={user?.id} />
                                 </div>
                                 <div className="settings-sheet-input">
                                     <label htmlFor="username">Username</label>
-                                    <input id="username" type="text" value="@peduarte" />
+                                    <input id="username" type="text" value={userName} />
                                 </div>
                             </div>
                         </div>

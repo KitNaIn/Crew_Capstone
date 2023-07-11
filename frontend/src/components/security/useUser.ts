@@ -2,9 +2,12 @@ import axios from "axios";
 import { useState } from "react";
 import { User } from './model/User';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function useUser() {
     const [user, setUser] = useState<User | undefined>();
+    const navigate = useNavigate();
 
     function register(username: string, password: string) {
         return axios.post("/api/user/register", { username, password })
@@ -35,6 +38,7 @@ export default function useUser() {
             .then(() => {
                 setUser(undefined);
                 toast.success("Logout successful");
+                navigate('/login')
             })
             .catch((error) => {
                 const message = error?.response?.data?.message;
